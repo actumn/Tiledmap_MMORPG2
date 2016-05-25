@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.manager.EffectManager;
 
 /**
  * Created by Lee on 2016-05-20.
@@ -17,6 +18,7 @@ public class Effect implements DrawObject, Rectable{
     private int index;
     private Animation effectAnimation;
     private ShapeRenderer shapeRenderer;
+    private EffectManager effectManager;
 
     public Effect(String effectName) {
         this.x = 200;
@@ -78,7 +80,7 @@ public class Effect implements DrawObject, Rectable{
     public void update(){
         index += 1;
         if(index >= effectAnimation.getKeyFrames().length)
-            index = 0;
+            effectManager.remove(this);
     }
 
     public int getDrawX() {
@@ -93,6 +95,10 @@ public class Effect implements DrawObject, Rectable{
                 this.index,
                 true
         );
+    }
+
+    public void setEffectManager(EffectManager effectManager) {
+        this.effectManager = effectManager;
     }
 
     @Override

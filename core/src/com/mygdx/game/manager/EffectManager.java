@@ -23,8 +23,16 @@ public class EffectManager {
         this.effects =  new LinkedList<Effect>();
     }
 
-    public void add(Effect e) { this.effects.add(e); }
+    public void add(Effect e) {
+        e.setEffectManager(this);
+        this.effects.add(e);
+    }
 
+    public void update() {
+        for(Effect effect: this.effects) {
+            effect.update();
+        }
+    }
 
     public void draw() {
         batch.begin();
@@ -33,5 +41,9 @@ public class EffectManager {
         }
         this.batch.end();
         // Object rendering end
+    }
+
+    public void remove(Effect e) {
+        effects.remove(e);
     }
 }

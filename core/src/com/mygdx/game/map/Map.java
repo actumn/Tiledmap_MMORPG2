@@ -52,6 +52,9 @@ public class Map {
 
     public void update() {
         objectManager.update();
+        effectManager.update();
+
+        objectManager.draw();
         effectManager.draw();
     }
 

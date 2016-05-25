@@ -54,8 +54,6 @@ public class Client extends ApplicationAdapter {
 
         characterInputListener.update();
         this.m.update();
-        this.c.update();
-        this.effect.update();
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();

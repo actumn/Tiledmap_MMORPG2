@@ -62,6 +62,7 @@ public class ObjectManager {
         for(DrawObject object: this.objects) {
             object.draw(this.batch);
         }
+        this.batch.end();
     }
 
     public void add(DrawObject object) {
