@@ -7,20 +7,23 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.manager.EffectManager;
+import com.mygdx.game.manager.ObjectManager;
 
 /**
  * Created by Lee on 2016-05-20.
  */
-public class Effect implements DrawObject, Rectable{
+public class Effect implements DrawObject {
+    private String effectName;
     private int x, y;
     private int index;
     private Animation effectAnimation;
     private ShapeRenderer shapeRenderer;
-    private EffectManager effectManager;
+    private ObjectManager objectManager;
+
+    private EffectState effectState;
 
     public Effect(String effectName) {
+        this.effectName = effectName;
         this.x = 200;
         this.y = 200;
         this.index = 0;
@@ -50,7 +53,21 @@ public class Effect implements DrawObject, Rectable{
         }
         this.effectAnimation = new Animation(Duration, effectFrames);
         this.shapeRenderer = new ShapeRenderer();
+
+        effectState = EffectState.begin;
     }
+    public void setXY(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
+    public void work(Entity entity) {
+        if( index % 15 == 0 )
+            // Need to be changed
+            System.out.println(this + " overlaps " + entity);
+
+    }
+
     @Override
     public int getZ() {
         return 0;
@@ -78,9 +95,12 @@ public class Effect implements DrawObject, Rectable{
     }
 
     public void update(){
-        index += 1;
-        if(index >= effectAnimation.getKeyFrames().length)
-            effectManager.remove(this);
+        if(effectState != EffectState.end) {
+            effectState = EffectState.working;
+            index += 1;
+            if (index >= effectAnimation.getKeyFrames().length)
+                effectState = EffectState.end;
+        }
     }
 
     public int getDrawX() {
@@ -93,17 +113,16 @@ public class Effect implements DrawObject, Rectable{
     public TextureRegion getTextureRegion() {
         return this.effectAnimation.getKeyFrame(
                 this.index,
-                true
+                false
         );
     }
 
-    public void setEffectManager(EffectManager effectManager) {
-        this.effectManager = effectManager;
+    public EffectState getEffectState(){
+        return this.effectState;
     }
 
-    @Override
-    public Rectangle getRectangle() {
-        return null;
+    public void setObjectManager(ObjectManager objectManager) {
+        this.objectManager = objectManager;
     }
 
     private static class EffectTextureLoader {
@@ -113,5 +132,14 @@ public class Effect implements DrawObject, Rectable{
             this.effectSheet = new Texture(Gdx.files.internal("effects/blue_crystal.png"));
         }
 
+    }
+
+    @Override
+    public String toString() {
+        return effectName;
+    }
+
+    public enum EffectState {
+        begin, working, end
     }
 }

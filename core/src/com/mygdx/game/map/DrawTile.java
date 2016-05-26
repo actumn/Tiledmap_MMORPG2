@@ -20,11 +20,14 @@ public class DrawTile implements DrawObject {
     private LinkedList<Entity> objects;
     private LinkedList<Effect> effects;
 
-    public DrawTile(TiledMapTileLayer tileLayer, int x, int y, int z) {
-
+    public DrawTile(TiledMapTileLayer tileLayer, int x, int y) {
+        int priority = 0;
+        if(tileLayer.getCell(x, y).getTile().getProperties() != null) {
+            priority = Integer.parseInt((String)tileLayer.getCell(x, y).getTile().getProperties().get("prioritie"));
+        }
         this.x = x * (int) tileLayer.getTileWidth();
         this.y = y * (int) tileLayer.getTileHeight();
-        this.z = this.y + 32 * z;
+        this.z = this.y + 32 - 32 * priority;
         this.textureRegion = tileLayer.getCell(x, y).getTile().getTextureRegion();
     }
 

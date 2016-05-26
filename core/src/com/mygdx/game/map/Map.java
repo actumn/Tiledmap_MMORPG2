@@ -1,12 +1,10 @@
 package com.mygdx.game.map;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.mygdx.game.manager.EffectManager;
 import com.mygdx.game.manager.ObjectManager;
 import com.mygdx.game.object.Character;
 import com.mygdx.game.object.Effect;
@@ -18,19 +16,15 @@ import com.mygdx.game.object.Entity;
 public class Map {
     // Managers
     private ObjectManager objectManager;
-    private EffectManager effectManager;
 
     private String mapName;
     private TiledMap tiledMap;
     private Skin skin;
-    private SpriteBatch batch;
 
     public Map(String mapName, Skin skin) {
         this.mapName = mapName;
         this.skin = skin;
-        this.batch = new SpriteBatch();
-        this.objectManager = new ObjectManager(batch);
-        this.effectManager = new EffectManager(batch);
+        this.objectManager = new ObjectManager();
 
 
         this.tiledMap = new TmxMapLoader().load(mapName);
@@ -41,21 +35,21 @@ public class Map {
                 for(int y=0; y<tileLayer.getHeight(); y++) {
                     for(int x=0; x<tileLayer.getWidth(); x++) {
                         if(tileLayer.getCell(x, y) == null) continue;
-                        this.objectManager.add(new DrawTile(tileLayer, x, y, layer_count));
+                        this.objectManager.add(new DrawTile(tileLayer, x, y));
                     }
                 }
                 layer_count += 1;
             }
         }
+
+        objectManager.setMapRectangle(0,0, this.getMapWidth(), this.getMapHeight());
     }
 
 
     public void update() {
         objectManager.update();
-        effectManager.update();
 
         objectManager.draw();
-        effectManager.draw();
     }
 
     public void add(Entity entity) {
@@ -63,12 +57,12 @@ public class Map {
     }
 
     public void add(Effect e) {
-        effectManager.add(e);
+        objectManager.add(e);
     }
 
     public boolean checkCollision(int x, int y) {
-        int mapWidth = (Integer) this.tiledMap.getProperties().get("width") * (Integer) this.tiledMap.getProperties().get("tilewidth");
-        int mapHeight = (Integer) this.tiledMap.getProperties().get("height") * (Integer) this.tiledMap.getProperties().get("tileheight");
+        int mapWidth = this.getMapWidth();
+        int mapHeight = this.getMapHeight();
 
         if(x < 0 || y < 0 ||
                 x >= mapWidth ||
@@ -82,9 +76,6 @@ public class Map {
                 int tileY = y/(int)tileLayer.getTileHeight();
 
                 TiledMapTileLayer.Cell cell = tileLayer.getCell(tileX, tileY);
-                if(cell == null) cell = tileLayer.getCell(tileX - 1, tileY);
-                if(cell == null) cell = tileLayer.getCell(tileX, tileY - 1);
-                if(cell == null) cell = tileLayer.getCell(tileX - 1, tileY - 1);
                 if(cell == null) continue;
 
                 if(Integer.parseInt((String)cell.getTile().getProperties().get("passage")) != 0) return true;
@@ -92,6 +83,13 @@ public class Map {
         }
 
         return false;
+    }
+
+    public int getMapWidth() {
+        return (Integer) this.tiledMap.getProperties().get("width") * (Integer) this.tiledMap.getProperties().get("tilewidth");
+    }
+    public int getMapHeight() {
+        return (Integer) this.tiledMap.getProperties().get("height") * (Integer) this.tiledMap.getProperties().get("tileheight");
     }
 
     public void setCenterCharacter(Character centerCharacter) {

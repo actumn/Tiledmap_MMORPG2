@@ -1,6 +1,7 @@
 package com.mygdx.game.object;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
@@ -8,6 +9,8 @@ import com.badlogic.gdx.math.Rectangle;
  */
 public interface DrawObject {
     int getZ();
+    int getDrawX();
+    int getDrawY();
+    TextureRegion getTextureRegion();
     void draw(SpriteBatch batch);
-
 }

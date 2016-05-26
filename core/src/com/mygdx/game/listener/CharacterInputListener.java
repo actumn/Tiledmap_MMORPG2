@@ -11,6 +11,7 @@ import com.mygdx.game.object.Character;
 public class CharacterInputListener extends InputListener {
     private Character character;
     public boolean myCharacterMoveState[] = new boolean[4];
+    public boolean myCharacterSkillState = false;
 
     public CharacterInputListener (Character character) {
         this.character = character;
@@ -29,6 +30,12 @@ public class CharacterInputListener extends InputListener {
                 break;
             case Input.Keys.UP:
                 myCharacterMoveState[3] = true;
+                break;
+            case Input.Keys.SPACE:
+                character.skillAttack();
+                break;
+            case Input.Keys.CONTROL_LEFT:
+                character.attack();
                 break;
             default:
                 break;

@@ -10,6 +10,8 @@ import com.mygdx.game.listener.CharacterInputListener;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.object.Character;
 import com.mygdx.game.object.Effect;
+import com.mygdx.game.object.Mob;
+import com.mygdx.game.object.RectableEffect;
 import com.mygdx.game.ui.HealthBar;
 
 /**
@@ -20,9 +22,6 @@ public class Client extends ApplicationAdapter {
     private Stage stage;
     private CharacterInputListener characterInputListener;
 
-    // Test code
-    private Character c;
-    private Effect effect;
     private Map m;
 
     @Override
@@ -30,16 +29,24 @@ public class Client extends ApplicationAdapter {
         this.stage = new Stage(new ScreenViewport());
         this.skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 
-        c = new Character()
-                .loadAnimation(0,0);
-        effect = new Effect("effects/blue_crystal.png");
-
         this.m = new Map("maps/sample.tmx", skin);
+        // Test code
+        Character c;
+        Effect effect;
+        Mob mob;
+
+        c = new Character()
+                .setName("admin")
+                .setMap(m)
+                .loadAnimation(0,0);
+        mob = new Mob()
+                    .setMap(m)
+                    .loadAnimation();
 
         this.characterInputListener = new CharacterInputListener(c);
         stage.addListener(this.characterInputListener);
         m.add(c);
-        m.add(effect);
+        m.add(mob);
         m.setCenterCharacter(c);
 
         stage.addActor(new HealthBar());

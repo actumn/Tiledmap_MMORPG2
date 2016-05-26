@@ -1,4 +1,4 @@
-package com.mygdx.game.map;
+package com.mygdx.game.manager;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.object.Rectable;
@@ -101,7 +101,7 @@ public class Quadtree {
         If the node exceeds the capacity, it will split and add all objects to their corresponding nodes.
      */
     public void insert(Rectable rectable) {
-        Rectangle pRect = rectable.getRectangle();
+        Rectangle pRect = rectable.getBounds();
 
         if (nodes[0] != null) {
             int index = getIndex(pRect);
@@ -122,7 +122,7 @@ public class Quadtree {
 
             int i = 0;
             while (i < objects.size()) {
-                int index = getIndex(objects.get(i).getRectangle());
+                int index = getIndex(objects.get(i).getBounds());
 
                 if (index != -1) {
                     nodes[index].insert(objects.remove(i));
@@ -137,10 +137,10 @@ public class Quadtree {
     /*
         Return all objects that could coolide with the given object
      */
-    public List retrieve(List returnObjects, Rectable rectable) {
-        int index = getIndex(rectable.getRectangle());
+    public List retrieve(List returnObjects, Rectangle pRect) {
+        int index = getIndex(pRect);
         if (index != -1 && nodes[0] != null) {
-            nodes[index].retrieve(returnObjects, rectable);
+            nodes[index].retrieve(returnObjects, pRect);
         }
 
         returnObjects.addAll(objects);
