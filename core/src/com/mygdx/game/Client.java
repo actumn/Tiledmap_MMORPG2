@@ -39,14 +39,12 @@ public class Client extends ApplicationAdapter {
                 .setName("admin")
                 .setMap(m)
                 .loadAnimation(0,0);
-        mob = new Mob()
-                    .setMap(m)
-                    .loadAnimation();
+        //mob = new Mob().setMap(m).loadAnimation();
 
         this.characterInputListener = new CharacterInputListener(c);
         stage.addListener(this.characterInputListener);
         m.add(c);
-        m.add(mob);
+        //m.add(mob);
         m.setCenterCharacter(c);
 
         stage.addActor(new HealthBar());

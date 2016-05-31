@@ -75,5 +75,7 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="library" name="json-simple-1.1" level="project" />
+    <orderEntry type="library" name="netty-all-4.0.31.Final" level="project" />
   </component>
 </module>

@@ -14,12 +14,14 @@ public abstract class Entity implements DrawObject, Rectable {
     protected int entityId = 0;
     protected String name;
     public int x,y;
+    public int dx, dy;
     protected int hp, maxHp, mp, maxMp;
     protected int direction;
     protected int s_direction;
     protected int s_attack;
-    protected Animation walkAnimation;
+    protected EntityAnimation entityAnimation;
     protected ShapeRenderer shapeRenderer;
+    public EntityState entityState;
 
     protected Rectangle bounds;
 
@@ -48,6 +50,8 @@ public abstract class Entity implements DrawObject, Rectable {
 
     // 이동
     public abstract void move(int sx, int sy, int dx, int dy);
+    // 이동
+    public abstract void show_move(int sx, int sy, int dx, int dy);
 
     // 행동
     public abstract void action();
@@ -64,12 +68,7 @@ public abstract class Entity implements DrawObject, Rectable {
 
 
     public TextureRegion getTextureRegion() {
-        final int walkAnimationsCount = 3;
-        final int directionsCount = 4;
-        return this.walkAnimation.getKeyFrame(
-                this.direction * walkAnimationsCount + this.s_direction / directionsCount,
-                false
-        );
+        return entityAnimation.getTextureRegion();
     }
 
     public Rectangle getBounds() {
@@ -83,5 +82,9 @@ public abstract class Entity implements DrawObject, Rectable {
             this.value = value;
         }
         public int getValue() { return this.value; }
+    }
+
+    protected enum EntityState {
+        normal, attacking
     }
 }

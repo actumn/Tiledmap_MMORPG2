@@ -45,6 +45,10 @@ public class Map {
         objectManager.setMapRectangle(0,0, this.getMapWidth(), this.getMapHeight());
     }
 
+    public Map setMapName(String mapName) {
+        this.mapName = mapName;
+        return this;
+    }
 
     public void update() {
         objectManager.update();

@@ -65,7 +65,6 @@ public class Effect implements DrawObject {
         if( index % 15 == 0 )
             // Need to be changed
             System.out.println(this + " overlaps " + entity);
-
     }
 
     @Override

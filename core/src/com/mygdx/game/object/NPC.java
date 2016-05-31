@@ -22,6 +22,11 @@ public class NPC extends Entity {
     }
 
     @Override
+    public void show_move(int sx, int sy, int dx, int dy) {
+
+    }
+
+    @Override
     public void action() {
 
     }

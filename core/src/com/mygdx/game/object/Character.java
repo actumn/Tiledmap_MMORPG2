@@ -1,8 +1,5 @@
 package com.mygdx.game.object;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -15,12 +12,9 @@ import com.mygdx.game.ui.Font;
  */
 public class Character extends Entity {
     private int nameWidth;
-    private int dx, dy;
     private Map map;
-    private CharacterState characterState;
     public final int speedX = 5;
     public final int speedY = 5;
-    private Animation attackAnimation;
 
 
     private long skillCoolDown = 0;
@@ -29,7 +23,7 @@ public class Character extends Entity {
         this.x = 100;
         this.y = 100;
         hp = maxHp = 100;
-        characterState = CharacterState.normal;
+        entityState = EntityState.normal;
 
         team = 0;
     }
@@ -53,55 +47,8 @@ public class Character extends Entity {
         return loadAnimation(iIndex, jIndex);
     }
     public Character loadAnimation(int iIndex, int jIndex) {
-        final int walkAnimationsCount = 3;
-        final int directionsCount = 4;
-        final int horizontalCharactersCount = 4;
-        final int verticalCharactersCount = 2;
-
-        // Out of index
-        if (iIndex > verticalCharactersCount || jIndex > horizontalCharactersCount) return this;
-
-        // load texture
-        Texture walkSheet = CharacterTextureLoader.instance.walkSheet;
-
-        // split texture and load sprites
-        TextureRegion[][] tmp = TextureRegion.split(
-                walkSheet, walkSheet.getWidth() / (walkAnimationsCount * horizontalCharactersCount),
-                walkSheet.getHeight() / (directionsCount * verticalCharactersCount)
-        );
-        TextureRegion[] walkFrames = new TextureRegion[walkAnimationsCount * directionsCount];
-
-        // save sprites
-        int index = 0;
-        int iOffsetBegin = iIndex * directionsCount;
-        int jOffsetBegin = jIndex * walkAnimationsCount;
-        for (int i = iOffsetBegin; i < iOffsetBegin + directionsCount; i++) {
-            for (int j = jOffsetBegin; j < jOffsetBegin + walkAnimationsCount; j++) {
-                walkFrames[index++] = tmp[i][j];
-            }
-        }
-        this.walkAnimation = new Animation(1.0f, walkFrames);
-        // walk animation end
-
-        final int attackAnimationCount = 4;
-        // attack animation
-        Texture attackSheet = CharacterTextureLoader.instance.attackSheet;
-
-        tmp = TextureRegion.split(
-                attackSheet, attackSheet.getWidth() / attackAnimationCount,
-                attackSheet.getHeight() / directionsCount
-        );
-        TextureRegion[] attackFrames = new TextureRegion[attackAnimationCount * directionsCount];
-
-        index = 0;
-        iOffsetBegin = 0;
-        jOffsetBegin = 0;
-        for (int i = iOffsetBegin; i < directionsCount; i++) {
-            for (int j = jOffsetBegin; j < attackAnimationCount; j++) {
-                attackFrames[index++] = tmp[i][j];
-            }
-        }
-        this.attackAnimation = new Animation(1.0f, attackFrames);
+        entityAnimation = new EntityAnimation(this)
+                .loadAnimation();
 
 
         this.shapeRenderer = new ShapeRenderer();
@@ -149,7 +96,12 @@ public class Character extends Entity {
 
     @Override
     public void move(int sx, int sy, int dx, int dy) {
-        if (characterState == CharacterState.attacking || map.checkCollision(dx, dy)) return;
+        if (entityState == EntityState.attacking || map.checkCollision(dx, dy)) return;
+        show_move(sx, sy, dx, dy);
+    }
+
+    @Override
+    public void show_move(int sx, int sy, int dx, int dy) {
         this.x = dx;
         this.y = dy;
 
@@ -171,15 +123,15 @@ public class Character extends Entity {
 
     @Override
     public void attack() {
-        characterState = CharacterState.attacking;
+        this.entityState = EntityState.attacking;
 
         s_attack = 0;
+        s_direction = 0;
     }
 
     @Override
     public void draw(SpriteBatch batch) {
-        batch.draw(this.getTextureRegion(), this.getDrawX(), this.getDrawY());
-        drawMotion(batch);
+        entityAnimation.draw(batch);
         batch.end();
 
         // hp bar
@@ -207,49 +159,12 @@ public class Character extends Entity {
                 this.getDrawX() + this.getTextureRegion().getRegionWidth() / 2 - this.nameWidth / 2.0f,
                 this.getDrawY() + this.getTextureRegion().getRegionHeight() + Font.getFont().getCapHeight());
     }
-    private void drawMotion(SpriteBatch batch) {
-        if (characterState != CharacterState.attacking) return;
-        double stand = ((double)direction - 1.5) * 2;
-        /*  stand = north : 3
-                    east : 1
-                    west : -1
-                    south : -3
-        */
-        int attackX = (int)stand % 3;
-        int attackY = (int)stand / 3;
-        /*
-            x,y =   north : 0,1
-                    east : 1,0
-                    west : -1,0
-                    south : 0, -1
-         */
-        attackX *= 30; attackY *= 30;
-        int characterHeight = this.getTextureRegion().getRegionHeight();
-        int motionWidth = this.getAttackTextureRegion().getRegionWidth();
-        int motionHeight = this.getAttackTextureRegion().getRegionHeight();
-        batch.draw(this.getAttackTextureRegion(), this.x - motionWidth/2 + attackX, this.y - motionHeight/2 + characterHeight / 2 + attackY);
-    }
 
     public void update() {
-        final int walkAnimationsCount = 3;
-        final int attackAnimationCount = 4;
-        final int directionsCount = 4;
+        this.entityAnimation.update();
 
-        if( characterState == CharacterState.attacking ) {
-            this.s_attack += 1;
-            if (this.s_attack>= attackAnimationCount * directionsCount) {
-                this.characterState = CharacterState.normal;
-                this.s_attack = 0;
-            }
-        }
-
-        if(this.dx != this.x || this.dy != this.y || this.s_direction != 0) {
-            this.s_direction += 1;
-            if(this.s_direction>=walkAnimationsCount*directionsCount) this.s_direction = 0;
-
-            this.dx = this.x;
-            this.dy = this.y;
-        }
+        this.dx = this.x;
+        this.dy = this.y;
     }
 
     public int getDrawX() {
@@ -258,26 +173,8 @@ public class Character extends Entity {
     public int getDrawY() {
         return this.y;
     }
-
-    public TextureRegion getAttackTextureRegion() {
-        final int attackAnimationsCount = 4;
-        final int directionsCount = 4;
-        return this.attackAnimation.getKeyFrame(
-                this.direction * attackAnimationsCount + this.s_attack / directionsCount,
-                false
-        );
-    }
-
-
-    private static class CharacterTextureLoader {
-        private static CharacterTextureLoader instance = new CharacterTextureLoader();
-        private Texture walkSheet;
-        private Texture attackSheet;
-
-        private CharacterTextureLoader() {
-            this.walkSheet = new Texture(Gdx.files.internal("characters/characters.png"));
-            this.attackSheet = new Texture(Gdx.files.internal("characters/attack.png"));
-        }
+    public TextureRegion getTextureRegion() {
+        return entityAnimation.getTextureRegion();
     }
 
     @Override
@@ -285,7 +182,4 @@ public class Character extends Entity {
         return name;
     }
 
-    private enum CharacterState {
-        normal, attacking
-    }
 }

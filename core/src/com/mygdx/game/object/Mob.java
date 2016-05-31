@@ -51,7 +51,7 @@ public class Mob extends NPC {
                 walkFrames[index++] = tmp[i][j];
             }
         }
-        this.walkAnimation = new Animation(1.0f, walkFrames);
+        //this.walkAnimation = new Animation(1.0f, walkFrames);
         // walk animation end
 
         this.bounds = new Rectangle(getDrawX(), getDrawY(),
@@ -113,6 +113,11 @@ public class Mob extends NPC {
     @Override
     public void move(int sx, int sy, int dx, int dy) {
         if (map.checkCollision(dx, dy)) return;
+        show_move(sx, sy, dx, dy);
+    }
+
+    @Override
+    public void show_move(int sx, int sy, int dx, int dy) {
         this.x = dx;
         this.y = dy;
 

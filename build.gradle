@@ -13,7 +13,7 @@ allprojects {
 
     version = '1.0'
     ext {
-        appName = "BossRush"
+        appName = "Tiledmap_RPG"
         gdxVersion = '1.7.1'
         roboVMVersion = '1.9.0'
         box2DLightsVersion = '1.4'
