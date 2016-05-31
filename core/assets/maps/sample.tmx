@@ -628,32 +628,32 @@
   </tile>
   <tile id="104">
    <properties>
-    <property name="passage" value="15"/>
-    <property name="prioritie" value="1"/>
+    <property name="passage" value="0"/>
+    <property name="prioritie" value="0"/>
    </properties>
   </tile>
   <tile id="105">
    <properties>
-    <property name="passage" value="15"/>
-    <property name="prioritie" value="3"/>
+    <property name="passage" value="0"/>
+    <property name="prioritie" value="10"/>
    </properties>
   </tile>
   <tile id="106">
    <properties>
-    <property name="passage" value="15"/>
-    <property name="prioritie" value="3"/>
+    <property name="passage" value="0"/>
+    <property name="prioritie" value="10"/>
    </properties>
   </tile>
   <tile id="107">
    <properties>
-    <property name="passage" value="15"/>
-    <property name="prioritie" value="3"/>
+    <property name="passage" value="0"/>
+    <property name="prioritie" value="10"/>
    </properties>
   </tile>
   <tile id="108">
    <properties>
-    <property name="passage" value="15"/>
-    <property name="prioritie" value="1"/>
+    <property name="passage" value="0"/>
+    <property name="prioritie" value="0"/>
    </properties>
   </tile>
   <tile id="109">
@@ -682,20 +682,20 @@
   </tile>
   <tile id="113">
    <properties>
-    <property name="passage" value="0"/>
-    <property name="prioritie" value="3"/>
+    <property name="passage" value="15"/>
+    <property name="prioritie" value="10"/>
    </properties>
   </tile>
   <tile id="114">
    <properties>
-    <property name="passage" value="0"/>
-    <property name="prioritie" value="3"/>
+    <property name="passage" value="15"/>
+    <property name="prioritie" value="10"/>
    </properties>
   </tile>
   <tile id="115">
    <properties>
-    <property name="passage" value="0"/>
-    <property name="prioritie" value="3"/>
+    <property name="passage" value="15"/>
+    <property name="prioritie" value="10"/>
    </properties>
   </tile>
   <tile id="116">
@@ -731,19 +731,19 @@
   <tile id="121">
    <properties>
     <property name="passage" value="15"/>
-    <property name="prioritie" value="3"/>
+    <property name="prioritie" value="10"/>
    </properties>
   </tile>
   <tile id="122">
    <properties>
-    <property name="passage" value="15"/>
-    <property name="prioritie" value="3"/>
+    <property name="passage" value="0"/>
+    <property name="prioritie" value="10"/>
    </properties>
   </tile>
   <tile id="123">
    <properties>
     <property name="passage" value="15"/>
-    <property name="prioritie" value="3"/>
+    <property name="prioritie" value="10"/>
    </properties>
   </tile>
   <tile id="124">
@@ -779,19 +779,19 @@
   <tile id="129">
    <properties>
     <property name="passage" value="15"/>
-    <property name="prioritie" value="3"/>
+    <property name="prioritie" value="10"/>
    </properties>
   </tile>
   <tile id="130">
    <properties>
-    <property name="passage" value="15"/>
+    <property name="passage" value="0"/>
     <property name="prioritie" value="3"/>
    </properties>
   </tile>
   <tile id="131">
    <properties>
     <property name="passage" value="15"/>
-    <property name="prioritie" value="3"/>
+    <property name="prioritie" value="10"/>
    </properties>
   </tile>
   <tile id="132">
@@ -832,13 +832,13 @@
   </tile>
   <tile id="138">
    <properties>
-    <property name="passage" value="15"/>
+    <property name="passage" value="0"/>
     <property name="prioritie" value="0"/>
    </properties>
   </tile>
   <tile id="139">
    <properties>
-    <property name="passage" value="0"/>
+    <property name="passage" value="15"/>
     <property name="prioritie" value="0"/>
    </properties>
   </tile>

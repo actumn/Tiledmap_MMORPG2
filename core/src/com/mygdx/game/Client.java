@@ -31,11 +31,9 @@ public class Client extends ApplicationAdapter {
 
         this.m = new Map("maps/sample.tmx", skin);
         // Test code
-        Character c;
-        Effect effect;
         Mob mob;
 
-        c = new Character()
+        Character c = new Character()
                 .setName("admin")
                 .setMap(m)
                 .loadAnimation(0,0);
