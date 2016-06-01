@@ -1,13 +1,15 @@
 package network;
 
+import protocol.Packet.JsonPacketFactory;
+import protocol.Packet.PacketFactory;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import org.json.simple.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Created by Lee on 2016-05-23.
@@ -15,6 +17,10 @@ import java.io.InputStreamReader;
 public class Network {
     private static Network instance = new Network("localhost", 6112);
     public static Network getInstance() { return instance; }
+
+    private PacketFactory packetFactory = new JsonPacketFactory();
+    private ConcurrentLinkedQueue<JSONObject> recvQueue = new ConcurrentLinkedQueue<JSONObject>();
+
 
     private Channel channel;
     private EventLoopGroup group;
@@ -25,6 +31,7 @@ public class Network {
         this.host = host;
         this.port = port;
     }
+
 
     public void connect() throws InterruptedException {
         this.group = new NioEventLoopGroup();
@@ -37,9 +44,6 @@ public class Network {
         this.channel = bootstrap.connect(host, port).sync().channel();
     }
 
-    public void send() {
-
-    }
 
     public void disconnect() {
         this.group.shutdownGracefully();
