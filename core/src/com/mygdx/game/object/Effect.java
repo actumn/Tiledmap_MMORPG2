@@ -15,22 +15,22 @@ import com.mygdx.game.manager.ObjectManager;
 public class Effect implements DrawObject {
     private String effectName;
     private int x, y;
-    private int index;
+    private float s_time;
     private Animation effectAnimation;
     private ShapeRenderer shapeRenderer;
     private ObjectManager objectManager;
-
     private EffectState effectState;
+
+    final int Horizontal_Count = 5;
+    final int Vertical_Count = 7;
+    final float Duration = 1.0f;
 
     public Effect(String effectName) {
         this.effectName = effectName;
         this.x = 200;
         this.y = 200;
-        this.index = 0;
+        this.s_time = 0;
 
-        final int Horizontal_Count = 5;
-        final int Vertical_Count = 7;
-        final float Duration = 0.8f;
 
         // load texture
         Texture walkSheet = new Texture(Gdx.files.internal("effects/blue_crystal.png"));
@@ -62,7 +62,7 @@ public class Effect implements DrawObject {
     }
 
     public void work(Entity entity) {
-        if( index % 15 == 0 )
+        if( s_time % (Duration*15.0) == 0 )
             // Need to be changed
             System.out.println(this + " overlaps " + entity);
     }
@@ -96,8 +96,8 @@ public class Effect implements DrawObject {
     public void update(){
         if(effectState != EffectState.end) {
             effectState = EffectState.working;
-            index += 1;
-            if (index >= effectAnimation.getKeyFrames().length)
+            s_time += Duration;
+            if (s_time/Duration >= effectAnimation.getKeyFrames().length)
                 effectState = EffectState.end;
         }
     }
@@ -111,7 +111,7 @@ public class Effect implements DrawObject {
 
     public TextureRegion getTextureRegion() {
         return this.effectAnimation.getKeyFrame(
-                this.index,
+                this.s_time,
                 false
         );
     }

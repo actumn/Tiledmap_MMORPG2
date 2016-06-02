@@ -1,0 +1,42 @@
+<npcs>
+    <npc id='1'>
+        <name>beehemoth</name>
+        <team>1</team>
+        <hp>20</hp>
+        <mp>0</mp>
+        <image>1</image>
+        <tps>1500</tps>
+        <vision>5</vision>
+        <level>1</level>
+        <drop_exp>4</drop_exp>
+        <drop_gold>10</drop_gold>
+        <regen>10000</regen>
+        <atk>8</atk>
+        <def>0</def>
+        <hit>100</hit>
+        <avo>0</avo>
+        <drop_items>
+
+        </drop_items>
+    </npc>
+    <npc id='2'>
+        <name>GM</name>
+        <team>0</team>
+        <hp>1000</hp>
+        <mp>0</mp>
+        <image>0</image>
+        <tps>1500</tps>
+        <vision>5</vision>
+        <level>10</level>
+        <drop_exp>0</drop_exp>
+        <drop_gold>0</drop_gold>
+        <regen>10000</regen>
+        <atk>8</atk>
+        <def>0</def>
+        <hit>100</hit>
+        <avo>0</avo>
+        <drop_items>
+
+        </drop_items>
+    </npc>
+</npcs>

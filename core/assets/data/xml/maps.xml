@@ -1,0 +1,12 @@
+<maps>
+    <map id='1000' name="시작위치" filename="smaple.tmx">
+        <moves>
+        </moves>
+        <npcs>
+            <npc id='1' x='74' y='20' direction='1'/>
+            <npc id='2' x='10' y='10' direction='3'/>
+        </npcs>
+        <root map='1000' x='100' y='100' direction='1'></root>
+    </map>
+
+</maps>

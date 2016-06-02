@@ -1,0 +1,28 @@
+<sprites>
+    <characters>
+        <Character id="1">
+            <move filename="character-attack.png">
+                <count>3</count>
+                <direction>4</direction>
+            </move>
+            <attack filename="character-move.png">
+                <count>3</count>
+                <direction>4</direction>
+            </attack>
+        </Character>
+    </characters>
+    <effects>
+        <effect id="1" name="블루_크리스탈" filename="blue_crystal.png">
+            <horizon>5</horizon>
+            <vertical>7</vertical>
+        </effect>
+    </effects>
+    <npcs>
+        <npc id="1" filename="monster.png">
+            <move filename="">
+                <count>3</count>
+                <direction>4</direction>
+            </move>
+        </npc>
+    </npcs>
+</sprites>

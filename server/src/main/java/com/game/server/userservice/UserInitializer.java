@@ -1,4 +1,4 @@
-package com.game.server.service;
+package com.game.server.userservice;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;

@@ -12,8 +12,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
  */
 public class EntityAnimation {
     private Entity entity;
-    final int walkAnimationsCount = 3;
-    final int attackAnimationsCount = 3;
+
+    int walkAnimationsCount = 3;
+    int attackAnimationsCount = 3;
     final int directionsCount = 4;
 
     protected Animation animation;
@@ -22,7 +23,9 @@ public class EntityAnimation {
         this.entity = entity;
     }
 
-
+    public void setWalkAnimationsCount(int walkAnimationsCount) {
+        this.walkAnimationsCount = walkAnimationsCount;
+    }
 
     public EntityAnimation loadAnimation() {
         final int iIndex = 0;
@@ -105,8 +108,8 @@ public class EntityAnimation {
         private Texture attackSheet;
 
         private CharacterTextureLoader() {
-            this.walkSheet = new Texture(Gdx.files.internal("characters/Alice.png"));
-            this.attackSheet = new Texture(Gdx.files.internal("characters/Alice_Rod.png"));
+            this.walkSheet = new Texture(Gdx.files.internal("characters/character-move.png"));
+            this.attackSheet = new Texture(Gdx.files.internal("characters/character-attack.png"));
         }
     }
 }
