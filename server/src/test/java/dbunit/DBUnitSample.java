@@ -64,6 +64,7 @@ public class DBUnitSample {
         assertEquals(charlie.getFirstName(), "Charlie");
         assertEquals(charlie.getLastName(), "Brown");
         assertEquals(charlie.getAge(), 42);
+
     }
 
 
@@ -98,6 +99,11 @@ public class DBUnitSample {
             this.firstName = firstName;
             this.lastName = lastName;
             this.age = age;
+        }
+
+        @Override
+        public String toString() {
+            return firstName + ", " + lastName + ", " + age;
         }
     }
     class PersonRepository {

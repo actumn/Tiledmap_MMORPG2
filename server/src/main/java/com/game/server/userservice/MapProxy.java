@@ -18,15 +18,14 @@ public class MapProxy {
     }
 
     /*
-        this method receive packet as JSON like
-        {
-            "type" : "move"
+        @Param user : UserObject. character of Character
+        @Param packet template :
+        { "type" : "move"
             "mapId" : 1
             "sx" : 100
             "sy" : 100
             "dx" : 110
-            "dy" : 110
-        }
+            "dy" : 110 } (json)
      */
     public void moveObject(UserObject user, JSONObject packet) {
         for(UserObject u : this.objects) {

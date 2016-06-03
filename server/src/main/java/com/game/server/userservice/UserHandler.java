@@ -1,5 +1,6 @@
 package com.game.server.userservice;
 
+import com.game.server.db.DBManager;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.apache.logging.log4j.LogManager;
@@ -13,7 +14,11 @@ import java.util.Date;
  */
 public class UserHandler extends SimpleChannelInboundHandler<String> {
     private static Logger logger = LogManager.getLogger("UserService");
-    private UserDispatcher dispatcher = new UserDispatcher();
+    private UserDispatcher dispatcher;
+
+    public UserHandler(UserService userService) {
+        this.dispatcher = new UserDispatcher(userService);
+    }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
@@ -23,13 +28,13 @@ public class UserHandler extends SimpleChannelInboundHandler<String> {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         logger.info("[" + new Date().toString() + "] Client disconnection - " + ctx.channel().remoteAddress());
-        dispatcher.logout();
+        dispatcher.logout(DBManager.getConnection());
     }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, String s) throws Exception {
         JSONObject data = ResponseGenerator.stringToJson(s);
-        dispatcher.dispatch(ctx, data);
+        dispatcher.dispatch(ctx.channel(), data);
     }
 
 }

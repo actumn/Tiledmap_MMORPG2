@@ -19,7 +19,6 @@ public class ObjectManager {
     private Quadtree entities;
     private Rectangle mapRectangle;
 
-    private DrawObjectComparator comparator = new DrawObjectComparator();
     private OrthographicCamera camera;
     private Character centerCharacter;
 
@@ -81,7 +80,7 @@ public class ObjectManager {
             this.camera.translate(Math.min(10, x), Math.min(10, y));
         }
 
-        Collections.sort(this.drawObjects, comparator);
+        Collections.sort(this.drawObjects, (o1, o2) -> o2.getZ() - o1.getZ());
 
         camera.update();
         this.batch.setProjectionMatrix(this.camera.combined);
@@ -154,12 +153,5 @@ public class ObjectManager {
 
     public void setCenterCharacter(Character centerCharacter) {
         this.centerCharacter = centerCharacter;
-    }
-
-    class DrawObjectComparator implements Comparator<DrawObject> {
-        @Override
-        public int compare(DrawObject o1, DrawObject o2) {
-            return  o2.getZ() - o1.getZ();
-        }
     }
 }

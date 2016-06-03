@@ -1,11 +1,19 @@
 package com.game.server.userservice;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
+import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.Delimiters;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -24,7 +32,18 @@ public class UserService {
         ServerBootstrap b = new ServerBootstrap();
         b.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
-                .childHandler(new UserInitializer())
+                .childHandler(new ChannelInitializer<SocketChannel>() {
+                    @Override
+                    protected void initChannel(SocketChannel ch) throws Exception {
+                        ChannelPipeline p = ch.pipeline();
+
+                        p.addLast("framer", new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
+                        p.addLast("decoder", new StringDecoder(Charset.defaultCharset()));
+                        p.addLast("encoder", new StringEncoder(Charset.defaultCharset()));
+
+                        p.addLast("handler", new UserHandler(UserService.this));
+                    }
+                })
                 .childOption(ChannelOption.TCP_NODELAY, true)
                 .childOption(ChannelOption.SO_KEEPALIVE, true);
     }
