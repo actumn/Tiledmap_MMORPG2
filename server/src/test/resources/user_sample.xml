@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+    <user
+            id="1"
+            user_id="2199101401"
+            name="python"/>
+    <user
+            id="1"
+            user_id="11112222"
+            name="dbunit"/>
+</dataset>

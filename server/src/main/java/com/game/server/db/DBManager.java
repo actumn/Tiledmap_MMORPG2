@@ -1,20 +1,27 @@
 package com.game.server.db;
 
+import org.apache.commons.dbcp.BasicDataSource;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by Lee on 2016-06-02.
+ * Created by Lee on 2016-06-03.
  */
-public class DBManager {
-    private static DBManager instance = new DBManager();
-    public static DBManager getInstance() { return instance; }
+public final class DBManager {
+    private static final BasicDataSource dataSource = new BasicDataSource();
 
-    public DBManager() { }
+    static {
+        dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
+        dataSource.setUrl("jdbc:mariadb://localhost:3306/mysql");
+        dataSource.setUsername("root");
+        dataSource.setPassword("qwe098");
+    }
+    private DBManager() {}
 
-    public Connection getConnection() throws SQLException {
-        // DriverManager.getConnection("jdbc:mariadb://ip:port/DBName?option=blah", id, password)
-        return null;
+    public static Connection getConnection() throws SQLException {
+        return dataSource.getConnection();
     }
 }

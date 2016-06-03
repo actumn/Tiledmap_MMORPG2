@@ -4,4 +4,6 @@ Java maven
 libgdx netty
 tmx(tiled) xml JSON Quadtree
 data-driven test-driven
-JUnit JMeter
+JUnit DBUnit
+JMeter
+DBCP
