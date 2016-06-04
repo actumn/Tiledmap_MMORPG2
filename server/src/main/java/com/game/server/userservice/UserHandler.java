@@ -6,6 +6,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 import java.util.Date;
 
@@ -33,8 +34,12 @@ public class UserHandler extends SimpleChannelInboundHandler<String> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, String s) throws Exception {
-        JSONObject data = ResponseGenerator.stringToJson(s);
+        JSONObject data = stringToJson(s);
         dispatcher.dispatch(ctx.channel(), data);
     }
 
+
+    public static JSONObject stringToJson(String s) {
+        return (JSONObject) JSONValue.parse(s);
+    }
 }

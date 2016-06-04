@@ -1,5 +1,6 @@
 <dataset>
-    <PERSON NAME="Bob" LAST_NAME="Doe" AGE="18"/>
-    <PERSON NAME="Alice" LAST_NAME="Foo" AGE="23"/>
-    <PERSON NAME="Charlie" LAST_NAME="Brown" AGE="42"/>
+    <USERS USER_ID="admin" USER_PW="1234" USER_NAME="홍길동" LEVEL="1"
+           JOB_ID="1" MAP_ID="1" X="100" Y="100" LAST_LOGIN="2016-06-04 22:00:00"/>
+    <USERS USER_ID="admin2" USER_PW="1234" USER_NAME="임꺽정" LEVEL="1"
+           JOB_ID="1" MAP_ID="1" X="100" Y="100" LAST_LOGIN="2016-06-04 22:00:00"/>
 </dataset>

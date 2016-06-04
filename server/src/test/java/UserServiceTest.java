@@ -27,10 +27,10 @@ public class UserServiceTest {
         final int x = 50, y = 100;
         EmbeddedChannel someChannel = new EmbeddedChannel();
         UserObject user = new UserObject()
-                .setChannel(someChannel)
-                .setName("test")
-                .setMapId(mapId)
-                .setXY(x, y);
+                .channel(someChannel)
+                .name("test")
+                .mapId(mapId)
+                .XY(x, y);
         assertNotNull(user);
 
         UserService userService = new UserService();

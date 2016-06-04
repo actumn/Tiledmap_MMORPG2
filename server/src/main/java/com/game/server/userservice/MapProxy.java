@@ -1,6 +1,7 @@
 package com.game.server.userservice;
 
 import org.json.simple.JSONObject;
+import protocol.Packet.JsonPacketFactory;
 
 import java.util.LinkedList;
 
@@ -8,6 +9,7 @@ import java.util.LinkedList;
  * Created by Lee on 2016-06-02.
  */
 public class MapProxy {
+    private JsonPacketFactory packetFactory;
 
     private int map_id;
 
@@ -15,10 +17,11 @@ public class MapProxy {
 
     public MapProxy(int map_id) {
         this.map_id = map_id;
+        this.packetFactory = new JsonPacketFactory();
     }
 
     /*
-        @Param user : UserObject. character of Character
+        @Param user : UserObject. character of user
         @Param packet template :
         { "type" : "move"
             "mapId" : 1
@@ -46,11 +49,16 @@ public class MapProxy {
         for (UserObject u : this.objects) {
             if (u == user) continue;;
 
-            //u.getChannel().write()
+            u.getChannel().write(packetFactory.character(user.getUuid(),
+                    user.getName(), user.getLevel(), user.getLevel()));
+            u.getChannel().write(packetFactory.move(user.getUuid(), user.getMapId(),
+                    user.getX(), user.getY()));
         }
     }
     public void exitUser(UserObject user) {
+        this.objects.remove(user);
 
+        // UserObject 안지우나 ??
     }
 
     public void sendChat() {
@@ -60,4 +68,6 @@ public class MapProxy {
     public int getMap_id() {
         return map_id;
     }
+
+    public boolean isEmpty() { return this.objects.isEmpty(); }
 }

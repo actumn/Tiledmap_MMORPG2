@@ -35,7 +35,7 @@ public class DBUnitSample {
 
     @BeforeClass
     public static void createSchema() throws Exception {
-        RunScript.execute(JDBC_URL, USER, PASSWORD, "server/src/test/resources/schema.sql", Charset.forName("UTF-8"), false);
+        RunScript.execute(JDBC_URL, USER, PASSWORD, "server/src/test/resources/sample_schema.sql", Charset.forName("UTF-8"), false);
     }
 
     @Before
@@ -45,7 +45,7 @@ public class DBUnitSample {
     }
 
     private IDataSet readDataSet() throws Exception {
-        return new FlatXmlDataSetBuilder().build(new File("server/src/test/resources/dataset.xml"));
+        return new FlatXmlDataSetBuilder().build(new File("server/src/test/resources/sample_dataset.xml"));
     }
 
     private void cleanlyInsert(IDataSet dataSet) throws Exception {
@@ -54,6 +54,15 @@ public class DBUnitSample {
         databaseTester.setSetUpOperation(DatabaseOperation.CLEAN_INSERT);
         databaseTester.setDataSet(dataSet);
         databaseTester.onSetup();
+    }
+
+    private DataSource dataSource() {
+        JdbcDataSource dataSource = new JdbcDataSource();
+        dataSource.setUrl(JDBC_URL);
+        dataSource.setUser(USER);
+        dataSource.setPassword(PASSWORD);
+
+        return dataSource;
     }
 
     @Test
@@ -68,14 +77,6 @@ public class DBUnitSample {
     }
 
 
-    private DataSource dataSource() {
-        JdbcDataSource dataSource = new JdbcDataSource();
-        dataSource.setUrl(JDBC_URL);
-        dataSource.setUser(USER);
-        dataSource.setPassword(PASSWORD);
-
-        return dataSource;
-    }
 
     class Person {
         private String firstName;

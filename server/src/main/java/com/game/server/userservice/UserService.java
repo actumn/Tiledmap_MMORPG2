@@ -52,7 +52,7 @@ public class UserService {
         final int mapId = user.getMapId();
 
         MapProxy map = getMapProxy(mapId, true);
-        user.moveMap(map, user.getX(), user.getY());
+        user.initMap(map, user.getX(), user.getY());
 
         this.users.add(user);
     }
@@ -60,9 +60,10 @@ public class UserService {
     public void exitUser(final UserObject user) {
         final int mapId = user.getMapId();
 
-        MapProxy map = getMapProxy(mapId, true);
+        MapProxy map = getMapProxy(mapId, false);
         if (map == null) return;
         map.exitUser(user);
+        if (map.isEmpty()) this.maps.remove(mapId, map);
 
         this.users.remove(user);
     }

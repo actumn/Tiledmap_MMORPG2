@@ -196,12 +196,14 @@
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
       <module fileurl="file://$PROJECT_DIR$/desktop/desktop.iml" filepath="$PROJECT_DIR$/desktop/desktop.iml" />
       <module fileurl="file://$PROJECT_DIR$/server/server.iml" filepath="$PROJECT_DIR$/server/server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Protocol/test/test.iml" filepath="$PROJECT_DIR$/Protocol/test/test.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/server/src/test/resources/sample_schema.sql" dialect="H2" />
     <file url="file://$PROJECT_DIR$/server/src/test/resources/schema.sql" dialect="H2" />
   </component>
   <component name="SvnBranchConfigurationManager">
