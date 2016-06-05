@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class UserServiceTest {
 
     @Test
-    public void mapProxyTest() {
+    public void getMapProxyTest() {
         final int mapId = 1;
 
         UserService userService = new UserService();

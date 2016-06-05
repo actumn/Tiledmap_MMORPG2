@@ -33,7 +33,6 @@ public class UserObjectTest {
         assertEquals(mapId, user.getMapId());
         assertEquals(level, user.getLevel());
         assertEquals(jobId, user.getJobId());
-        assertNotNull(user.getPacketFactory());
     }
 
 

@@ -12,6 +12,32 @@ import static org.junit.Assert.*;
 public class JsonPacketFactoryTest {
 
     @Test
+    public void joinTest() {
+        JsonPacketFactory testFactory = new JsonPacketFactory();
+        assertNotNull(testFactory);
+        final String expect_type = "join";
+        final String expect_user_id = "admin";
+        final String expect_user_pw = "1234";
+        final String expect_user_name = "홍길동";
+        final int expect_job_id = 1;
+
+        JSONObject obj = testFactory.join(expect_user_id, expect_user_pw, expect_user_name, expect_job_id);
+        assertNotNull(obj);
+
+        String actual_type = (String) obj.get("type");
+        String actual_user_id = (String) obj.get("user_id");
+        String actual_user_pw = (String) obj.get("user_pw");
+        String actual_user_name = (String) obj.get("user_name");
+        int actual_job_id = (int) obj.get("job_id");
+
+        assertEquals(expect_type, actual_type);
+        assertEquals(expect_user_id, actual_user_id);
+        assertEquals(expect_user_pw, actual_user_pw);
+        assertEquals(expect_user_name, actual_user_name);
+        assertEquals(expect_job_id, actual_job_id);
+    }
+
+    @Test
     public void loginTest() {
         JsonPacketFactory testFactory = new JsonPacketFactory();
         assertNotNull(testFactory);
@@ -73,7 +99,7 @@ public class JsonPacketFactoryTest {
 
         String actual_type = (String) obj.get("type");
         long actual_id = (long) obj.get("id");
-        int actual_map_id = (int) obj.get("map_id");
+        int actual_map_id = (int) obj.get("dest_map_id");
         int actual_dest_x = (int) obj.get("dest_x");
         int actual_dest_y = (int) obj.get("dest_y");
 

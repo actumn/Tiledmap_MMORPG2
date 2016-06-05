@@ -12,6 +12,7 @@ import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.Delimiters;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import org.json.simple.JSONObject;
 
 import java.nio.charset.Charset;
 import java.util.HashMap;
@@ -52,9 +53,22 @@ public class UserService {
         final int mapId = user.getMapId();
 
         MapProxy map = getMapProxy(mapId, true);
-        user.initMap(map, user.getX(), user.getY());
+        user.initMap(map);
 
         this.users.add(user);
+    }
+
+    public void moveObject(final UserObject user, final JSONObject packet) {
+        MapProxy src_map = getMapProxy(user.getMapId(), false);
+        if(src_map == null) return;
+        src_map.moveObject(user, packet);
+
+        int dest_map_id = (int) packet.get("dest_map_id");
+        if(user.getMapId() == dest_map_id) return;
+
+        MapProxy dest_map = getMapProxy(dest_map_id, true);
+        if(dest_map == null) return;
+        dest_map.moveObject(user, packet);
     }
 
     public void exitUser(final UserObject user) {

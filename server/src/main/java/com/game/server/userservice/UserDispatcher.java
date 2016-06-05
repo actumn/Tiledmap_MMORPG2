@@ -3,6 +3,7 @@ package com.game.server.userservice;
 import com.game.server.db.DBManager;
 import io.netty.channel.Channel;
 import org.json.simple.JSONObject;
+import protocol.Packet.JsonPacketFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,12 +14,14 @@ import java.sql.SQLException;
  * Created by Lee on 2016-06-02.
  */
 public class UserDispatcher {
+    private JsonPacketFactory packetFactory;
     private UserService service;
     private UserObject user;
 
 
     public UserDispatcher(UserService userService) {
         this.service = userService;
+        this.packetFactory = new JsonPacketFactory();
     }
 
     public void dispatch(Channel channel, JSONObject packet) throws SQLException {
@@ -30,6 +33,7 @@ public class UserDispatcher {
                 break;
 
             case "login" :
+                login(DBManager.getConnection(), channel, packet);
                 break;
 
             case "logout" :
@@ -43,14 +47,14 @@ public class UserDispatcher {
         }
     }
 
-    public String join(Connection con, JSONObject packet) {
-        String response = "";
+    public void join(Connection con, JSONObject packet) {
+        String response = null;
 
-        return response;
+
     }
 
     /* using sql */
-    public String login(Connection con, Channel channel, JSONObject packet) {
+    public void login(Connection con, Channel channel, JSONObject packet) {
         String response = null;
 
         String user_id = (String) packet.get("user_id");
@@ -79,13 +83,11 @@ public class UserDispatcher {
                         .jobId(job_id)
                         .mapId(map_id)
                         .XY(x, y);
-
-                this.service.loginUser(this.user);
+                response = "login success";
 
                 rs.close();
                 ps.close();
                 con.close();
-                response = "login success";
             } else {
                 // there is no corresponding data
                 response = "no corresponding data";
@@ -95,8 +97,20 @@ public class UserDispatcher {
             response = "DB error";
             e.printStackTrace();
         }
+        finally {
+            channel.writeAndFlush(packetFactory.notify(response).toJSONString());
 
-        return response;
+            /* if login failed */
+            if (user != null ){
+                channel.writeAndFlush(packetFactory.character
+                        (user.getUuid(), user.getName(), user.getLevel(), user.getJobId()).toJSONString());
+
+                this.service.loginUser(this.user);
+
+                channel.writeAndFlush(packetFactory.move
+                        (user.getUuid(), user.getMapId(), user.getX(), user.getY()).toJSONString());
+            }
+        }
     }
 
 

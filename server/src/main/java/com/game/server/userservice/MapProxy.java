@@ -36,10 +36,18 @@ public class MapProxy {
             u.getChannel().write(packet);
         }
 
+        int dest_map_id = Integer.parseInt(String.valueOf(packet.get("dest_map_id")));
         int dx = Integer.parseInt(String.valueOf(packet.get("dx")));
         int dy = Integer.parseInt(String.valueOf(packet.get("dy")));
         user.setX(dx);
         user.setY(dy);
+        if (user.getMapId() == dest_map_id) return;
+        if (dest_map_id == getMap_id()) {
+            this.joinUser(user);
+        }
+        else {
+            this.exitUser(user);
+        }
     }
 
     public void joinUser(UserObject user) {
@@ -57,8 +65,6 @@ public class MapProxy {
     }
     public void exitUser(UserObject user) {
         this.objects.remove(user);
-
-        // UserObject 안지우나 ??
     }
 
     public void sendChat() {

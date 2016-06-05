@@ -7,7 +7,6 @@ import protocol.Packet.JsonPacketFactory;
  * Created by Lee on 2016-06-01.
  */
 public class UserObject {
-    private JsonPacketFactory packetFactory;
     private Channel channel;
     private long uuid;
     private MapProxy map;
@@ -20,7 +19,6 @@ public class UserObject {
 
     public UserObject() {
         this.inventory = new Inventory();
-        this.packetFactory = new JsonPacketFactory();
     }
     public UserObject uuid(long uuid) {
         this.uuid = uuid;
@@ -53,12 +51,10 @@ public class UserObject {
     }
 
 
-    public void initMap(MapProxy map, int x, int y) {
+    public void initMap(MapProxy map) {
         this.map = map;
-        this.x = x;
-        this.y = y;
-
         this.map.joinUser(this);
+
     }
 
 
@@ -106,7 +102,4 @@ public class UserObject {
         return level;
     }
 
-    public JsonPacketFactory getPacketFactory() {
-        return packetFactory;
-    }
 }

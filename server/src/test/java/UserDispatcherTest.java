@@ -2,6 +2,9 @@ import com.game.server.userservice.UserDispatcher;
 import com.game.server.userservice.UserObject;
 import com.game.server.userservice.UserService;
 import io.netty.channel.embedded.EmbeddedChannel;
+import io.netty.handler.codec.base64.Base64Encoder;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import org.dbunit.IDatabaseTester;
 import org.dbunit.JdbcDatabaseTester;
 import org.dbunit.dataset.IDataSet;
@@ -10,6 +13,7 @@ import org.dbunit.operation.DatabaseOperation;
 import org.h2.jdbcx.JdbcDataSource;
 import org.h2.tools.RunScript;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -71,6 +75,23 @@ public class UserDispatcherTest {
 
     /* test start here */
     @Test
+    public void joinTest() {
+        // service and dispatcher
+        UserService userService = new UserService();
+        UserDispatcher userDispatcher = new UserDispatcher(userService);
+        assertNotNull(userService);
+        assertNotNull(userDispatcher);
+
+        // json packet factory
+        JsonPacketFactory packetFactory = new JsonPacketFactory();
+        assertNotNull(packetFactory);
+
+        // json request
+        JSONObject request = packetFactory.join("admin3", "1234", "일지매", 1);
+        assertNotNull(request);
+
+    }
+    @Test
     public void loginTest() {
         // service and dispatcher
         UserService userService = new UserService();
@@ -96,8 +117,7 @@ public class UserDispatcherTest {
         assertEquals("1234", user_pw);
 
         try {
-            String response = userDispatcher.login(getConnection(), testChannel, request);
-            assertEquals("login success", response);
+            userDispatcher.login(getConnection(), testChannel, request);
 
             UserObject testUser = userDispatcher.getUser();
             assertEquals(1, testUser.getUuid());
@@ -107,6 +127,27 @@ public class UserDispatcherTest {
             assertEquals(1, testUser.getMapId());
             assertEquals(100, testUser.getX());
             assertEquals(100, testUser.getY());
+
+            String notifyData = (String) testChannel.readOutbound();
+            JSONObject notifyPacket = (JSONObject) JSONValue.parse(notifyData);
+            assertEquals("notify", notifyPacket.get("type"));
+            assertEquals("login success", notifyPacket.get("content"));
+
+            String characterData = (String) testChannel.readOutbound();
+            JSONObject characterPacket = (JSONObject) JSONValue.parse(characterData);
+            assertEquals("character", characterPacket.get("type"));
+            assertEquals((long)1, characterPacket.get("id"));
+            assertEquals("홍길동", characterPacket.get("name"));
+            assertEquals((long)1, characterPacket.get("job_id"));
+            assertEquals((long)1, characterPacket.get("level"));
+
+            String moveData = (String) testChannel.readOutbound();
+            JSONObject movePacket = (JSONObject) JSONValue.parse(moveData);
+            assertEquals("move", movePacket.get("type"));
+            assertEquals((long)1, movePacket.get("id"));
+            assertEquals((long)1, movePacket.get("dest_map_id"));
+            assertEquals((long)100, movePacket.get("dest_x"));
+            assertEquals((long)100, movePacket.get("dest_y"));
 
         } catch (SQLException e) {
             e.printStackTrace();
