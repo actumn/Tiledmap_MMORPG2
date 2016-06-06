@@ -24,10 +24,11 @@ public class Network {
 
     private Channel channel;
     private EventLoopGroup group;
+    private boolean connected;
 
     private final String host;
     private final int port;
-    public Network(String host, int port) {
+    private Network(String host, int port) {
         this.host = host;
         this.port = port;
     }
@@ -42,6 +43,7 @@ public class Network {
                 .handler(new ClientInitializer());
 
         this.channel = bootstrap.connect(host, port).sync().channel();
+        this.connected = true;
     }
 
 
@@ -55,5 +57,9 @@ public class Network {
 
     public void send(JSONObject object) {
         channel.write(object.toJSONString());
+    }
+
+    public boolean isConnected() {
+        return connected;
     }
 }

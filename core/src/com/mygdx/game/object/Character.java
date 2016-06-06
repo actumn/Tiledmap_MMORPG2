@@ -29,7 +29,7 @@ public class Character extends Entity {
     }
     public Character setName(String name) {
         this.name = name;
-        this.nameWidth = (int)(Font.getFont().getSpaceWidth() * this.name.length() * 2);
+        this.nameWidth = (int)(Font.getInstance().getFont(12).getSpaceWidth() * this.name.length() * 2);
         return this;
     }
     public Character setMap(Map map) {
@@ -153,11 +153,12 @@ public class Character extends Entity {
         this.shapeRenderer.end();
 
         batch.begin();
+        Font font = Font.getInstance();
 
-        Font.getFont().setColor(1.0f, 1.0f, 1.0f, 1.0f);
-        Font.getFont().draw(batch, this.name,
+        font.getFont(12).setColor(1.0f, 1.0f, 1.0f, 1.0f);
+        font.getFont(12).draw(batch, this.name,
                 this.getDrawX() + this.getTextureRegion().getRegionWidth() / 2 - this.nameWidth / 2.0f,
-                this.getDrawY() + this.getTextureRegion().getRegionHeight() + Font.getFont().getCapHeight());
+                this.getDrawY() + this.getTextureRegion().getRegionHeight() + font.getFont(12).getCapHeight());
     }
 
     public void update() {

@@ -3,64 +3,58 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.mygdx.game.listener.CharacterInputListener;
-import com.mygdx.game.map.Map;
-import com.mygdx.game.object.Character;
-import com.mygdx.game.object.Effect;
-import com.mygdx.game.object.Mob;
-import com.mygdx.game.object.RectableEffect;
-import com.mygdx.game.ui.HealthBar;
+import com.mygdx.game.controller.GameController;
+import com.mygdx.game.controller.Loading;
+import com.mygdx.game.controller.LoginController;
+import com.mygdx.game.ui.SystemMessage;
+import network.Network;
 
 /**
  * Created by Lee on 2016-05-18.
  */
 public class Client extends ApplicationAdapter {
-    private Skin skin;
-    private Stage stage;
-    private CharacterInputListener characterInputListener;
+    private static Client instance;
+    private GameController currentController;
+    private GameController preController;
 
-    private Map m;
+    public Client() { Client.instance = this; }
+
+    public GameController getCurrentController() {
+        return instance.currentController;
+    }
+    public static void changeCurrentController(GameController controller) {
+        instance.currentController = controller;
+    }
+
 
     @Override
     public void create() {
-        this.stage = new Stage(new ScreenViewport());
-        this.skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
-
-        this.m = new Map("maps/sample.tmx", skin);
-        // Test code
-        Mob mob;
-
-        Character c = new Character()
-                .setName("admin")
-                .setMap(m)
-                .loadAnimation(0,0);
-        //mob = new Mob().setMap(m).loadAnimation();
-
-        this.characterInputListener = new CharacterInputListener(c);
-        stage.addListener(this.characterInputListener);
-        m.add(c);
-        //m.add(mob);
-        m.setCenterCharacter(c);
-
-        stage.addActor(new HealthBar());
-        Gdx.input.setInputProcessor(stage);
+        this.currentController = new Loading(LoginController.class, "초기화 중입니다.");
+        /*
+        try {
+            Network.getInstance().connect();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        */
     }
 
     @Override
     public void render() {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        characterInputListener.update();
-        this.m.update();
-
-        stage.act(Gdx.graphics.getDeltaTime());
-        stage.draw();
+        if (this.preController != this.currentController) {
+            if (this.preController != null) this.preController.dispose();
+            if (this.currentController != null) this.currentController.create();
+            this.preController = this.currentController;
+        }
+        if (this.currentController != null) this.currentController.render();
+        SystemMessage.getInstance().render();
     }
 
-
+    @Override
+    public void dispose() {
+        if (this.currentController != null) this.currentController.dispose();
+    }
 }
