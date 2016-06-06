@@ -25,9 +25,9 @@ public class UserServiceTest {
     public void loginUserTest() {
         final int mapId = 1;
         final int x = 50, y = 100;
-        EmbeddedChannel someChannel = new EmbeddedChannel();
+        EmbeddedChannel testChannel = new EmbeddedChannel();
         UserObject user = new UserObject()
-                .channel(someChannel)
+                .channel(testChannel)
                 .name("test")
                 .mapId(mapId)
                 .XY(x, y);
@@ -41,5 +41,7 @@ public class UserServiceTest {
 
         userService.loginUser(user);
         assertEquals(user.getMapId(), newMap.getMap_id());
+
+        testChannel.finish();
     }
 }

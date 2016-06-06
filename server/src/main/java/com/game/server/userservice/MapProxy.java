@@ -76,4 +76,8 @@ public class MapProxy {
     }
 
     public boolean isEmpty() { return this.objects.isEmpty(); }
+
+    public boolean containsUser(UserObject user) {
+        return this.objects.contains(user);
+    }
 }

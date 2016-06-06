@@ -42,4 +42,9 @@ public class UserHandler extends SimpleChannelInboundHandler<String> {
     public static JSONObject stringToJson(String s) {
         return (JSONObject) JSONValue.parse(s);
     }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        cause.printStackTrace();
+    }
 }

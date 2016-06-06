@@ -93,4 +93,8 @@ public class UserService {
     }
 
 
+
+    public boolean containsUser(UserObject user) {
+        return this.users.contains(user);
+    }
 }

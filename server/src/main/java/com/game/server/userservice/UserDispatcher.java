@@ -29,7 +29,7 @@ public class UserDispatcher {
 
         switch (type) {
             case "join" :
-                join(DBManager.getConnection(), packet);
+                join(DBManager.getConnection(), channel, packet);
                 break;
 
             case "login" :
@@ -47,13 +47,32 @@ public class UserDispatcher {
         }
     }
 
-    public void join(Connection con, JSONObject packet) {
-        String response = null;
+    public void join(Connection con, Channel channel, JSONObject packet) {
+        String user_id = (String) packet.get("user_id");
+        String user_pw = (String) packet.get("user_pw");
+        String user_name = (String) packet.get("user_name");
+        int job_id = (int)(long) packet.get("job_id");
 
+        try {
+            String sql = "INSERT INTO USERS (USER_ID, USER_PW, USER_NAME, JOB_ID) VALUES(?,?,?,?)";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, user_id);
+            ps.setString(2, user_pw);
+            ps.setString(3, user_name);
+            ps.setInt(4, job_id);
 
+            if(ps.executeUpdate() > 0) {
+                channel.writeAndFlush(packetFactory.notify("join success").toJSONString());
+            }
+            ps.close();
+            con.close();
+        } catch (SQLException e) {
+            // DB Error
+            //e.printStackTrace();
+            channel.writeAndFlush(packetFactory.notify("join fail").toJSONString());
+        }
     }
 
-    /* using sql */
     public void login(Connection con, Channel channel, JSONObject packet) {
         String response = null;
 

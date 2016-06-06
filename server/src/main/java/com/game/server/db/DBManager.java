@@ -15,7 +15,7 @@ public final class DBManager {
 
     static {
         dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
-        dataSource.setUrl("jdbc:mariadb://localhost:3306/mysql");
+        dataSource.setUrl("jdbc:mariadb://localhost:3306/test");
         dataSource.setUsername("root");
         dataSource.setPassword("qwe098");
     }

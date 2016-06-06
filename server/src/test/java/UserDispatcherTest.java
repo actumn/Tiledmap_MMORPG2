@@ -1,3 +1,4 @@
+import com.game.server.db.DBManager;
 import com.game.server.userservice.UserDispatcher;
 import com.game.server.userservice.UserObject;
 import com.game.server.userservice.UserService;
@@ -77,20 +78,60 @@ public class UserDispatcherTest {
     @Test
     public void joinTest() {
         // service and dispatcher
-        UserService userService = new UserService();
-        UserDispatcher userDispatcher = new UserDispatcher(userService);
-        assertNotNull(userService);
+        UserDispatcher userDispatcher = new UserDispatcher(null);
         assertNotNull(userDispatcher);
 
         // json packet factory
         JsonPacketFactory packetFactory = new JsonPacketFactory();
         assertNotNull(packetFactory);
 
+        String user_id = "admin3";
+        String user_pw = "1234";
+        String user_name = "일지매";
+        int job_id = 1;
+
         // json request
-        JSONObject request = packetFactory.join("admin3", "1234", "일지매", 1);
+        JSONObject request = packetFactory.join(user_id, user_pw, user_name, job_id);
         assertNotNull(request);
 
+        // test channel
+        EmbeddedChannel testChannel = new EmbeddedChannel();
+        assertNotNull(testChannel);
+
+        try {
+            userDispatcher.join(getConnection(), testChannel, request);
+            String notifyData = (String) testChannel.readOutbound();
+            JSONObject notifyPacket = (JSONObject) JSONValue.parse(notifyData);
+            assertEquals("notify", notifyPacket.get("type"));
+            assertEquals("join success", notifyPacket.get("content"));
+
+            String sql = "SELECT * FROM USERS WHERE USER_ID=? AND USER_PW=?";
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ps.setString(1, user_id);
+            ps.setString(2, user_pw);
+            ResultSet rs = ps.executeQuery();
+
+            assertTrue(rs.next());
+            assertEquals(user_id, rs.getString("USER_ID"));
+            assertEquals(user_pw, rs.getString("USER_PW"));
+            assertEquals(user_name, rs.getString("USER_NAME"));
+            assertEquals(job_id, rs.getInt("JOB_ID"));
+
+            userDispatcher.join(getConnection(), testChannel, request);
+
+            String failData = (String) testChannel.readOutbound();
+            JSONObject failPacket = (JSONObject) JSONValue.parse(failData);
+            assertEquals("notify", failPacket.get("type"));
+            assertEquals("join fail", failPacket.get("content"));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            fail();
+        }
+
+        testChannel.finish();
     }
+
     @Test
     public void loginTest() {
         // service and dispatcher
@@ -107,7 +148,7 @@ public class UserDispatcherTest {
         JSONObject request = packetFactory.login("admin", "1234");
         assertNotNull(request);
 
-        // Some channel
+        // test channel
         EmbeddedChannel testChannel = new EmbeddedChannel();
         assertNotNull(testChannel);
 
@@ -149,10 +190,17 @@ public class UserDispatcherTest {
             assertEquals((long)100, movePacket.get("dest_x"));
             assertEquals((long)100, movePacket.get("dest_y"));
 
+
+            assertTrue(userService.containsUser(userDispatcher.getUser()));
+            assertNotNull(userService.getMapProxy(1, false));
+            assertTrue(userService.getMapProxy(1, false).containsUser(userDispatcher.getUser()));
+
         } catch (SQLException e) {
             e.printStackTrace();
             fail();
         }
+
+        testChannel.finish();
     }
 
     @Test

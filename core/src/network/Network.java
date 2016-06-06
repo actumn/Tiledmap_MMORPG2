@@ -48,4 +48,12 @@ public class Network {
     public void disconnect() {
         this.group.shutdownGracefully();
     }
+
+    public Channel getChannel() {
+        return channel;
+    }
+
+    public void send(JSONObject object) {
+        channel.write(object.toJSONString());
+    }
 }
