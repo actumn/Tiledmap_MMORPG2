@@ -2,18 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2a052141-7e26-4f53-801b-3ada9c2b7fa8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/core/com/mygdx/game/Client.class" afterPath="$PROJECT_DIR$/out/production/core/com/mygdx/game/Client.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/core/com/mygdx/game/ui/HealthBar.class" afterPath="$PROJECT_DIR$/out/production/core/com/mygdx/game/ui/HealthBar.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/desktop/com/mygdx/game/desktop/DesktopLauncher.class" afterPath="$PROJECT_DIR$/out/production/desktop/com/mygdx/game/desktop/DesktopLauncher.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/JoinController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/assets/img/Titles/GAME_LOGO.png" afterPath="$PROJECT_DIR$/core/assets/img/Titles/GAME_LOGO.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tiledmap_RPG.iws" afterPath="$PROJECT_DIR$/Tiledmap_RPG.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Client.java" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Client.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/Assets.java" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/Assets.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/Loading.java" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/Loading.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/LoginController.java" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/LoginController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/MainContoller.java" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/controller/MainContoller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/ui/Font.java" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/ui/Font.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/ui/HealthBar.java" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/ui/HealthBar.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/desktop/src/com/mygdx/game/desktop/DesktopLauncher.java" afterPath="$PROJECT_DIR$/desktop/src/com/mygdx/game/desktop/DesktopLauncher.java" />
     </list>
     <ignored path="BossRush.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -86,13 +80,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="Loading.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/controller/Loading.java">
+      <file leaf-file-name="LoginController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/controller/LoginController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+              <caret line="41" column="22" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#4467#4468#0" expanded="true" />
+                <element signature="e#4534#4535#0" expanded="true" />
+                <element signature="e#4707#4708#0" expanded="true" />
+                <element signature="e#4761#4762#0" expanded="true" />
+                <element signature="e#5222#5223#0" expanded="true" />
+                <element signature="e#5297#5298#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -102,7 +102,7 @@
         <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/controller/Assets.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="31" column="114" selection-start-line="31" selection-start-column="114" selection-end-line="31" selection-end-column="114" />
+              <caret line="29" column="18" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -110,13 +110,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoginController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/controller/LoginController.java">
+      <file leaf-file-name="JoinController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/controller/JoinController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.24242425">
-              <caret line="99" column="0" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#4725#4726#0" expanded="true" />
+                <element signature="e#4809#4810#0" expanded="true" />
+                <element signature="e#4992#4993#0" expanded="true" />
+                <element signature="e#5058#5059#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Loading.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/controller/Loading.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.6012759">
+              <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#618#619#0" expanded="true" />
+                <element signature="e#669#670#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -134,19 +152,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Font.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/ui/Font.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="29" column="58" selection-start-line="29" selection-start-column="58" selection-end-line="29" selection-end-column="58" />
-              <folding>
-                <element signature="e#1341#1342#0" expanded="true" />
-                <element signature="e#1374#1375#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MainContoller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/controller/MainContoller.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -157,24 +162,42 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HealthBar.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/ui/HealthBar.java">
+      <file leaf-file-name="Quadtree.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/manager/Quadtree.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="13" column="51" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
+              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DesktopLauncher.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/desktop/src/com/mygdx/game/desktop/DesktopLauncher.java">
+      <file leaf-file-name="ObjectManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/manager/ObjectManager.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <caret line="82" column="75" selection-start-line="82" selection-start-column="75" selection-end-line="82" selection-end-column="75" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/controller/GameController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CharacterInputListener.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/listener/CharacterInputListener.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="25" column="27" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -201,7 +224,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/server/src/main/java/com/game/server/db/dbunit/SeedDataLoader.java" />
         <option value="$PROJECT_DIR$/server/src/test/java/dbunit/SampleTest23.java" />
         <option value="$PROJECT_DIR$/server/src/test/java/dbunit/SimpleTest.java" />
         <option value="$PROJECT_DIR$/server/src/test/java/dbunit/DBUnitTest.java" />
@@ -246,11 +268,12 @@
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/manager/ObjectManager.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/ui/HealthBar.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/controller/MainContoller.java" />
-        <option value="$PROJECT_DIR$/desktop/src/com/mygdx/game/desktop/DesktopLauncher.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/controller/GameController.java" />
-        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/controller/Loading.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/ui/Font.java" />
+        <option value="$PROJECT_DIR$/desktop/src/com/mygdx/game/desktop/DesktopLauncher.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/controller/Assets.java" />
+        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/controller/Loading.java" />
+        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/controller/JoinController.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/controller/LoginController.java" />
       </list>
     </option>
@@ -282,7 +305,8 @@
     <option name="LAST_EDITED_TAB_NAME" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-2" />
+    <option name="x" value="-17" />
+    <option name="y" value="10" />
     <option name="width" value="1324" />
     <option name="height" value="1033" />
   </component>
@@ -1636,7 +1660,7 @@
       <workItem from="1464584726327" duration="2819000" />
       <workItem from="1464587636187" duration="250000" />
       <workItem from="1464587901195" duration="87042000" />
-      <workItem from="1465011837862" duration="76861000" />
+      <workItem from="1465011837862" duration="80321000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1464181649040</created>
@@ -1716,7 +1740,13 @@
       <option name="project" value="LOCAL" />
       <updated>1465218494326</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="client Login Controller UI">
+      <created>1465287235690</created>
+      <option name="number" value="00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1465287235690</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1752,7 +1782,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="245207000" />
+    <option name="totallyTimeSpent" value="248667000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1764,7 +1794,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-2" y="0" width="1324" height="1033" extended-state="0" />
+    <frame x="-17" y="10" width="1324" height="1033" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1813,7 +1843,8 @@
     <MESSAGE value="server join and login" />
     <MESSAGE value="server join" />
     <MESSAGE value="client Loading etc" />
-    <option name="LAST_COMMIT_MESSAGE" value="client Loading etc" />
+    <MESSAGE value="client Login Controller UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="client Login Controller UI" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1827,22 +1858,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/server/src/test/resources/sample_schema.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.6764705">
-          <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/test/resources/schema.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/src/test/resources/dataset.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.9411764">
@@ -2028,14 +2043,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/listener/CharacterInputListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="27" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/XmlDataLoader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2128,14 +2135,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/controller/GameController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Client.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2149,50 +2148,6 @@
         <state vertical-scroll-proportion="0.58714044">
           <caret line="142" column="17" selection-start-line="142" selection-start-column="17" selection-end-line="142" selection-end-column="17" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/manager/ObjectManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27910686">
-          <caret line="28" column="32" selection-start-line="28" selection-start-column="32" selection-end-line="28" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/ui/HealthBar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="51" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/desktop/src/com/mygdx/game/desktop/DesktopLauncher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/controller/MainContoller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="44" selection-start-line="39" selection-start-column="44" selection-end-line="39" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/controller/Loading.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2214,7 +2169,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="39" column="36" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2224,8 +2179,26 @@
         <state vertical-scroll-proportion="0.16920474">
           <caret line="37" column="39" selection-start-line="37" selection-start-column="39" selection-end-line="37" selection-end-column="39" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/desktop/src/com/mygdx/game/desktop/DesktopLauncher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="35" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/ui/HealthBar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="51" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2234,8 +2207,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="29" column="58" selection-start-line="29" selection-start-column="58" selection-end-line="29" selection-end-column="58" />
           <folding>
-            <element signature="e#1341#1342#0" expanded="true" />
-            <element signature="e#1374#1375#0" expanded="true" />
+            <element signature="e#1341#1342#0" expanded="false" />
+            <element signature="e#1374#1375#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2250,22 +2223,94 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/manager/Quadtree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/listener/CharacterInputListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="27" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/manager/ObjectManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="82" column="75" selection-start-line="82" selection-start-column="75" selection-end-line="82" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/controller/GameController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/controller/Assets.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="114" selection-start-line="31" selection-start-column="114" selection-end-line="31" selection-end-column="114" />
+          <caret line="29" column="18" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/controller/LoginController.java">
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/controller/MainContoller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24242425">
-          <caret line="99" column="0" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="39" column="44" selection-start-line="39" selection-start-column="44" selection-end-line="39" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/controller/JoinController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#4725#4726#0" expanded="true" />
+            <element signature="e#4809#4810#0" expanded="true" />
+            <element signature="e#4992#4993#0" expanded="true" />
+            <element signature="e#5058#5059#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/controller/LoginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="41" column="22" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4467#4468#0" expanded="true" />
+            <element signature="e#4534#4535#0" expanded="true" />
+            <element signature="e#4707#4708#0" expanded="true" />
+            <element signature="e#4761#4762#0" expanded="true" />
+            <element signature="e#5222#5223#0" expanded="true" />
+            <element signature="e#5297#5298#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/controller/Loading.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6012759">
+          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#618#619#0" expanded="true" />
+            <element signature="e#669#670#0" expanded="true" />
           </folding>
         </state>
       </provider>

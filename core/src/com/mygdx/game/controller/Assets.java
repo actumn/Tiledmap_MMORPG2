@@ -13,7 +13,7 @@ public class Assets {
 
 
     private Texture titleBackground;
-    private Texture titleGameLogo;
+    //private Texture titleGameLogo;
 
     public static Assets getInstance() {
         if (instance == null) instance = new Assets();
@@ -22,14 +22,14 @@ public class Assets {
 
     private Assets() {
         titleBackground = new Texture(Gdx.files.internal("img/Titles/TITLE.png"));
-        titleGameLogo = new Texture(Gdx.files.internal("img/Titles/GAME_LOGO.png"));
+        //titleGameLogo = new Texture(Gdx.files.internal("img/Titles/GAME_LOGO.png"));
     }
 
     public void drawTitleScreen(SpriteBatch batch, float a) {
         batch.begin();
         batch.setColor(1.0f, 1.0f, 1.0f, a);
         batch.draw(titleBackground, 0, 0);
-        batch.draw(instance.titleGameLogo, Gdx.graphics.getWidth()/2 - instance.titleGameLogo.getWidth()/2, 550f);
+        //batch.draw(instance.titleGameLogo, Gdx.graphics.getWidth()/2 - instance.titleGameLogo.getWidth()/2, 550f);
         batch.end();
     }
 }

@@ -4,9 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mygdx.game.Client;
 import com.mygdx.game.ui.Font;
 
 /**
@@ -119,6 +122,35 @@ public class LoginController extends GameController {
 
             this.add(joinButton).fillX().fillY().colspan(2).row();
             this.add(findPasswordButton).fillX().fillY().colspan(2).row();
+
+
+            loginButton.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    System.out.println("login");
+                }
+            });
+
+            quitButton.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    Gdx.app.exit();
+                }
+            });
+
+            joinButton.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    Client.changeCurrentController(new Loading(new JoinController()));
+                }
+            });
+
+            findPasswordButton.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    System.out.println("find password");
+                }
+            });
         }
         private TextButton.TextButtonStyle getTextButtonStyle(Skin skin, BitmapFont font) {
             return new TextButton.TextButtonStyle(skin.getDrawable("default-round"), skin.getDrawable("default-round-down"), skin.getDrawable("default-round"), font);

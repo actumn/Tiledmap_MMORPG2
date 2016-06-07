@@ -19,6 +19,10 @@ public class Loading extends GameController {
         this.nextController = nextController;
     }
 
+    public Loading(GameController nextController) {
+        this(nextController, "잠시만 기다려주세요.");
+    }
+
     @Override
     public void create() {
         this.batch = new SpriteBatch();
