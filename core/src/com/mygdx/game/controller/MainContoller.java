@@ -48,6 +48,7 @@ public class MainContoller extends GameController {
 
     @Override
     public void render() {
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         characterInputListener.update();
         this.m.update();
 

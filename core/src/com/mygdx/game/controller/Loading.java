@@ -1,6 +1,9 @@
 package com.mygdx.game.controller;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Client;
 import com.mygdx.game.ui.SystemMessage;
 
 /**
@@ -11,26 +14,23 @@ public class Loading extends GameController {
     private GameController nextController;
     private String message;
 
-    public Loading(Class nextControllerClass, String message) {
-        try {
-            this.message = message;
-            this.nextController = (GameController) nextControllerClass.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+    public Loading(GameController nextController, String message) {
+        this.message = message;
+        this.nextController = nextController;
     }
 
     @Override
     public void create() {
         this.batch = new SpriteBatch();
         SystemMessage.getInstance().show(message, 2000, 16, 1.0f, 1.0f, 1.0f, 1.0f);
+
     }
 
     @Override
     public void render() {
-        Assets.getInstance().drawTitleScreen(batch);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Assets.getInstance().drawTitleScreen(batch, 1.0f);
 
+        Client.changeCurrentController(nextController);
     }
 }

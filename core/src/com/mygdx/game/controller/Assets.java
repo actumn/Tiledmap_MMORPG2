@@ -25,8 +25,9 @@ public class Assets {
         titleGameLogo = new Texture(Gdx.files.internal("img/Titles/GAME_LOGO.png"));
     }
 
-    public void drawTitleScreen(SpriteBatch batch) {
+    public void drawTitleScreen(SpriteBatch batch, float a) {
         batch.begin();
+        batch.setColor(1.0f, 1.0f, 1.0f, a);
         batch.draw(titleBackground, 0, 0);
         batch.draw(instance.titleGameLogo, Gdx.graphics.getWidth()/2 - instance.titleGameLogo.getWidth()/2, 550f);
         batch.end();

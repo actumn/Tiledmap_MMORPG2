@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
  */
 public class HealthBar extends Actor {
     private NinePatchDrawable loadingBarBackground;
-
     private NinePatchDrawable loadingBar;
 
     public HealthBar() {
