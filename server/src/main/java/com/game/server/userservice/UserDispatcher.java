@@ -122,14 +122,12 @@ public class UserDispatcher {
             /* if login failed */
             if (user != null ){
                 channel.writeAndFlush(packetFactory.character
-                        (user.getUuid(), user.getName(), user.getLevel(), user.getJobId()).toJSONString()
-                +"\r\n");
+                        (user.getUuid(), user.getName(), user.getLevel(), user.getJobId()).toJSONString() +"\r\n");
 
                 this.service.loginUser(this.user);
 
                 channel.writeAndFlush(packetFactory.move
-                        (user.getUuid(), user.getMapId(), user.getX(), user.getY()).toJSONString()
-                +"\r\n");
+                        (user.getUuid(), user.getMapId(), user.getX(), user.getY()).toJSONString() +"\r\n");
             }
         }
     }

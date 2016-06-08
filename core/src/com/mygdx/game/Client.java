@@ -34,6 +34,7 @@ public class Client extends ApplicationAdapter {
             Network.getInstance().connect();
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Gdx.app.exit();
         }
     }
 

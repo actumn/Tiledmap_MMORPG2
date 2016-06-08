@@ -11,7 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Client;
 import com.mygdx.game.ui.Font;
+import com.mygdx.game.ui.SystemMessage;
 import network.Network;
+import org.json.simple.JSONObject;
+import protocol.Packet.PacketFactory;
 
 /**
  * Created by Lee on 2016-06-06.
@@ -53,6 +56,29 @@ public class LoginController extends GameController {
         skin.dispose();
         Font.getInstance().reloadFont();
     }
+
+    public String login(String user_id, String user_pw) {
+        if (user_id.equals("") || user_pw.equals(""))
+            return "빈칸을 채워주세요";
+
+        PacketFactory packetFactory = Network.getInstance().getPacketFactory();
+        Network.getInstance().send(packetFactory.login(user_id, user_pw));
+
+        long expiryTime = System.currentTimeMillis() + 4000;
+        while(true) {
+            if (expiryTime - System.currentTimeMillis() < 0) {
+                return "네트워크 오류. 다시 시도해 주세요";
+            }
+            JSONObject recvPacket = Network.getInstance().pollPacket();
+
+            if (recvPacket == null) continue;
+            if (!recvPacket.get("type").equals("notify")) continue;
+            String packetMessage = (String) recvPacket.get("content");
+            return packetMessage;
+        }
+
+    }
+
 
     private class LoginTable extends Table {
         /* ui properties */
@@ -128,7 +154,11 @@ public class LoginController extends GameController {
             loginButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    System.out.println("login");
+                    String response = login(idField.getText(), pwField.getText());
+                    if (response.equals("로그인 성공")) Client.changeCurrentController(
+                            new Loading(new MainContoller())
+                    );
+                    else SystemMessage.getInstance().show(response, 2000, 16, 1.0f, 1.0f, 1.0f, 1.0f);
                 }
             });
 
