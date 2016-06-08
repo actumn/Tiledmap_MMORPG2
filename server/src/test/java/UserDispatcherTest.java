@@ -103,7 +103,7 @@ public class UserDispatcherTest {
             String notifyData = (String) testChannel.readOutbound();
             JSONObject notifyPacket = (JSONObject) JSONValue.parse(notifyData);
             assertEquals("notify", notifyPacket.get("type"));
-            assertEquals("join success", notifyPacket.get("content"));
+            assertEquals("회원가입 성공", notifyPacket.get("content"));
 
             String sql = "SELECT * FROM USERS WHERE USER_ID=? AND USER_PW=?";
             PreparedStatement ps = getConnection().prepareStatement(sql);
@@ -122,7 +122,7 @@ public class UserDispatcherTest {
             String failData = (String) testChannel.readOutbound();
             JSONObject failPacket = (JSONObject) JSONValue.parse(failData);
             assertEquals("notify", failPacket.get("type"));
-            assertEquals("join fail", failPacket.get("content"));
+            assertEquals("회원가입 실패", failPacket.get("content"));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -135,7 +135,7 @@ public class UserDispatcherTest {
     @Test
     public void loginTest() {
         // service and dispatcher
-        UserService userService = new UserService();
+        UserService userService = new UserService(6112);
         UserDispatcher userDispatcher = new UserDispatcher(userService);
         assertNotNull(userService);
         assertNotNull(userDispatcher);
@@ -172,7 +172,7 @@ public class UserDispatcherTest {
             String notifyData = (String) testChannel.readOutbound();
             JSONObject notifyPacket = (JSONObject) JSONValue.parse(notifyData);
             assertEquals("notify", notifyPacket.get("type"));
-            assertEquals("login success", notifyPacket.get("content"));
+            assertEquals("로그인 성공", notifyPacket.get("content"));
 
             String characterData = (String) testChannel.readOutbound();
             JSONObject characterPacket = (JSONObject) JSONValue.parse(characterData);

@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Client;
 import com.mygdx.game.ui.Font;
+import network.Network;
 
 /**
  * Created by Lee on 2016-06-06.
@@ -81,10 +82,10 @@ public class LoginController extends GameController {
 
             idField = new TextField("", skin);
             idField.setStyle(getTextFieldStyle(skin, contentFont));
-            idField.setMessageText("enter your id");
+            idField.setMessageText("아이디");
             pwField = new TextField("", skin);
             pwField.setStyle(getTextFieldStyle(skin, contentFont));
-            pwField.setMessageText("enter your pw");
+            pwField.setMessageText("비밀번호");
             pwField.setPasswordMode(true);
             pwField.setPasswordCharacter('*');
 
@@ -104,7 +105,7 @@ public class LoginController extends GameController {
             loginButton = new TextButton("로그인", skin);
             loginButton.setStyle(getTextButtonStyle(skin, contentFont));
 
-            quitButton = new TextButton("Quit", skin);
+            quitButton = new TextButton("종료", skin);
             quitButton.setStyle(getTextButtonStyle(skin, contentFont));
 
             Table temp = new Table();
@@ -134,6 +135,7 @@ public class LoginController extends GameController {
             quitButton.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    Network.getInstance().disconnect();
                     Gdx.app.exit();
                 }
             });

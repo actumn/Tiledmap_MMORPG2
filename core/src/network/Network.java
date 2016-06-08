@@ -35,7 +35,7 @@ public class Network {
 
 
     public void connect() throws InterruptedException {
-        this.group = new NioEventLoopGroup();
+        this.group = new NioEventLoopGroup(1);
 
         Bootstrap bootstrap = new Bootstrap()
                 .group(group)
@@ -44,6 +44,13 @@ public class Network {
 
         this.channel = bootstrap.connect(host, port).sync().channel();
         this.connected = true;
+    }
+
+    public void addPacket(JSONObject packet) {
+        recvQueue.add(packet);
+    }
+    public JSONObject pollPacket() {
+        return recvQueue.poll();
     }
 
 
@@ -56,10 +63,18 @@ public class Network {
     }
 
     public void send(JSONObject object) {
-        channel.write(object.toJSONString());
+        this.channel.writeAndFlush(object.toJSONString()+"\r\n");
     }
 
     public boolean isConnected() {
         return connected;
+    }
+
+    public PacketFactory getPacketFactory() {
+        return packetFactory;
+    }
+
+    public void setChannel(Channel channel) {
+        this.channel = channel;
     }
 }

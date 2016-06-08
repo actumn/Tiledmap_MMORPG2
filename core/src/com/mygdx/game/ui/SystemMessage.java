@@ -14,7 +14,7 @@ public class SystemMessage {
     private static SystemMessage instance;
     public static SystemMessage getInstance() {
         if (instance == null) instance = new SystemMessage();
-        return SystemMessage.instance;
+        return instance;
     }
 
     private OrthographicCamera camera;
@@ -27,13 +27,12 @@ public class SystemMessage {
     private float g;
     private float b;
     private float a;
-    private SystemMessage() {
+    public SystemMessage() {
         this.shapeRenderer = new ShapeRenderer();
         this.spriteBatch = new SpriteBatch();
         this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.camera.position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0.0f);
         this.camera.update();
-        message = "aaa";
     }
 
     public void show(String message, int time, int size, float r, float g, float b, float a) {

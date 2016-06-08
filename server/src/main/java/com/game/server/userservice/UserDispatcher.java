@@ -62,14 +62,14 @@ public class UserDispatcher {
             ps.setInt(4, job_id);
 
             if(ps.executeUpdate() > 0) {
-                channel.writeAndFlush(packetFactory.notify("join success").toJSONString());
+                channel.writeAndFlush(packetFactory.notify("회원가입 성공").toJSONString()+"\r\n");
             }
             ps.close();
             con.close();
         } catch (SQLException e) {
             // DB Error
             //e.printStackTrace();
-            channel.writeAndFlush(packetFactory.notify("join fail").toJSONString());
+            channel.writeAndFlush(packetFactory.notify("회원가입 실패. 중복된 아이디 또는 닉네임").toJSONString()+"\r\n");
         }
     }
 
@@ -102,14 +102,14 @@ public class UserDispatcher {
                         .jobId(job_id)
                         .mapId(map_id)
                         .XY(x, y);
-                response = "login success";
+                response = "로그인 성공";
 
                 rs.close();
                 ps.close();
                 con.close();
             } else {
                 // there is no corresponding data
-                response = "no corresponding data";
+                response = "일치하는 데이터가 없습니다";
             }
         } catch (SQLException e) {
             // there is DB error
@@ -117,17 +117,19 @@ public class UserDispatcher {
             e.printStackTrace();
         }
         finally {
-            channel.writeAndFlush(packetFactory.notify(response).toJSONString());
+            channel.writeAndFlush(packetFactory.notify(response).toJSONString()+"\r\n");
 
             /* if login failed */
             if (user != null ){
                 channel.writeAndFlush(packetFactory.character
-                        (user.getUuid(), user.getName(), user.getLevel(), user.getJobId()).toJSONString());
+                        (user.getUuid(), user.getName(), user.getLevel(), user.getJobId()).toJSONString()
+                +"\r\n");
 
                 this.service.loginUser(this.user);
 
                 channel.writeAndFlush(packetFactory.move
-                        (user.getUuid(), user.getMapId(), user.getX(), user.getY()).toJSONString());
+                        (user.getUuid(), user.getMapId(), user.getX(), user.getY()).toJSONString()
+                +"\r\n");
             }
         }
     }

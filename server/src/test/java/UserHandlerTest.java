@@ -17,7 +17,7 @@ public class UserHandlerTest {
     @Test
     public void channelResponseTest() {
         /* TEST Channel */
-        UserService testUserService = new UserService();
+        UserService testUserService = new UserService(6112);
         EmbeddedChannel testChannel = new EmbeddedChannel(new UserHandler(testUserService));
 
         /* JSON Packet Factory */
@@ -29,7 +29,7 @@ public class UserHandlerTest {
         String joinResData = (String) testChannel.readOutbound();
         JSONObject joinRes = (JSONObject) JSONValue.parse(joinResData);
         assertNotNull(joinRes);
-        assertEquals("{type\":\"notify\",\"content\":\"join fail\"}", joinRes.toJSONString());
+        assertEquals("{type\":\"notify\",\"content\":\"회원가입 실패\"}", joinRes.toJSONString());
 
 
         JSONObject loginReq = packetFactory.login("admin", "1234");
@@ -38,7 +38,7 @@ public class UserHandlerTest {
         String loginResData = (String) testChannel.readOutbound();
         JSONObject loginRes = (JSONObject) JSONValue.parse(loginResData);
         assertNotNull(loginRes);
-        assertEquals("{type\":\"notify\",\"content\":\"join fail\"}", joinRes.toJSONString());
+        assertEquals("{type\":\"notify\",\"content\":\"회원가입 실패\"}", joinRes.toJSONString());
 
         testChannel.finish();
     }

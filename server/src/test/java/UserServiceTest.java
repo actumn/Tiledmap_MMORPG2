@@ -14,7 +14,7 @@ public class UserServiceTest {
     public void getMapProxyTest() {
         final int mapId = 1;
 
-        UserService userService = new UserService();
+        UserService userService = new UserService(6112);
 
         MapProxy newMap = userService.getMapProxy(mapId, true);
         assertNotNull(newMap);
@@ -33,7 +33,7 @@ public class UserServiceTest {
                 .XY(x, y);
         assertNotNull(user);
 
-        UserService userService = new UserService();
+        UserService userService = new UserService(6112);
 
         MapProxy newMap = userService.getMapProxy(mapId, true);
         assertNotNull(newMap);

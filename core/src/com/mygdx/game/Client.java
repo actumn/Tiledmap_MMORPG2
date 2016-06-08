@@ -30,13 +30,11 @@ public class Client extends ApplicationAdapter {
     @Override
     public void create() {
         this.currentController = new Loading(new LoginController(), "초기화 중입니다.");
-        /*
         try {
             Network.getInstance().connect();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        */
     }
 
     @Override
