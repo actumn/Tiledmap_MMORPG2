@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.manager.ObjectManager;
+import com.mygdx.game.scene.Assets;
 
 /**
  * Created by Lee on 2016-05-20.
@@ -23,7 +24,7 @@ public class Effect implements DrawObject {
 
     final int Horizontal_Count = 5;
     final int Vertical_Count = 6;
-    final float Duration = 4.0f;
+    final float Duration = 2.0f;
 
     public Effect(String effectName) {
         this.effectName = effectName;
@@ -33,7 +34,7 @@ public class Effect implements DrawObject {
 
 
         // load texture
-        Texture walkSheet = new Texture(Gdx.files.internal("effects/heal.png"));
+        Texture walkSheet = Assets.getInstance().getSheet("skill-blue_crystal");
 
         // split texture and load sprites
         TextureRegion[][] tmp = TextureRegion.split(

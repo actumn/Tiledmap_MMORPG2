@@ -27,13 +27,13 @@ public class XmlDataLoader {
     private FileHandle spritesHandle = new FileHandle("data/xml/sprites.xml");
 
 
-    public Map loadMap(int id) throws IOException {
+    public Map loadMap(int mapId) throws IOException {
         XmlReader.Element maps = reader.parse(mapHandle);
         Array<XmlReader.Element> mapArray = maps.getChildrenByName("map");
         Map map = null;
 
         for (XmlReader.Element mapData: mapArray) {
-            if (Integer.parseInt(mapData.getAttribute("id")) != id) continue;
+            if (Integer.parseInt(mapData.getAttribute("id")) != mapId) continue;
 
             String mapName = mapData.getAttribute("name");
             String mapFileName = mapData.getAttribute("filename");
@@ -78,15 +78,51 @@ public class XmlDataLoader {
 
         NPC npc = null;
         for (XmlReader.Element npcData: npcArray) {
-            npc = new NPC();
+            if (Integer.parseInt(npcData.getAttribute("id")) != npcId) continue;
+
+            String name = npcData.getChildByName("name").getText();
+            int team = Integer.parseInt(npcData.getChildByName("team").getText());
+            int hp = Integer.parseInt(npcData.getChildByName("hp").getText());
+            int mp = Integer.parseInt(npcData.getChildByName("mp").getText());
+            int spritesId = Integer.parseInt(npcData.getChildByName("sprites").getText());
+            int vision = Integer.parseInt(npcData.getChildByName("vision").getText());
+            int level = Integer.parseInt(npcData.getChildByName("level").getText());
+            int dropExp = Integer.parseInt(npcData.getChildByName("drop_exp").getText());
+
         }
         return npc;
     }
+    /*
+    <npc id='1'>
+        <name>behemoth</name>
+        <team>1</team>
+        <hp>20</hp>
+        <mp>0</mp>
+        <sprites>1</sprites>
+        <tps>1500</tps>
+        <vision>5</vision>
+        <level>1</level>
+        <drop_exp>4</drop_exp>
+        <drop_gold>10</drop_gold>
+        <regen>10000</regen>
+        <atk>8</atk>
+        <def>0</def>
+        <hit>100</hit>
+        <avo>0</avo>
+        <drop_items>
+
+        </drop_items>
+    </npc>
+     */
 
     public Character loadCharacter() {
         return null;
     }
     public EntityAnimation loadCharacterAnimation(Entity entity, int id) throws IOException {
+
+        return null;
+    }
+    public EntityAnimation loadNPCAnimation() {
 
         return null;
     }

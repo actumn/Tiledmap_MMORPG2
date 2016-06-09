@@ -1,8 +1,8 @@
 <npcs>
     <npc id='1'>
-        <name>behemoth</name>
+        <name>baby dragon</name>
         <team>1</team>
-        <hp>20</hp>
+        <hp>100</hp>
         <mp>0</mp>
         <sprites>1</sprites>
         <tps>1500</tps>
@@ -19,6 +19,7 @@
 
         </drop_items>
     </npc>
+
     <npc id='2'>
         <name>GM</name>
         <team>0</team>

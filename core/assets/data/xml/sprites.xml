@@ -1,28 +1,23 @@
 <sprites>
-    <characters>
-        <Character id="1">
+    <character>
+        <character id="1">
             <walk key="character-walk" count="3"/>
             <attack key="character-attack" count="3"/>
-        </Character>
-    </characters>
+        </character>
+    </character>
+    <npcs>
+        <npc id="1" key="npc-npcs" iIndex="0" jIndex="0"/>
+    </npcs>
     <effects>
-        <effect id="1" name="블루 크리스탈" key="blue_crystal">
+        <effect id="1" key="blue_crystal">
             <horizon>5</horizon>
             <vertical>7</vertical>
             <duration>1</duration>
         </effect>
-        <effect id="2" name="힐" key="heal">
+        <effect id="2" key="heal">
             <horizon>5</horizon>
             <vertical>6</vertical>
             <duration>4</duration>
         </effect>
     </effects>
-    <npcs>
-        <npc id="1">
-            <move filename="">
-                <count>3</count>
-                <direction>4</direction>
-            </move>
-        </npc>
-    </npcs>
 </sprites>

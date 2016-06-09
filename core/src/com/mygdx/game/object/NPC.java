@@ -11,12 +11,13 @@ import com.mygdx.game.ui.Font;
 public class NPC extends Entity {
 
     /* drop data */
-    protected int drop_exp;
-    protected int drop_gold;
+    protected int dropExp;
+    protected int dropGold;
 
     /* stat properties */
     protected int atk;
     protected int def;
+    protected int vision;
 
     public NPC xy(int x, int y) {
         this.x = x;
@@ -33,6 +34,17 @@ public class NPC extends Entity {
         this.team = team;
         return this;
     }
+    public NPC dropExpGold(int dropExp, int dropGold) {
+        this.dropExp = dropExp;
+        this.dropGold = dropGold;
+        return this;
+    }
+    public NPC atkDef(int atk, int def) {
+        this.atk = atk;
+        this.def = def;
+        return this;
+    }
+
 
 
     public NPC direction(int direction) {
