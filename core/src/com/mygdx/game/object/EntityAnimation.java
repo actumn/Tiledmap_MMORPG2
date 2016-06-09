@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.game.scene.Assets;
 
 /**
  * Created by Lee on 2016-05-30.
@@ -34,8 +35,8 @@ public class EntityAnimation {
         final int verticalCharactersCount = 1;
 
         // load texture
-        Texture walkSheet = CharacterTextureLoader.instance.walkSheet;
-        Texture attackSheet = CharacterTextureLoader.instance.attackSheet;
+        Texture walkSheet = Assets.getInstance().getSheet("character-walk");
+        Texture attackSheet = Assets.getInstance().getSheet("character-attack");
 
         TextureRegion[] frames = new TextureRegion[walkAnimationsCount * directionsCount
                 + attackAnimationsCount * directionsCount];
@@ -101,15 +102,4 @@ public class EntityAnimation {
         );
     }
 
-
-    private static class CharacterTextureLoader {
-        private static CharacterTextureLoader instance = new CharacterTextureLoader();
-        private Texture walkSheet;
-        private Texture attackSheet;
-
-        private CharacterTextureLoader() {
-            this.walkSheet = new Texture(Gdx.files.internal("characters/character-move.png"));
-            this.attackSheet = new Texture(Gdx.files.internal("characters/character-attack.png"));
-        }
-    }
 }

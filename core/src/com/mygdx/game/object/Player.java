@@ -1,5 +1,6 @@
 package com.mygdx.game.object;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -10,8 +11,7 @@ import com.mygdx.game.ui.Font;
 /**
  * Created by Lee on 2016-05-19.
  */
-public class Character extends Entity {
-    private int nameWidth;
+public class Player extends Entity {
     private Map map;
     public final int speedX = 5;
     public final int speedY = 5;
@@ -19,7 +19,7 @@ public class Character extends Entity {
 
     private long skillCoolDown = 0;
 
-    public Character() {
+    public Player() {
         this.x = 100;
         this.y = 100;
         hp = maxHp = 100;
@@ -27,26 +27,30 @@ public class Character extends Entity {
 
         team = 0;
     }
-    public Character setName(String name) {
+
+    public Player setName(String name) {
+        this.nameColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        this.nameSize = 14;
         this.name = name;
         this.nameWidth = (int)(Font.getInstance().getFont(12).getSpaceWidth() * this.name.length() * 2);
         return this;
     }
-    public Character setMap(Map map) {
+
+    public Player setMap(Map map) {
         this.map = map;
         return this;
     }
-    public Character loadAnimation() {
+    public Player loadAnimation() {
         return loadAnimation(0, 0);
     }
-    public Character loadAnimation(int index) {
+    public Player loadAnimation(int index) {
         final int horizontalCharactersCount = 4;
         int iIndex = index / horizontalCharactersCount;
         int jIndex = index % horizontalCharactersCount;
 
         return loadAnimation(iIndex, jIndex);
     }
-    public Character loadAnimation(int iIndex, int jIndex) {
+    public Player loadAnimation(int iIndex, int jIndex) {
         entityAnimation = new EntityAnimation(this)
                 .loadAnimation();
 
@@ -153,12 +157,12 @@ public class Character extends Entity {
         this.shapeRenderer.end();
 
         batch.begin();
-        Font font = Font.getInstance();
 
-        font.getFont(12).setColor(1.0f, 1.0f, 1.0f, 1.0f);
-        font.getFont(12).draw(batch, this.name,
+        Font.getInstance().getFont(this.nameSize).setColor(nameColor);
+        Font.getInstance().getFont(this.nameSize).draw(batch, this.name,
                 this.getDrawX() + this.getTextureRegion().getRegionWidth() / 2 - this.nameWidth / 2.0f,
-                this.getDrawY() + this.getTextureRegion().getRegionHeight() + font.getFont(12).getCapHeight());
+                this.getDrawY() + this.getTextureRegion().getRegionHeight() + Font.getInstance().getFont(this.nameSize).getCapHeight());
+
     }
 
     public void update() {

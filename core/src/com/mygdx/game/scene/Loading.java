@@ -1,4 +1,4 @@
-package com.mygdx.game.controller;
+package com.mygdx.game.scene;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -9,17 +9,17 @@ import com.mygdx.game.ui.SystemMessage;
 /**
  * Created by Lee on 2016-06-06.
  */
-public class Loading extends GameController {
+public class Loading extends GameScene {
     private SpriteBatch batch;
-    private GameController nextController;
+    private GameScene nextController;
     private String message;
 
-    public Loading(GameController nextController, String message) {
+    public Loading(GameScene nextController, String message) {
         this.message = message;
         this.nextController = nextController;
     }
 
-    public Loading(GameController nextController) {
+    public Loading(GameScene nextController) {
         this(nextController, "잠시만 기다려주세요.");
     }
 

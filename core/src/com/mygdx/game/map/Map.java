@@ -4,11 +4,12 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.manager.ObjectManager;
-import com.mygdx.game.object.Character;
+import com.mygdx.game.object.Player;
 import com.mygdx.game.object.Effect;
 import com.mygdx.game.object.Entity;
+
+import java.util.HashMap;
 
 /**
  * Created by Lee on 2016-05-20.
@@ -19,15 +20,15 @@ public class Map {
 
     private String mapName;
     private TiledMap tiledMap;
-    private Skin skin;
+    private java.util.Map<MapMovePoint, MapMoveDestination> moves;
 
-    public Map(String mapName, Skin skin) {
+
+    public Map(String mapName, String mapFileName) {
         this.mapName = mapName;
-        this.skin = skin;
         this.objectManager = new ObjectManager();
 
 
-        this.tiledMap = new TmxMapLoader().load(mapName);
+        this.tiledMap = new TmxMapLoader().load(mapFileName);
         int layer_count = 0;
         for (MapLayer layer : tiledMap.getLayers()) {
             if (layer instanceof TiledMapTileLayer) {
@@ -42,18 +43,19 @@ public class Map {
             }
         }
 
-        objectManager.setMapRectangle(0,0, this.getMapWidth(), this.getMapHeight());
-    }
+        this.moves = new HashMap<>();
 
-    public Map setMapName(String mapName) {
-        this.mapName = mapName;
-        return this;
+        objectManager.setMapRectangle(0,0, this.getMapWidth(), this.getMapHeight());
     }
 
     public void update() {
         objectManager.update();
 
         objectManager.draw();
+    }
+
+    public void addMovePoint(MapMovePoint point, MapMoveDestination destination) {
+        this.moves.put(point, destination);
     }
 
     public void add(Entity entity) {
@@ -89,14 +91,30 @@ public class Map {
         return false;
     }
 
+    public String getMapName() {
+        return mapName;
+    }
+
     public int getMapWidth() {
         return (Integer) this.tiledMap.getProperties().get("width") * (Integer) this.tiledMap.getProperties().get("tilewidth");
     }
     public int getMapHeight() {
         return (Integer) this.tiledMap.getProperties().get("height") * (Integer) this.tiledMap.getProperties().get("tileheight");
     }
+    public int getTilesWidth() {
+        return (Integer) this.tiledMap.getProperties().get("width");
+    }
+    public int getTilesHeight() {
+        return (Integer) this.tiledMap.getProperties().get("height");
+    }
 
-    public void setCenterCharacter(Character centerCharacter) {
-        objectManager.setCenterCharacter(centerCharacter);
+    public int getTilePosX(int x) {
+        return (Integer) this.tiledMap.getProperties().get("tilewidth") * x;
+    }
+    public int getTilePosY(int y) {
+        return (Integer) this.tiledMap.getProperties().get("tileheight") * y;
+    }
+    public void setCenterCharacter(Player centerPlayer) {
+        objectManager.setCenterPlayer(centerPlayer);
     }
 }

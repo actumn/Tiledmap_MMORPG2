@@ -1,4 +1,4 @@
-package com.mygdx.game.controller;
+package com.mygdx.game.scene;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -19,7 +19,7 @@ import protocol.Packet.PacketFactory;
 /**
  * Created by Lee on 2016-06-06.
  */
-public class LoginController extends GameController {
+public class LoginScene extends GameScene {
     private Stage stage;
     private Skin skin;
     private SpriteBatch batch;
@@ -156,7 +156,7 @@ public class LoginController extends GameController {
                 public void clicked(InputEvent event, float x, float y) {
                     String response = login(idField.getText(), pwField.getText());
                     if (response.equals("로그인 성공")) Client.changeCurrentController(
-                            new Loading(new MainContoller())
+                            new Loading(new MainScene())
                     );
                     else SystemMessage.getInstance().show(response, 2000, 16, 1.0f, 1.0f, 1.0f, 1.0f);
                 }
@@ -173,7 +173,7 @@ public class LoginController extends GameController {
             joinButton.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    Client.changeCurrentController(new Loading(new JoinController()));
+                    Client.changeCurrentController(new Loading(new JoinScene()));
                 }
             });
 

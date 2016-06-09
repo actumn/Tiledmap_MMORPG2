@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.object.*;
-import com.mygdx.game.object.Character;
+import com.mygdx.game.object.Player;
 
 import java.util.*;
 
@@ -20,12 +20,12 @@ public class ObjectManager {
     private Rectangle mapRectangle;
 
     private OrthographicCamera camera;
-    private Character centerCharacter;
+    private Player centerPlayer;
 
     public ObjectManager(){
         this(null);
     }
-    public ObjectManager(Character centerCharacter) {
+    public ObjectManager(Player centerPlayer) {
         this.batch = new SpriteBatch();
         this.drawObjects = new LinkedList<DrawObject>();
         this.effects = new LinkedList<Effect>();
@@ -36,7 +36,7 @@ public class ObjectManager {
         this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.camera.update();
 
-        this.centerCharacter = centerCharacter;
+        this.centerPlayer = centerPlayer;
     }
     public void setMapRectangle(int x, int y, int width, int height) {
         this.mapRectangle.set(x, y, width, height);
@@ -74,9 +74,9 @@ public class ObjectManager {
     }
 
     public void draw() {
-        if (centerCharacter != null) {
-            int x = this.centerCharacter.getDrawX() - (int) this.camera.position.x;
-            int y = this.centerCharacter.getDrawY() - (int) this.camera.position.y;
+        if (centerPlayer != null) {
+            int x = this.centerPlayer.getDrawX() - (int) this.camera.position.x;
+            int y = this.centerPlayer.getDrawY() - (int) this.camera.position.y;
             this.camera.translate(Math.min(10, x), Math.min(10, y));
         }
 
@@ -151,7 +151,7 @@ public class ObjectManager {
         }
     }
 
-    public void setCenterCharacter(Character centerCharacter) {
-        this.centerCharacter = centerCharacter;
+    public void setCenterPlayer(Player centerPlayer) {
+        this.centerPlayer = centerPlayer;
     }
 }

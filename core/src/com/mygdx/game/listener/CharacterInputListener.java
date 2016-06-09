@@ -3,18 +3,18 @@ package com.mygdx.game.listener;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.mygdx.game.object.Character;
+import com.mygdx.game.object.Player;
 
 /**
  * Created by Lee on 2016-05-21.
  */
 public class CharacterInputListener extends InputListener {
-    private Character character;
+    private Player player;
     public boolean myCharacterMoveState[] = new boolean[4];
     public boolean myCharacterSkillState = false;
 
-    public CharacterInputListener (Character character) {
-        this.character = character;
+    public CharacterInputListener (Player player) {
+        this.player = player;
     }
     @Override
     public boolean keyDown(InputEvent event, int keycode) {
@@ -32,10 +32,10 @@ public class CharacterInputListener extends InputListener {
                 myCharacterMoveState[3] = true;
                 break;
             case Input.Keys.SPACE:
-                character.skillAttack();
+                player.skillAttack();
                 break;
             case Input.Keys.CONTROL_LEFT:
-                character.attack();
+                player.attack();
                 break;
             default:
                 break;
@@ -64,20 +64,20 @@ public class CharacterInputListener extends InputListener {
 
     public void update() {
         if(this.myCharacterMoveState[0]) {
-            character.move(character.x, character.y, character.x, character.y - character.speedY);
+            player.move(player.x, player.y, player.x, player.y - player.speedY);
 
         }
 
         if(this.myCharacterMoveState[1]) {
-            character.move(character.x, character.y, character.x - character.speedX, character.y);
+            player.move(player.x, player.y, player.x - player.speedX, player.y);
         }
 
         if(this.myCharacterMoveState[2]) {
-            character.move(character.x, character.y, character.x + character.speedX, character.y);
+            player.move(player.x, player.y, player.x + player.speedX, player.y);
         }
 
         if(this.myCharacterMoveState[3]) {
-            character.move(character.x, character.y, character.x, character.y + character.speedY);
+            player.move(player.x, player.y, player.x, player.y + player.speedY);
         }
     }
 }

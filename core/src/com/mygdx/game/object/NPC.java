@@ -1,14 +1,44 @@
 package com.mygdx.game.object;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.ui.Font;
 
 /**
  * Created by Lee on 2016-05-26.
  */
 public class NPC extends Entity {
 
+    /* drop data */
+    protected int drop_exp;
+    protected int drop_gold;
 
+    /* stat properties */
+    protected int atk;
+    protected int def;
+
+    public NPC xy(int x, int y) {
+        this.x = x;
+        this.y = y;
+        return this;
+    }
+    public NPC setName(String name) {
+        this.nameColor = new Color(1.0f, 1.0f, 0.0f, 1.0f);
+        this.name = name;
+        this.nameWidth = (int)(Font.getInstance().getFont(12).getSpaceWidth() * this.name.length() * 2);
+        return this;
+    }
+    public NPC team(int team) {
+        this.team = team;
+        return this;
+    }
+
+
+    public NPC direction(int direction) {
+        this.direction = direction;
+        return this;
+    }
 
     public void Touch() {
 

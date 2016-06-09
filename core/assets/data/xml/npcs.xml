@@ -1,10 +1,10 @@
 <npcs>
     <npc id='1'>
-        <name>beehemoth</name>
+        <name>behemoth</name>
         <team>1</team>
         <hp>20</hp>
         <mp>0</mp>
-        <image>1</image>
+        <sprites>1</sprites>
         <tps>1500</tps>
         <vision>5</vision>
         <level>1</level>

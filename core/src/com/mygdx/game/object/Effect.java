@@ -22,8 +22,8 @@ public class Effect implements DrawObject {
     private EffectState effectState;
 
     final int Horizontal_Count = 5;
-    final int Vertical_Count = 7;
-    final float Duration = 1.0f;
+    final int Vertical_Count = 6;
+    final float Duration = 4.0f;
 
     public Effect(String effectName) {
         this.effectName = effectName;
@@ -33,7 +33,7 @@ public class Effect implements DrawObject {
 
 
         // load texture
-        Texture walkSheet = new Texture(Gdx.files.internal("effects/blue_crystal.png"));
+        Texture walkSheet = new Texture(Gdx.files.internal("effects/heal.png"));
 
         // split texture and load sprites
         TextureRegion[][] tmp = TextureRegion.split(
@@ -77,7 +77,6 @@ public class Effect implements DrawObject {
         batch.draw(this.getTextureRegion(), this.getDrawX(), this.getDrawY());
         batch.end();
 
-        // hp bar
         this.shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
 
         this.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -96,7 +95,7 @@ public class Effect implements DrawObject {
     public void update(){
         if(effectState != EffectState.end) {
             effectState = EffectState.working;
-            s_time += Duration;
+            s_time += 1.0;
             if (s_time/Duration >= effectAnimation.getKeyFrames().length)
                 effectState = EffectState.end;
         }

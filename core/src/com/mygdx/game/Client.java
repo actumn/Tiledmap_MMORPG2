@@ -3,9 +3,9 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.mygdx.game.controller.GameController;
-import com.mygdx.game.controller.Loading;
-import com.mygdx.game.controller.LoginController;
+import com.mygdx.game.scene.GameScene;
+import com.mygdx.game.scene.Loading;
+import com.mygdx.game.scene.LoginScene;
 import com.mygdx.game.ui.SystemMessage;
 import network.Network;
 
@@ -14,22 +14,22 @@ import network.Network;
  */
 public class Client extends ApplicationAdapter {
     private static Client instance;
-    private GameController currentController;
-    private GameController preController;
+    private GameScene currentController;
+    private GameScene preController;
 
     public Client() { Client.instance = this; }
 
-    public GameController getCurrentController() {
+    public GameScene getCurrentController() {
         return instance.currentController;
     }
-    public static void changeCurrentController(GameController controller) {
+    public static void changeCurrentController(GameScene controller) {
         instance.currentController = controller;
     }
 
 
     @Override
     public void create() {
-        this.currentController = new Loading(new LoginController(), "초기화 중입니다.");
+        this.currentController = new Loading(new LoginScene(), "초기화 중입니다.");
         try {
             Network.getInstance().connect();
         } catch (InterruptedException e) {

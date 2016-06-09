@@ -1,13 +1,10 @@
 package src;
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.mygdx.game.controller.JoinController;
-import com.mygdx.game.ui.SystemMessage;
+import com.mygdx.game.scene.JoinScene;
 import io.netty.channel.embedded.EmbeddedChannel;
 import network.Network;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
-import org.junit.Before;
 import org.junit.Test;
 import protocol.Packet.PacketFactory;
 
@@ -19,7 +16,7 @@ import static org.junit.Assert.*;
 public class JoinControllerTest {
     @Test
     public void joinTest() {
-        JoinController joinController = new JoinController();
+        JoinScene joinController = new JoinScene();
         EmbeddedChannel testChannel = new EmbeddedChannel();
         Network.getInstance().setChannel(testChannel);
         PacketFactory packetFactory = Network.getInstance().getPacketFactory();
