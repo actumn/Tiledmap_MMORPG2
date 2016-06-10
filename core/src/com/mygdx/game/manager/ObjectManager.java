@@ -43,7 +43,7 @@ public class ObjectManager {
     }
 
     public void update() {
-        List<Entity> entityList = new LinkedList<Entity>();
+        List<Entity> entityList = new LinkedList<>();
         entityList = entities.retrieve(entityList, mapRectangle);
 
         entities.clear();
@@ -69,9 +69,16 @@ public class ObjectManager {
             if (effect.getEffectState() == Effect.EffectState.end)
                 iter.remove();
         }
-
-
     }
+
+    private void effectCollision() {
+        List<Entity> entityList = new LinkedList<>();
+        // rectangle effect
+        effects.stream().filter(effect -> effect instanceof RectableEffect).forEach(effect -> {
+            rectEffectCollision(entityList, (RectableEffect) effect);
+        });
+    }
+
 
     public void draw() {
         if (centerPlayer != null) {
@@ -116,28 +123,11 @@ public class ObjectManager {
         this.effects.add(e);
     }
 
-    public void remove(Effect e) {
-        Iterator<Effect> iter = effects.iterator();
 
-        while(iter.hasNext()) {
-            Effect effect = iter.next();
 
-            if (effect == e)
-                iter.remove();
-        }
-    }
 
     public void getNearestObject() {}
 
-    public void effectCollision() {
-        List<Entity> entityList = new LinkedList<Entity>();
-        for (Effect effect: effects) {
-            // rectangle effect
-            if (effect instanceof RectableEffect) {
-                rectEffectCollision(entityList, (RectableEffect) effect);
-            }
-        }
-    }
     private void rectEffectCollision(List<Entity> entityList, RectableEffect effect) {
         Rectangle effectBounds = ((RectableEffect) effect).getBounds();
         entityList = entities.retrieve(entityList, effectBounds);

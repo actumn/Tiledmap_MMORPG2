@@ -1,13 +1,10 @@
 <sprites>
-    <character>
+    <characters>
         <character id="1">
             <walk key="character-walk" count="3"/>
             <attack key="character-attack" count="3"/>
         </character>
-    </character>
-    <npcs>
-        <npc id="1" key="npc-npcs" iIndex="0" jIndex="0"/>
-    </npcs>
+    </characters>
     <effects>
         <effect id="1" key="blue_crystal">
             <horizon>5</horizon>

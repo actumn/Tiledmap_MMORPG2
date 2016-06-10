@@ -4,6 +4,7 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.manager.ObjectManager;
 import com.mygdx.game.object.Player;
 import com.mygdx.game.object.Effect;
@@ -117,4 +118,5 @@ public class Map {
     public void setCenterCharacter(Player centerPlayer) {
         objectManager.setCenterPlayer(centerPlayer);
     }
+
 }

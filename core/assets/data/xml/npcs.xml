@@ -4,7 +4,9 @@
         <team>1</team>
         <hp>100</hp>
         <mp>0</mp>
-        <sprites>1</sprites>
+        <sprites>
+            <sprite state="0" key="npc-monsters" i_index="0" j_index="0"/>
+        </sprites>
         <tps>1500</tps>
         <vision>5</vision>
         <level>1</level>
@@ -25,7 +27,9 @@
         <team>0</team>
         <hp>1000</hp>
         <mp>0</mp>
-        <image>0</image>
+        <sprites>
+            <sprite state="0" key="npc-npcs" i_index="0" j_index="0"/>
+        </sprites>
         <tps>1500</tps>
         <vision>5</vision>
         <level>10</level>

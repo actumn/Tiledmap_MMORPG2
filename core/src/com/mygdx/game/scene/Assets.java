@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
+import com.mygdx.game.XmlDataLoader;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -21,7 +22,7 @@ public class Assets {
     private Texture titleBackground;
     //private Texture titleGameLogo;
 
-    private HashMap<String, Texture> sheetMap = new HashMap<>();
+    private HashMap<String, Texture> sheetMap;
 
     public static Assets getInstance() {
         if (instance == null) instance = new Assets();
@@ -32,26 +33,15 @@ public class Assets {
         titleBackground = new Texture(Gdx.files.internal("img/Titles/TITLE.png"));
         //titleGameLogo = new Texture(Gdx.files.internal("img/Titles/GAME_LOGO.png"));
 
-        try {
-            loadSheets();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        loadSheets();
+
     }
 
-    public void loadSheets() throws IOException {
-        XmlReader reader = new XmlReader();
-        FileHandle sheetHandle = Gdx.files.internal("data/xml/sheets.xml");
-
-        XmlReader.Element sheets = reader.parse(sheetHandle);
-
-        Array<XmlReader.Element> sheetArray = sheets.getChildrenByName("sheet");
-
-        for(XmlReader.Element sheet: sheetArray) {
-            String key = sheet.getAttribute("key");
-            String filepath = sheet.getAttribute("filepath");
-
-            sheetMap.put(key, new Texture(Gdx.files.internal(filepath)));
+    public void loadSheets() {
+        try {
+            this.sheetMap = XmlDataLoader.getInstance().loadSheets();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

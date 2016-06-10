@@ -1,6 +1,8 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
 import com.mygdx.game.map.Map;
@@ -8,10 +10,10 @@ import com.mygdx.game.map.MapMoveDestination;
 import com.mygdx.game.map.MapMovePoint;
 import com.mygdx.game.object.Effect;
 import com.mygdx.game.object.Entity;
-import com.mygdx.game.object.EntityAnimation;
 import com.mygdx.game.object.NPC;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * Created by Lee on 2016-06-01.
@@ -25,6 +27,7 @@ public class XmlDataLoader {
     private FileHandle mapHandle = new FileHandle("data/xml/maps.xml");
     private FileHandle npcHandle = new FileHandle("data/xml/npcs.xml");
     private FileHandle spritesHandle = new FileHandle("data/xml/sprites.xml");
+    private FileHandle sheetHandle = Gdx.files.internal("data/xml/sheets.xml");
 
 
     public Map loadMap(int mapId) throws IOException {
@@ -61,6 +64,7 @@ public class XmlDataLoader {
                 int direction = Integer.parseInt(npcData.getAttribute("direction"));
 
                 NPC npc = loadNPC(npcId)
+                        .setMap(map)
                         .xy(map.getTilePosX(npcX), map.getTilePosY(npcY))
                         .direction(direction);
 
@@ -72,6 +76,11 @@ public class XmlDataLoader {
         
         return map;
     }
+
+
+
+
+
     public NPC loadNPC(int npcId) throws IOException {
         XmlReader.Element npcs = reader.parse(npcHandle);
         Array<XmlReader.Element> npcArray = npcs.getChildrenByName("npc");
@@ -80,59 +89,77 @@ public class XmlDataLoader {
         for (XmlReader.Element npcData: npcArray) {
             if (Integer.parseInt(npcData.getAttribute("id")) != npcId) continue;
 
-            String name = npcData.getChildByName("name").getText();
-            int team = Integer.parseInt(npcData.getChildByName("team").getText());
-            int hp = Integer.parseInt(npcData.getChildByName("hp").getText());
-            int mp = Integer.parseInt(npcData.getChildByName("mp").getText());
-            int spritesId = Integer.parseInt(npcData.getChildByName("sprites").getText());
-            int vision = Integer.parseInt(npcData.getChildByName("vision").getText());
-            int level = Integer.parseInt(npcData.getChildByName("level").getText());
-            int dropExp = Integer.parseInt(npcData.getChildByName("drop_exp").getText());
+            String name = npcData.get("name");
+            int team = Integer.parseInt(npcData.get("team"));
+            int hp = Integer.parseInt(npcData.get("hp"));
+            int mp = Integer.parseInt(npcData.get("mp"));
+            int spritesId = Integer.parseInt(npcData.get("sprites"));
+            int vision = Integer.parseInt(npcData.get("vision"));
+            int level = Integer.parseInt(npcData.get("level"));
+            int dropExp = Integer.parseInt(npcData.get("drop_exp"));
+            int dropGold = Integer.parseInt(npcData.get("drop_gold"));
+            int atk = Integer.parseInt(npcData.get("atk"));
+            int def = Integer.parseInt(npcData.get("def"));
 
+            npc = new NPC()
+                    .team(team)
+                    .setName(name)
+                    .stat(hp, mp, atk, def)
+                    .dropExpGold(dropExp, dropGold)
+                    .level(level)
+                    .vision(vision);
+
+            Array<XmlReader.Element> spritesArray = npcData.getChildrenByName("sprites");
+            for (XmlReader.Element spriteData: spritesArray) {
+                int stateValue = Integer.parseInt(spriteData.getAttribute("state"));
+                String key = spriteData.getAttribute("key");
+                int iIndex = Integer.parseInt(spriteData.getAttribute("i_index"));
+                int jIndex = Integer.parseInt(spriteData.getAttribute("j_index"));
+
+                npc.loadAnimation(stateValue, key, iIndex, jIndex);
+            }
+
+            break;
         }
+
         return npc;
     }
-    /*
-    <npc id='1'>
-        <name>behemoth</name>
-        <team>1</team>
-        <hp>20</hp>
-        <mp>0</mp>
-        <sprites>1</sprites>
-        <tps>1500</tps>
-        <vision>5</vision>
-        <level>1</level>
-        <drop_exp>4</drop_exp>
-        <drop_gold>10</drop_gold>
-        <regen>10000</regen>
-        <atk>8</atk>
-        <def>0</def>
-        <hit>100</hit>
-        <avo>0</avo>
-        <drop_items>
 
-        </drop_items>
-    </npc>
-     */
-
-    public Character loadCharacter() {
+    public Character loadCharacter(int jobId) {
         return null;
     }
-    public EntityAnimation loadCharacterAnimation(Entity entity, int id) throws IOException {
 
-        return null;
-    }
-    public EntityAnimation loadNPCAnimation() {
 
-        return null;
-    }
     public Effect loadEffect(int id) throws IOException {
 
         return null;
     }
+
+    public HashMap<String, Texture> loadSheets() throws IOException{
+        HashMap<String,Texture> sheetMap = new HashMap<>();
+
+
+        XmlReader.Element sheets = reader.parse(sheetHandle);
+
+        Array<XmlReader.Element> sheetArray = sheets.getChildrenByName("sheet");
+
+        for(XmlReader.Element sheet: sheetArray) {
+            String key = sheet.getAttribute("key");
+            String filepath = sheet.getAttribute("filepath");
+
+            sheetMap.put(key, new Texture(Gdx.files.internal(filepath)));
+        }
+
+        return sheetMap;
+    }
 }
 
 /*
+    <npcs>
+        <npc id="1" key="npc-monsters" iIndex="0" jIndex="0" count="3"/>
+        <npc id="2" key="npc-npcs" iIndex="0" jIndex="0" count="3"/>
+    </npcs>
+
 		XmlReader reader = new XmlReader();
 		FileHandle fileHandle = new FileHandle("Test.xml");
 		try {

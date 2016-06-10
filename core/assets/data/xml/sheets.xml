@@ -4,6 +4,6 @@
     <sheet key="character-skill" filepath="characters/character-skill.png"/>
     <sheet key="skill-heal" filepath="effects/heal.png"/>
     <sheet key="skill-blue_crystal" filepath="effects/blue_crystal.png"/>
-    <sheet key="npc-monsters" filepath="npcs/monster.png"/>
+    <sheet key="npc-monsters" filepath="npcs/monsters.png"/>
     <sheet key="npc-npcs" filepath="npcs/npcs.png"/>
 </sheets>

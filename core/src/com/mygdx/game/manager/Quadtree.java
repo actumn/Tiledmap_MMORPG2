@@ -2,6 +2,7 @@ package com.mygdx.game.manager;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.object.Rectable;
+import org.w3c.dom.css.Rect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +11,6 @@ import java.util.List;
  * Created by Lee on 2016-05-24.
  */
 public class Quadtree {
-    private int MAX_OBJECTS = 10;
-    private int MAX_LEVELS = 5;
 
     private int level;
     private List<Rectable> objects;
@@ -24,7 +23,7 @@ public class Quadtree {
      */
     public Quadtree(int pLevel, Rectangle pBounds) {
         this.level = pLevel;
-        this.objects = new ArrayList();
+        this.objects = new ArrayList<>();
         this.bounds = pBounds;
         this.nodes = new Quadtree[4];
     }
@@ -115,6 +114,8 @@ public class Quadtree {
 
         objects.add(rectable);
 
+        int MAX_OBJECTS = 10;
+        int MAX_LEVELS = 5;
         if (objects.size() > MAX_OBJECTS && level < MAX_LEVELS) {
             if (nodes[0] == null) {
                 split();
@@ -135,7 +136,7 @@ public class Quadtree {
     }
 
     /*
-        Return all objects that could coolide with the given object
+        Return all objects that could collide with the given object
      */
     public List retrieve(List returnObjects, Rectangle pRect) {
         int index = getIndex(pRect);

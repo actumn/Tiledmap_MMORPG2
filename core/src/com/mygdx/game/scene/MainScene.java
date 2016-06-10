@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.listener.CharacterInputListener;
 import com.mygdx.game.map.Map;
+import com.mygdx.game.object.Entity;
 import com.mygdx.game.object.Player;
 import com.mygdx.game.object.Mob;
 import com.mygdx.game.ui.HealthBar;
@@ -63,7 +64,8 @@ public class MainScene extends GameScene {
         Player c = new Player()
                 .setName("admin")
                 .setMap(m)
-                .loadAnimation(0,0);
+                .loadAnimation(Entity.EntityState.normal.getValue(), "character-walk", 0, 0)
+                .loadAnimation(Entity.EntityState.attacking.getValue(), "character-attack", 0, 0);
 
         this.characterInputListener = new CharacterInputListener(c);
         stage.addListener(this.characterInputListener);

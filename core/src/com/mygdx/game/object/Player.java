@@ -1,33 +1,46 @@
 package com.mygdx.game.object;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.map.Map;
+import com.mygdx.game.scene.Assets;
 import com.mygdx.game.ui.Font;
 
 /**
  * Created by Lee on 2016-05-19.
  */
 public class Player extends Entity {
-    private Map map;
     public final int speedX = 5;
     public final int speedY = 5;
+
 
 
     private long skillCoolDown = 0;
 
     public Player() {
+        this.s_state = 0;
         this.x = 100;
         this.y = 100;
-        hp = maxHp = 100;
-        entityState = EntityState.normal;
+        this.hp = this.maxHp = 100;
+        this.entityState = EntityState.normal;
 
-        team = 0;
+        this.team = 0;
     }
-
+    public Player level(int level) {
+        this.level = level;
+        return this;
+    }
+    public Player xy(int x, int y) {
+        this.x = x;
+        this.y = y;
+        return this;
+    }
     public Player setName(String name) {
         this.nameColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
         this.nameSize = 14;
@@ -35,25 +48,36 @@ public class Player extends Entity {
         this.nameWidth = (int)(Font.getInstance().getFont(12).getSpaceWidth() * this.name.length() * 2);
         return this;
     }
-
     public Player setMap(Map map) {
         this.map = map;
         return this;
     }
-    public Player loadAnimation() {
-        return loadAnimation(0, 0);
-    }
-    public Player loadAnimation(int index) {
-        final int horizontalCharactersCount = 4;
-        int iIndex = index / horizontalCharactersCount;
-        int jIndex = index % horizontalCharactersCount;
 
-        return loadAnimation(iIndex, jIndex);
-    }
-    public Player loadAnimation(int iIndex, int jIndex) {
-        entityAnimation = new EntityAnimation(this)
-                .loadAnimation();
+    public Player loadAnimation(int stateValue, String key, int iIndex, int jIndex) {
+        final int horizontalCharactersCount = 1;
+        final int verticalCharactersCount = 1;
 
+        // load texture
+        Texture animationSheet = Assets.getInstance().getSheet(key);
+
+        TextureRegion[] frames = new TextureRegion[animationsCount * directionsCount];
+
+        // split texture and load sprites
+        TextureRegion[][] tmp = TextureRegion.split(animationSheet,
+                animationSheet.getWidth() / (animationsCount * horizontalCharactersCount),
+                animationSheet.getHeight() / (directionsCount * verticalCharactersCount)
+        );
+
+        // save sprites
+        int index = 0;
+        int iOffsetBegin = iIndex * directionsCount;
+        int jOffsetBegin = jIndex * animationsCount;
+        for (int i = iOffsetBegin; i < iOffsetBegin + directionsCount; i++) {
+            for (int j = jOffsetBegin; j < jOffsetBegin + animationsCount; j++) {
+                frames[index++] = tmp[i][j];
+            }
+        }
+        this.animations.insert(stateValue, new Animation(1.0f, frames));
 
         this.shapeRenderer = new ShapeRenderer();
 
@@ -99,28 +123,6 @@ public class Player extends Entity {
     }
 
     @Override
-    public void move(int sx, int sy, int dx, int dy) {
-        if (entityState == EntityState.attacking || map.checkCollision(dx, dy)) return;
-        show_move(sx, sy, dx, dy);
-    }
-
-    @Override
-    public void show_move(int sx, int sy, int dx, int dy) {
-        this.x = dx;
-        this.y = dy;
-
-        int ax = dx - sx;
-        int ay = dy - sy;
-
-        if(ay<0) this.direction = DIRECTION.south.getValue();
-        if(ax<0) this.direction = DIRECTION.west.getValue();
-        if(ax>0) this.direction = DIRECTION.east.getValue();
-        if(ay>0) this.direction = DIRECTION.north.getValue();
-
-        this.bounds.setPosition(this.getDrawX(), this.getDrawY());
-    }
-
-    @Override
     public void action() {
 
     }
@@ -129,13 +131,12 @@ public class Player extends Entity {
     public void attack() {
         this.entityState = EntityState.attacking;
 
-        s_attack = 0;
-        s_direction = 0;
+        s_state = 1;
     }
 
     @Override
     public void draw(SpriteBatch batch) {
-        entityAnimation.draw(batch);
+        batch.draw(this.getTextureRegion(), this.getDrawX(), this.getDrawY());
         batch.end();
 
         // hp bar
@@ -166,7 +167,13 @@ public class Player extends Entity {
     }
 
     public void update() {
-        this.entityAnimation.update();
+        if(dx != x || dy != y || s_state != 0) {
+            s_state += 1;
+            if(this.s_state >= animationsCount*directionsCount) {
+                this.s_state = 0;
+                this.entityState = EntityState.normal;
+            }
+        }
 
         this.dx = this.x;
         this.dy = this.y;
@@ -177,9 +184,6 @@ public class Player extends Entity {
     }
     public int getDrawY() {
         return this.y;
-    }
-    public TextureRegion getTextureRegion() {
-        return entityAnimation.getTextureRegion();
     }
 
     @Override
