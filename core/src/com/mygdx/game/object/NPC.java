@@ -21,8 +21,6 @@ public class NPC extends Entity {
     protected int dropGold;
 
     /* stat properties */
-    protected int atk;
-    protected int def;
     protected int vision;
 
     public NPC xy(int x, int y) {

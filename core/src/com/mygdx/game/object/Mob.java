@@ -28,6 +28,7 @@ public class Mob extends NPC {
     @Override
     public Mob setName(String name) {
         super.setName(name);
+        this.nameColor.set(1.0f, 1.0f, 0.0f, 1.0f);
         return this;
     }
     public Mob setMap(Map map) {
@@ -43,7 +44,6 @@ public class Mob extends NPC {
     @Override
     public Mob loadAnimation(int stateValue, String key, int iIndex, int jIndex) {
         super.loadAnimation(stateValue, key, iIndex, jIndex);
-        this.nameColor.set(1.0f, 1.0f, 0.0f, 1.0f);
         return this;
     }
 

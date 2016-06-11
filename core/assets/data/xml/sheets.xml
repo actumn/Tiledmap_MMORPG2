@@ -1,7 +1,7 @@
 <sheets>
-    <sheet key="character-attack" filepath="characters/character-attack.png"/>
     <sheet key="character-walk" filepath="characters/character-walk.png"/>
-    <sheet key="character-skill" filepath="characters/character-skill.png"/>
+    <sheet key="character-attack" filepath="characters/character-attack.png"/>
+    <sheet key="character-casting" filepath="characters/character-casting.png"/>
     <sheet key="skill-heal" filepath="effects/heal.png"/>
     <sheet key="skill-blue_crystal" filepath="effects/blue_crystal.png"/>
     <sheet key="npc-monsters" filepath="npcs/monsters.png"/>

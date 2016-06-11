@@ -22,7 +22,7 @@ public abstract class Entity implements DrawObject, Rectable {
     protected int direction;
     protected int s_state;
     protected ShapeRenderer shapeRenderer;
-    public EntityState entityState;
+    public EntityState entityState = EntityState.normal;
 
     /* animations properties */
     protected Array<Animation> animations = new Array<>();
@@ -38,6 +38,7 @@ public abstract class Entity implements DrawObject, Rectable {
     /* stat properties */
     protected int level;
     protected int hp, maxHp, mp, maxMp;
+    protected int atk, def;
 
     protected int team = 0;
 
@@ -58,7 +59,7 @@ public abstract class Entity implements DrawObject, Rectable {
 
     @Override
     public int getZ(){
-        return 0;
+        return this.y;
     }
 
     // 이동 시도
@@ -99,7 +100,8 @@ public abstract class Entity implements DrawObject, Rectable {
 
 
     public TextureRegion getTextureRegion() {
-        return animations.get(entityState.getValue()).getKeyFrame(
+        return animations.get(this.entityState.getValue()).
+                getKeyFrame(
                 this.direction * animationsCount + this.s_state / directionsCount
         );
     }
@@ -118,7 +120,7 @@ public abstract class Entity implements DrawObject, Rectable {
     }
 
     public enum EntityState {
-        normal(0), attacking(1);
+        normal(0), attacking(1), casting(2);
         private int value;
         private EntityState(int value) { this.value = value; }
         public int getValue() {

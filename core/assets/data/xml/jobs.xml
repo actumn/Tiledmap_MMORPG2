@@ -1,6 +1,14 @@
-<jobs id="1">
-    <name>Warrior</name>
-    <sprites>1</sprites>
-    <lvhp>10</lvhp>
-    <vithp>20</vithp>
+<jobs>
+    <job id="1">
+        <name>검사</name>
+        <lvhp>20</lvhp>
+        <lvmp>10</lvmp>
+        <lvatk>10</lvatk>
+        <lvdef>8</lvdef>
+        <sprites>
+            <sprite state="0" key="character-walk"/>
+            <sprite state="1" key="character-attack"/>
+            <sprite state="2" key="character-casting"/>
+        </sprites>
+    </job>
 </jobs>

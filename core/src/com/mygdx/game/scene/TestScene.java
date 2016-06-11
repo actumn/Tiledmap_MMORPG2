@@ -5,12 +5,16 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mygdx.game.XmlDataLoader;
 import com.mygdx.game.listener.CharacterInputListener;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.object.Entity;
+import com.mygdx.game.object.NPC;
 import com.mygdx.game.object.Player;
 import com.mygdx.game.object.Mob;
 import com.mygdx.game.ui.HealthBar;
+
+import java.io.IOException;
 
 /**
  * Created by Lee on 2016-06-09.
@@ -42,31 +46,27 @@ public class TestScene extends GameScene {
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
-
-        System.out.println("fps: " + Gdx.graphics.getFramesPerSecond());
     }
 
 
     private void initMap() {
-        this.m = new Map("test", "maps/sample.tmx");
-        // Test code
-        Mob mob = new Mob()
-                .setMap(m)
-                .stat(100, 0, 8, 0)
-                .setName("baby dragon")
-                .loadAnimation(Entity.EntityState.normal.getValue(), "npc-monsters", 0,  0);
+        //this.m = new Map("test", "maps/sample.tmx");
+        try {
+            this.m = XmlDataLoader.getInstance().loadMap(1);
 
-        Player c = new Player()
-                .setName("admin")
-                .setMap(m)
-                .loadAnimation(Entity.EntityState.normal.getValue(), "character-walk", 0, 0)
-                .loadAnimation(Entity.EntityState.attacking.getValue(), "character-attack", 0, 0);
+            Player c = XmlDataLoader.getInstance().loadPlayer(1)
+                    .level(1)
+                    .setName("admin")
+                    .setMap(m);
+            m.add(c);
+            m.setCenterCharacter(c);
 
+            this.characterInputListener = new CharacterInputListener(c);
+            stage.addListener(this.characterInputListener);
 
-        this.characterInputListener = new CharacterInputListener(c);
-        stage.addListener(this.characterInputListener);
-        m.add(c);
-        m.add(mob);
-        m.setCenterCharacter(c);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

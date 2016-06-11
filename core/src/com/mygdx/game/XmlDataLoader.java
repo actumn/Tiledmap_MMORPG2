@@ -9,8 +9,8 @@ import com.mygdx.game.map.Map;
 import com.mygdx.game.map.MapMoveDestination;
 import com.mygdx.game.map.MapMovePoint;
 import com.mygdx.game.object.Effect;
-import com.mygdx.game.object.Entity;
 import com.mygdx.game.object.NPC;
+import com.mygdx.game.object.Player;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,10 +24,10 @@ public class XmlDataLoader {
 
     private XmlReader reader = new XmlReader();
 
-    private FileHandle mapHandle = new FileHandle("data/xml/maps.xml");
-    private FileHandle npcHandle = new FileHandle("data/xml/npcs.xml");
-    private FileHandle spritesHandle = new FileHandle("data/xml/sprites.xml");
+    private FileHandle mapHandle = Gdx.files.internal("data/xml/maps.xml");
+    private FileHandle npcHandle = Gdx.files.internal("data/xml/npcs.xml");
     private FileHandle sheetHandle = Gdx.files.internal("data/xml/sheets.xml");
+    private FileHandle jobHandle = Gdx.files.internal("data/xml/jobs.xml");
 
 
     public Map loadMap(int mapId) throws IOException {
@@ -43,10 +43,11 @@ public class XmlDataLoader {
 
             map = new Map(mapName, mapFileName);
 
-            Array<XmlReader.Element> moveArray = mapData.getChildrenByName("moves");
-
+            XmlReader.Element moves = mapData.getChildByName("moves");
+            Array<XmlReader.Element> moveArray = moves.getChildrenByName("move");
             for (XmlReader.Element move: moveArray) {
-                int x = Integer.parseInt(move.getAttribute("x")); int y = Integer.parseInt(move.getAttribute("y"));
+                int x = Integer.parseInt(move.getAttribute("x"));
+                int y = Integer.parseInt(move.getAttribute("y"));
                 int hashCoefficient = map.getTilesWidth();
                 int newMap = Integer.parseInt(move.getAttribute("new_map"));
                 int newX = Integer.parseInt(move.getAttribute("new_x"));
@@ -55,9 +56,11 @@ public class XmlDataLoader {
                 map.addMovePoint(new MapMovePoint(x, y, hashCoefficient), new MapMoveDestination(newMap, newX, newY));
             }
 
-            Array<XmlReader.Element> npcs = mapData.getChildrenByName("npcs");
 
-            for (XmlReader.Element npcData: npcs) {
+            XmlReader.Element npcs = mapData.getChildByName("npcs");
+            Array<XmlReader.Element> npcArray = npcs.getChildrenByName("npc");
+
+            for (XmlReader.Element npcData: npcArray) {
                 int npcId = Integer.parseInt(npcData.getAttribute("id"));
                 int npcX = Integer.parseInt(npcData.getAttribute("x"));
                 int npcY = Integer.parseInt(npcData.getAttribute("y"));
@@ -78,9 +81,6 @@ public class XmlDataLoader {
     }
 
 
-
-
-
     public NPC loadNPC(int npcId) throws IOException {
         XmlReader.Element npcs = reader.parse(npcHandle);
         Array<XmlReader.Element> npcArray = npcs.getChildrenByName("npc");
@@ -93,7 +93,6 @@ public class XmlDataLoader {
             int team = Integer.parseInt(npcData.get("team"));
             int hp = Integer.parseInt(npcData.get("hp"));
             int mp = Integer.parseInt(npcData.get("mp"));
-            int spritesId = Integer.parseInt(npcData.get("sprites"));
             int vision = Integer.parseInt(npcData.get("vision"));
             int level = Integer.parseInt(npcData.get("level"));
             int dropExp = Integer.parseInt(npcData.get("drop_exp"));
@@ -109,8 +108,9 @@ public class XmlDataLoader {
                     .level(level)
                     .vision(vision);
 
-            Array<XmlReader.Element> spritesArray = npcData.getChildrenByName("sprites");
-            for (XmlReader.Element spriteData: spritesArray) {
+            XmlReader.Element sprites = npcData.getChildByName("sprites");
+            Array<XmlReader.Element> spriteArray = sprites.getChildrenByName("sprite");
+            for (XmlReader.Element spriteData: spriteArray) {
                 int stateValue = Integer.parseInt(spriteData.getAttribute("state"));
                 String key = spriteData.getAttribute("key");
                 int iIndex = Integer.parseInt(spriteData.getAttribute("i_index"));
@@ -125,8 +125,37 @@ public class XmlDataLoader {
         return npc;
     }
 
-    public Character loadCharacter(int jobId) {
-        return null;
+    public Player loadPlayer(int jobId) throws IOException {
+        XmlReader.Element jobs = reader.parse(jobHandle);
+        Array<XmlReader.Element> jobArray = jobs.getChildrenByName("job");
+
+        Player player = null;
+
+        for(XmlReader.Element jobData: jobArray) {
+            if (Integer.parseInt(jobData.getAttribute("id")) != jobId) continue;
+
+            String jobName = jobData.get("name");
+            int lvhp = Integer.parseInt(jobData.get("lvhp"));
+            int lvmp = Integer.parseInt(jobData.get("lvmp"));
+            int lvatk = Integer.parseInt(jobData.get("lvatk"));
+            int lvdef = Integer.parseInt(jobData.get("lvdef"));
+
+            player = new Player().loadJob(jobName, lvhp, lvmp, lvatk, lvdef);
+
+
+            XmlReader.Element sprites = jobData.getChildByName("sprites");
+            Array<XmlReader.Element> spriteArray = sprites.getChildrenByName("sprite");
+            for (XmlReader.Element spriteData: spriteArray) {
+                int stateValue = Integer.parseInt(spriteData.getAttribute("state"));
+                String key = spriteData.getAttribute("key");
+
+                player.loadAnimation(stateValue, key);
+            }
+
+
+            break;
+        }
+        return player;
     }
 
 
@@ -153,23 +182,3 @@ public class XmlDataLoader {
         return sheetMap;
     }
 }
-
-/*
-    <npcs>
-        <npc id="1" key="npc-monsters" iIndex="0" jIndex="0" count="3"/>
-        <npc id="2" key="npc-npcs" iIndex="0" jIndex="0" count="3"/>
-    </npcs>
-
-		XmlReader reader = new XmlReader();
-		FileHandle fileHandle = new FileHandle("Test.xml");
-		try {
-			XmlReader.Element root = reader.parse(fileHandle);
-			Array<XmlReader.Element> students = root.getChildrenByName("student");
-			for (XmlReader.Element child : students) {
-				System.out.println(child.getAttribute("id"));
-				System.out.println(child.getChildByName("num").getText());
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
- */

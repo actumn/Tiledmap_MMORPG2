@@ -20,20 +20,25 @@ public class Player extends Entity {
     public final int speedY = 5;
 
 
+    /* player job properties */
+    private String jobName;
+    private int lvhp, lvmp, lvatk, lvdef;
+
 
     private long skillCoolDown = 0;
 
     public Player() {
         this.s_state = 0;
+        this.level = 1;
         this.x = 100;
         this.y = 100;
-        this.hp = this.maxHp = 100;
         this.entityState = EntityState.normal;
 
         this.team = 0;
     }
     public Player level(int level) {
         this.level = level;
+        statUpdate();
         return this;
     }
     public Player xy(int x, int y) {
@@ -52,7 +57,17 @@ public class Player extends Entity {
         this.map = map;
         return this;
     }
-
+    public Player loadJob(String jobName, int lvhp, int lvmp, int lvatk, int lvdef) {
+        this.jobName = jobName;
+        this.lvhp = lvhp;
+        this.lvmp = lvmp;
+        this.lvatk = lvatk;
+        this.lvdef = lvdef;
+        return this;
+    }
+    public Player loadAnimation(int stateValue, String key) {
+        return this.loadAnimation(stateValue, key, 0, 0);
+    }
     public Player loadAnimation(int stateValue, String key, int iIndex, int jIndex) {
         final int horizontalCharactersCount = 1;
         final int verticalCharactersCount = 1;
@@ -88,13 +103,12 @@ public class Player extends Entity {
     }
 
 
-    @Override
-    public int getZ() {
-        return this.y - 64;
-    }
 
     public void skillAttack(){
         if (System.currentTimeMillis() <= skillCoolDown) return;
+
+        this.entityState = EntityState.casting;
+        s_state = 1;
 
         Effect effect = new RectableEffect("effects/blue_crystal.png");
 
@@ -177,6 +191,13 @@ public class Player extends Entity {
 
         this.dx = this.x;
         this.dy = this.y;
+    }
+
+    private void statUpdate() {
+        this.hp = this.maxHp = this.lvhp * this.level;
+        this.mp = this.maxMp = this.lvmp * this.level;
+        this.atk = this.lvatk * this.level;
+        this.def = this.lvdef * this.level;
     }
 
     public int getDrawX() {
