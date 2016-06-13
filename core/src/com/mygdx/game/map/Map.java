@@ -19,6 +19,7 @@ public class Map {
     // Managers
     private ObjectManager objectManager;
 
+    private int mapId;
     private String mapName;
     private TiledMap tiledMap;
     private java.util.Map<MapMovePoint, MapMoveDestination> moves;
@@ -48,6 +49,10 @@ public class Map {
 
         objectManager.setMapRectangle(0,0, this.getMapWidth(), this.getMapHeight());
     }
+    public Map mapId(int mapId) {
+        this.mapId = mapId;
+        return this;
+    }
 
     public void update() {
         objectManager.update();
@@ -62,10 +67,10 @@ public class Map {
     public void add(Entity entity) {
         objectManager.add(entity);
     }
-
     public void add(Effect e) {
         objectManager.add(e);
     }
+    public void remove(Entity entity) { objectManager.remove(entity); }
 
     public boolean checkCollision(int x, int y) {
         int mapWidth = this.getMapWidth();
@@ -92,6 +97,9 @@ public class Map {
         return false;
     }
 
+    public Entity getEntityById(long entityId) {
+        return objectManager.getEntityById(entityId);
+    }
     public String getMapName() {
         return mapName;
     }
@@ -119,4 +127,7 @@ public class Map {
         objectManager.setCenterPlayer(centerPlayer);
     }
 
+    public int getMapId() {
+        return mapId;
+    }
 }

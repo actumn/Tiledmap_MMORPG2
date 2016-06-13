@@ -13,27 +13,18 @@ public class MapProxy {
 
     private int map_id;
 
-    private LinkedList<UserObject> objects = new LinkedList<UserObject>();
+    private LinkedList<UserObject> objects = new LinkedList<>();
 
     public MapProxy(int map_id) {
         this.map_id = map_id;
         this.packetFactory = new JsonPacketFactory();
     }
 
-    /*
-        @Param user : UserObject. character of user
-        @Param packet template :
-        { "type" : "move"
-            "mapId" : 1
-            "sx" : 100
-            "sy" : 100
-            "dx" : 110
-            "dy" : 110 } (json)
-     */
+
     public void moveObject(UserObject user, JSONObject packet) {
         for(UserObject u : this.objects) {
             if (u == user) continue;
-            u.getChannel().write(packet);
+            u.getChannel().writeAndFlush(packet);
         }
 
         int dest_map_id = Integer.parseInt(String.valueOf(packet.get("dest_map_id")));
@@ -51,16 +42,18 @@ public class MapProxy {
     }
 
     public void joinUser(UserObject user) {
+
         this.objects.add(user);
         user.setMap(this);
 
         for (UserObject u : this.objects) {
             if (u == user) continue;;
 
-            u.getChannel().write(packetFactory.character(user.getUuid(),
-                    user.getName(), user.getLevel(), user.getLevel()));
-            u.getChannel().write(packetFactory.move(user.getUuid(), user.getMapId(),
-                    user.getX(), user.getY()));
+            u.getChannel().writeAndFlush(packetFactory.character(user.getUuid(),
+                    user.getName(), user.getLevel(), user.getJobId()).toJSONString()+"\r\n");
+            u.getChannel().writeAndFlush(packetFactory.move(user.getUuid(), user.getMapId(),
+                    user.getX(), user.getY()).toJSONString()+"\r\n");
+
         }
     }
     public void exitUser(UserObject user) {

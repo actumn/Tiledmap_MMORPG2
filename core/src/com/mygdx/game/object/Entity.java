@@ -8,13 +8,16 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.ui.Font;
+import network.Network;
+import protocol.Packet.JsonPacketFactory;
+import protocol.Packet.PacketFactory;
 
 /**
  * Created by Lee on 2016-05-19.
  */
 public abstract class Entity implements DrawObject, Rectable {
     protected Map map;
-    protected int entityId = 0;
+    protected long entityId = 0;
     protected String name;
 
     public int x,y;
@@ -42,8 +45,13 @@ public abstract class Entity implements DrawObject, Rectable {
 
     protected int team = 0;
 
+    public Entity entityId(long entityId) {
+        this.entityId = entityId;
+        return this;
+    }
 
-    public int getEntityId() {
+
+    public long getEntityId() {
         return entityId;
     }
     public float getPercentHp(){
@@ -66,6 +74,10 @@ public abstract class Entity implements DrawObject, Rectable {
     public void move(int sx, int sy, int dx, int dy) {
         if (entityState != EntityState.normal) return;
         else if (map.checkCollision(dx, dy)) return;
+
+        PacketFactory packetFactory = Network.getInstance().getPacketFactory();
+
+        Network.getInstance().send(packetFactory.move(this.entityId, this.map.getMapId(),dx, dy));
 
         show_move(sx, sy, dx, dy);
     }
@@ -105,6 +117,7 @@ public abstract class Entity implements DrawObject, Rectable {
                 this.direction * animationsCount + this.s_state / directionsCount
         );
     }
+
 
     public Rectangle getBounds() {
         return bounds;

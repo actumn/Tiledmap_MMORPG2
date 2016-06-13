@@ -180,7 +180,7 @@ public class JoinScene extends GameScene {
                             nameField.getText(), pwField.getText());
 
                     SystemMessage.getInstance().show(response, 2000, 16, 1.0f, 1.0f, 1.0f, 1.0f);
-                    if (response.equals("회원가입 성공")) Client.changeCurrentController(new Loading(new LoginScene()));
+                    if (response.equals("회원가입 성공")) Client.changeCurrentController(new Loading(new LoginScene(), response));
                 }
             });
 

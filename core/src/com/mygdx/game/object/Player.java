@@ -36,6 +36,13 @@ public class Player extends Entity {
 
         this.team = 0;
     }
+
+    @Override
+    public Player entityId(long entityId) {
+        super.entityId(entityId);
+        return this;
+    }
+
     public Player level(int level) {
         this.level = level;
         statUpdate();

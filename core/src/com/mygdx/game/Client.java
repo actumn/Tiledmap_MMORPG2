@@ -19,7 +19,7 @@ public class Client extends ApplicationAdapter {
 
     public Client() { Client.instance = this; }
 
-    public GameScene getCurrentController() {
+    public static GameScene getCurrentController() {
         return instance.currentController;
     }
     public static void changeCurrentController(GameScene controller) {

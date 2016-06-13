@@ -19,7 +19,6 @@ public class Effect implements DrawObject {
     private float s_time;
     private Animation effectAnimation;
     private ShapeRenderer shapeRenderer;
-    private ObjectManager objectManager;
     private EffectState effectState;
 
     final int Horizontal_Count = 5;
@@ -120,9 +119,6 @@ public class Effect implements DrawObject {
         return this.effectState;
     }
 
-    public void setObjectManager(ObjectManager objectManager) {
-        this.objectManager = objectManager;
-    }
 
     private static class EffectTextureLoader {
         private static EffectTextureLoader instance = new EffectTextureLoader();

@@ -41,7 +41,8 @@ public class XmlDataLoader {
             String mapName = mapData.getAttribute("name");
             String mapFileName = mapData.getAttribute("filename");
 
-            map = new Map(mapName, mapFileName);
+            map = new Map(mapName, mapFileName)
+                        .mapId(mapId);
 
             XmlReader.Element moves = mapData.getChildByName("moves");
             Array<XmlReader.Element> moveArray = moves.getChildrenByName("move");

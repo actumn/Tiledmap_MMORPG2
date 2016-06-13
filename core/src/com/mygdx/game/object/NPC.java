@@ -29,7 +29,6 @@ public class NPC extends Entity {
         return this;
     }
     public NPC setName(String name) {
-        this.nameColor = new Color(0.0f, 1.0f, 0.0f, 1.0f);
         this.nameSize = 14;
         this.name = name;
         this.nameWidth = (int)(Font.getInstance().getFont(12).getSpaceWidth() * this.name.length() * 2);
@@ -45,6 +44,7 @@ public class NPC extends Entity {
     }
     public NPC team(int team) {
         this.team = team;
+        this.nameColor = new Color(0.0f, 1.0f, 0.0f, 1.0f);
         return this;
     }
     public NPC dropExpGold(int dropExp, int dropGold) {
@@ -136,7 +136,6 @@ public class NPC extends Entity {
     @Override
     public void draw(SpriteBatch batch) {
         batch.draw(this.getTextureRegion(), this.getDrawX(), this.getDrawY());
-
         batch.end();
 
         // hp bar

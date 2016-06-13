@@ -16,7 +16,11 @@ public class ObjectManager {
     private SpriteBatch batch;
     private LinkedList<DrawObject> drawObjects;
     private LinkedList<Effect> effects;
-    private Quadtree entities;
+
+    // Entities.
+    private HashMap<Long, Entity> entities;     // for save entityQuadtree
+    private Quadtree entityQuadtree;                      // for bounds
+
     private Rectangle mapRectangle;
 
     private OrthographicCamera camera;
@@ -31,7 +35,8 @@ public class ObjectManager {
         this.effects = new LinkedList<Effect>();
         this.mapRectangle = new Rectangle();
 
-        this.entities = new Quadtree(0, mapRectangle);
+        this.entityQuadtree = new Quadtree(0, mapRectangle);
+        this.entities = new HashMap<>();
 
         this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.camera.update();
@@ -43,20 +48,14 @@ public class ObjectManager {
     }
 
     public void update() {
-        List<Entity> entityList = new LinkedList<>();
-        entityList = entities.retrieve(entityList, mapRectangle);
-
-        entities.clear();
-        for (Entity entity : entityList){
-            entity.update();
-            entities.insert(entity);
+        entityQuadtree.clear();
+        for (Map.Entry<Long, Entity> entry: entities.entrySet()) {
+            entry.getValue().update();
+            entityQuadtree.insert(entry.getValue());
         }
-        entityList.clear();
         // Entity Update
 
-        for(Effect effect: this.effects) {
-            effect.update();
-        }
+        this.effects.forEach(Effect::update);
         effectCollision();
         // Effect update
 
@@ -92,21 +91,19 @@ public class ObjectManager {
         camera.update();
         this.batch.setProjectionMatrix(this.camera.combined);
 
-        // Object rendering begin
+        // Object rendering
         this.batch.begin();
         for(DrawObject object: this.drawObjects) {
             object.draw(this.batch);
         }
         this.batch.end();
-        // Object rendering end
 
-        // effects rendering begin
+        // effects rendering
         this.batch.begin();
         for(Effect effect: this.effects) {
             effect.draw(this.batch);
         }
         this.batch.end();
-        // effects rendering end
     }
 
     public void add(DrawObject object) {
@@ -115,22 +112,28 @@ public class ObjectManager {
 
     public void add(Entity entity) {
         this.drawObjects.add(entity);
-        this.entities.insert(entity);
+        this.entities.put(entity.getEntityId(), entity);
+    }
+    public void remove(Entity entity) {
+        this.drawObjects.remove(entity);
+        this.entities.remove(entity.getEntityId());
     }
 
     public void add(Effect e) {
-        e.setObjectManager(this);
         this.effects.add(e);
     }
 
 
+    public Entity getEntityById(long entityId) {
+        return entities.get(entityId);
+    }
 
 
     public void getNearestObject() {}
 
     private void rectEffectCollision(List<Entity> entityList, RectableEffect effect) {
         Rectangle effectBounds = ((RectableEffect) effect).getBounds();
-        entityList = entities.retrieve(entityList, effectBounds);
+        entityList = entityQuadtree.retrieve(entityList, effectBounds);
 
         for (Entity entity: entityList) {
             Rectangle entityBounds = entity.getBounds();

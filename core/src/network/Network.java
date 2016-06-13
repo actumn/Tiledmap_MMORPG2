@@ -24,7 +24,7 @@ public class Network {
 
     private Channel channel;
     private EventLoopGroup group;
-    private boolean connected;
+    private boolean connected = false;
 
     private final String host;
     private final int port;
@@ -56,6 +56,7 @@ public class Network {
 
     public void disconnect() {
         this.group.shutdownGracefully();
+        this.connected = false;
     }
 
     public Channel getChannel() {
@@ -63,7 +64,8 @@ public class Network {
     }
 
     public void send(JSONObject object) {
-        this.channel.writeAndFlush(object.toJSONString()+"\r\n");
+        if (this.connected)
+            this.channel.writeAndFlush(object.toJSONString()+"\r\n");
     }
 
     public boolean isConnected() {
