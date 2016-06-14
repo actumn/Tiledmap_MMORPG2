@@ -112,6 +112,7 @@ public class MainScene extends GameScene {
         stage.addListener(this.characterInputListener);
         m.add(c);
         m.setCenterCharacter(c);
+        System.out.println(entityId);
     }
 
     private void updateNetwork() {
@@ -125,6 +126,7 @@ public class MainScene extends GameScene {
                 int level = (int)(long) packet.get("level");
                 int job_id = (int)(long) packet.get("job_id");
 
+                System.out.println("Character id : " + entityId);
                 try {
                     Player c = this.xmlDataLoader.loadPlayer(job_id)
                             .level(level)

@@ -42,6 +42,13 @@ public class UserServiceTest {
         userService.loginUser(user);
         assertEquals(user.getMapId(), newMap.getMap_id());
 
+
+        UserObject user2 = new UserObject()
+                .channel(testChannel)
+                .name("test2")
+                .mapId(mapId)
+                .XY(x, y);
+
         testChannel.finish();
     }
 }

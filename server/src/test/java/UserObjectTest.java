@@ -10,7 +10,7 @@ public class UserObjectTest {
     @Test
     public void initTest() {
         EmbeddedChannel someChannel = new EmbeddedChannel();
-        final int uuid = 1;
+        final int dbid = 1;
         final int level = 1;
         final int jobId = 1;
         final int mapId = 1;
@@ -18,7 +18,7 @@ public class UserObjectTest {
         final String userName = "test";
         UserObject user = new UserObject()
                 .channel(someChannel)
-                .uuid(uuid)
+                .dbid(dbid)
                 .level(level)
                 .jobId(jobId)
                 .name(userName)
@@ -26,7 +26,7 @@ public class UserObjectTest {
                 .XY(x, y);
 
         assertEquals(someChannel, user.getChannel());
-        assertEquals(uuid, user.getUuid());
+        assertEquals(dbid, user.getDbid());
         assertEquals(userName, user.getName());
         assertEquals(x, user.getX());
         assertEquals(y, user.getY());

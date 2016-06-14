@@ -89,7 +89,7 @@ public class UserDispatcher {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 String user_name = rs.getString("USER_NAME");
-                int uuid = rs.getInt("ID");
+                int dbid = rs.getInt("ID");
                 int level = rs.getInt("LEVEL");
                 int map_id = rs.getInt("MAP_ID");
                 int job_id = rs.getInt("JOB_ID");
@@ -97,7 +97,7 @@ public class UserDispatcher {
 
                 this.user = new UserObject()
                         .channel(channel)
-                        .uuid(uuid)
+                        .dbid(dbid)
                         .name(user_name)
                         .level(level)
                         .jobId(job_id)

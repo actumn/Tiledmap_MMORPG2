@@ -118,6 +118,10 @@ public abstract class Entity implements DrawObject, Rectable {
         );
     }
 
+    @Override
+    public String toString() {
+        return this.name;
+    }
 
     public Rectangle getBounds() {
         return bounds;

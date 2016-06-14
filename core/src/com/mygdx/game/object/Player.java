@@ -207,12 +207,6 @@ public class Player extends Entity {
         this.def = this.lvdef * this.level;
     }
 
-    public int getDrawX() {
-        return this.x - this.getTextureRegion().getRegionWidth() / 2;
-    }
-    public int getDrawY() {
-        return this.y;
-    }
 
     @Override
     public String toString() {

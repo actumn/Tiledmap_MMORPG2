@@ -7,7 +7,10 @@ import protocol.Packet.JsonPacketFactory;
  * Created by Lee on 2016-06-01.
  */
 public class UserObject {
+    private static long unique;
+
     private Channel channel;
+    private int dbid;
     private long uuid;
     private MapProxy map;
     private int loginMapId;
@@ -19,9 +22,10 @@ public class UserObject {
 
     public UserObject() {
         this.inventory = new Inventory();
+        this.uuid = unique++;
     }
-    public UserObject uuid(long uuid) {
-        this.uuid = uuid;
+    public UserObject dbid(int dbid) {
+        this.dbid = dbid;
         return this;
     }
     public UserObject channel(Channel channel) {
@@ -68,6 +72,10 @@ public class UserObject {
 
     public long getUuid() {
         return uuid;
+    }
+
+    public int getDbid() {
+        return dbid;
     }
 
     public Channel getChannel() {

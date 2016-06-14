@@ -65,6 +65,7 @@ public class XmlDataLoader {
             XmlReader.Element npcs = mapData.getChildByName("npcs");
             Array<XmlReader.Element> npcArray = npcs.getChildrenByName("npc");
 
+            long uniqueId = -1;
             for (XmlReader.Element npcData: npcArray) {
                 int npcId = Integer.parseInt(npcData.getAttribute("id"));
                 int npcX = Integer.parseInt(npcData.getAttribute("x"));
@@ -72,6 +73,7 @@ public class XmlDataLoader {
                 int direction = Integer.parseInt(npcData.getAttribute("direction"));
 
                 NPC npc = loadNPC(npcId)
+                        .entityId(--uniqueId)
                         .setMap(map)
                         .xy(map.getTilePosX(npcX), map.getTilePosY(npcY))
                         .direction(direction);

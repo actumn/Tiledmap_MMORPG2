@@ -26,6 +26,12 @@ public class NPC extends Entity {
     public NPC xy(int x, int y) {
         this.x = x;
         this.y = y;
+        this.bounds.setPosition(x,y);
+        return this;
+    }
+    @Override
+    public NPC entityId(long entityId) {
+        super.entityId(entityId);
         return this;
     }
     public NPC setName(String name) {
@@ -98,7 +104,7 @@ public class NPC extends Entity {
 
         this.shapeRenderer = new ShapeRenderer();
 
-        this.bounds = new Rectangle(getDrawX(), getDrawY(),
+        this.bounds = new Rectangle(this.getDrawX(), this.getDrawY(),
                 this.getTextureRegion().getRegionWidth(), this.getTextureRegion().getRegionHeight());
 
         return this;
