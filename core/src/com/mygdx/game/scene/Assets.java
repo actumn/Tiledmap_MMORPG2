@@ -36,10 +36,10 @@ public class Assets {
         loadSheets();
 
     }
-
-    public void loadSheets() {
+    private void loadSheets() {
+        XmlDataLoader xmlDataLoader = new XmlDataLoader();
         try {
-            this.sheetMap = XmlDataLoader.getInstance().loadSheets();
+            this.sheetMap = xmlDataLoader.loadSheets();
         } catch (IOException e) {
             e.printStackTrace();
         }

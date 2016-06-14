@@ -19,7 +19,7 @@ public class Network {
     public static Network getInstance() { return instance; }
 
     private PacketFactory packetFactory = new JsonPacketFactory();
-    private ConcurrentLinkedQueue<JSONObject> recvQueue = new ConcurrentLinkedQueue<JSONObject>();
+    private ConcurrentLinkedQueue<JSONObject> recvQueue = new ConcurrentLinkedQueue<>();
 
 
     private Channel channel;
@@ -76,7 +76,8 @@ public class Network {
         return packetFactory;
     }
 
-    public void setChannel(Channel channel) {
+    public void TEST_setChannel(Channel channel) {
+        this.connected = true;
         this.channel = channel;
     }
 }

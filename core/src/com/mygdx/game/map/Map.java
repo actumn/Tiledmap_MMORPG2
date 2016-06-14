@@ -22,7 +22,7 @@ public class Map {
     private int mapId;
     private String mapName;
     private TiledMap tiledMap;
-    private java.util.Map<MapMovePoint, MapMoveDestination> moves;
+    private HashMap<MapMovePoint, MapMoveDestination> moves;
 
 
     public Map(String mapName, String mapFileName) {
@@ -31,7 +31,6 @@ public class Map {
 
 
         this.tiledMap = new TmxMapLoader().load(mapFileName);
-        int layer_count = 0;
         for (MapLayer layer : tiledMap.getLayers()) {
             if (layer instanceof TiledMapTileLayer) {
                 TiledMapTileLayer tileLayer = (TiledMapTileLayer)layer;
@@ -41,7 +40,6 @@ public class Map {
                         this.objectManager.add(new DrawTile(tileLayer, x, y));
                     }
                 }
-                layer_count += 1;
             }
         }
 
@@ -55,8 +53,10 @@ public class Map {
     }
 
     public void update() {
-        objectManager.update();
+        if (tiledMap == null) {
 
+        }
+        objectManager.update();
         objectManager.draw();
     }
 
@@ -110,12 +110,6 @@ public class Map {
     public int getMapHeight() {
         return (Integer) this.tiledMap.getProperties().get("height") * (Integer) this.tiledMap.getProperties().get("tileheight");
     }
-    public int getTilesWidth() {
-        return (Integer) this.tiledMap.getProperties().get("width");
-    }
-    public int getTilesHeight() {
-        return (Integer) this.tiledMap.getProperties().get("height");
-    }
 
     public int getTilePosX(int x) {
         return (Integer) this.tiledMap.getProperties().get("tilewidth") * x;
@@ -129,5 +123,9 @@ public class Map {
 
     public int getMapId() {
         return mapId;
+    }
+
+    public HashMap<MapMovePoint, MapMoveDestination> getMoves() {
+        return moves;
     }
 }

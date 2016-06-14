@@ -30,16 +30,13 @@ public class ObjectManager {
         this(null);
     }
     public ObjectManager(Player centerPlayer) {
-        this.batch = new SpriteBatch();
-        this.drawObjects = new LinkedList<DrawObject>();
-        this.effects = new LinkedList<Effect>();
+        this.drawObjects = new LinkedList<>();
+        this.effects = new LinkedList<>();
         this.mapRectangle = new Rectangle();
 
         this.entityQuadtree = new Quadtree(0, mapRectangle);
         this.entities = new HashMap<>();
 
-        this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        this.camera.update();
 
         this.centerPlayer = centerPlayer;
     }
@@ -48,6 +45,9 @@ public class ObjectManager {
     }
 
     public void update() {
+        if (this.batch == null) this.batch = new SpriteBatch();
+        if (this.camera == null) this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
         entityQuadtree.clear();
         for (Map.Entry<Long, Entity> entry: entities.entrySet()) {
             entry.getValue().update();

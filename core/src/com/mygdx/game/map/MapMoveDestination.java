@@ -25,4 +25,12 @@ public class MapMoveDestination {
     public int getNewY() {
         return newY;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof MapMoveDestination)) return false;
+        MapMoveDestination o = (MapMoveDestination) obj;
+        return this.newMapId == o.newMapId && this.newX == o.newX && this.newY == o.newY;
+    }
 }

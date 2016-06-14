@@ -23,24 +23,35 @@ import java.io.IOException;
  * Created by Lee on 2016-06-06.
  */
 public class MainScene extends GameScene {
+
+    // Model
+    private XmlDataLoader xmlDataLoader;
+    private Map m;
+
+    // View
     private Skin skin;
     private Stage stage;
+
+    // Controller
     private CharacterInputListener characterInputListener;
 
-    private Map m;
+
 
     @Override
     public void create() {
+        // View
         this.stage = new Stage(new ScreenViewport());
         this.skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 
+        // model
+        this.xmlDataLoader = new XmlDataLoader();
         try {
             initMap();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-
+        // Control
         stage.addActor(new HealthBar());
         Gdx.input.setInputProcessor(stage);
     }
@@ -89,8 +100,8 @@ public class MainScene extends GameScene {
         int destY = (int)(long) movePacket.get("dest_y");
 
 
-        this.m = XmlDataLoader.getInstance().loadMap(destMapId);
-        Player c = XmlDataLoader.getInstance().loadPlayer(job_id)
+        this.m = this.xmlDataLoader.loadMap(destMapId);
+        Player c = this.xmlDataLoader.loadPlayer(job_id)
                 .level(level)
                 .setName(name)
                 .entityId(entityId)
@@ -115,7 +126,7 @@ public class MainScene extends GameScene {
                 int job_id = (int)(long) packet.get("job_id");
 
                 try {
-                    Player c = XmlDataLoader.getInstance().loadPlayer(job_id)
+                    Player c = this.xmlDataLoader.loadPlayer(job_id)
                             .level(level)
                             .setName(name)
                             .entityId(entityId)
@@ -124,16 +135,8 @@ public class MainScene extends GameScene {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }/*
-        @return JSON like :
-        {
-            "type":"move"
-            "id":entity_id
-            "dest_map_id":dest__map_id
-            "dest_x":dest_x
-            "dest_y":dest_y
-        }
-     */
+            }
+
             else if (packet.get("type").equals("move")) {
                 long entityId = (long) packet.get("id");
                 int destMapId = (int)(long) packet.get("dest_map_id");

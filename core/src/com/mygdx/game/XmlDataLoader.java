@@ -19,15 +19,19 @@ import java.util.HashMap;
  * Created by Lee on 2016-06-01.
  */
 public class XmlDataLoader {
-    private static XmlDataLoader instance = new XmlDataLoader();
-    public static XmlDataLoader getInstance() { return instance; }
-
     private XmlReader reader = new XmlReader();
 
-    private FileHandle mapHandle = Gdx.files.internal("data/xml/maps.xml");
-    private FileHandle npcHandle = Gdx.files.internal("data/xml/npcs.xml");
-    private FileHandle sheetHandle = Gdx.files.internal("data/xml/sheets.xml");
-    private FileHandle jobHandle = Gdx.files.internal("data/xml/jobs.xml");
+    private FileHandle mapHandle;
+    private FileHandle npcHandle;
+    private FileHandle sheetHandle;
+    private FileHandle jobHandle;
+
+    public XmlDataLoader() {
+        this.mapHandle = new FileHandle("data/xml/maps.xml");
+        this.npcHandle = new FileHandle("data/xml/npcs.xml");
+        this.sheetHandle = new FileHandle("data/xml/sheets.xml");
+        this.jobHandle = new FileHandle("data/xml/jobs.xml");
+    }
 
 
     public Map loadMap(int mapId) throws IOException {
@@ -49,12 +53,12 @@ public class XmlDataLoader {
             for (XmlReader.Element move: moveArray) {
                 int x = Integer.parseInt(move.getAttribute("x"));
                 int y = Integer.parseInt(move.getAttribute("y"));
-                int hashCoefficient = map.getTilesWidth();
+
                 int newMap = Integer.parseInt(move.getAttribute("new_map"));
                 int newX = Integer.parseInt(move.getAttribute("new_x"));
                 int newY = Integer.parseInt(move.getAttribute("new_y"));
 
-                map.addMovePoint(new MapMovePoint(x, y, hashCoefficient), new MapMoveDestination(newMap, newX, newY));
+                map.addMovePoint(new MapMovePoint(x, y), new MapMoveDestination(newMap, newX, newY));
             }
 
 
@@ -182,4 +186,6 @@ public class XmlDataLoader {
 
         return sheetMap;
     }
+
+
 }

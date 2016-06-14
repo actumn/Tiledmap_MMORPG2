@@ -20,17 +20,24 @@ import java.io.IOException;
  * Created by Lee on 2016-06-09.
  */
 public class TestScene extends GameScene {
+
+    // Model
+    private XmlDataLoader xmlDataLoader;
+    private Map m;
+
+    // View
     private Skin skin;
     private Stage stage;
-    private CharacterInputListener characterInputListener;
 
-    private Map m;
+    // Controller
+    private CharacterInputListener characterInputListener;
 
     @Override
     public void create() {
         this.stage = new Stage(new ScreenViewport());
         this.skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 
+        this.xmlDataLoader = new XmlDataLoader();
         initMap();
 
 
@@ -52,9 +59,9 @@ public class TestScene extends GameScene {
     private void initMap() {
         //this.m = new Map("test", "maps/sample.tmx");
         try {
-            this.m = XmlDataLoader.getInstance().loadMap(1);
+            this.m = this.xmlDataLoader.loadMap(1);
 
-            Player c = XmlDataLoader.getInstance().loadPlayer(1)
+            Player c = this.xmlDataLoader.loadPlayer(1)
                     .level(1)
                     .setName("admin")
                     .setMap(m);

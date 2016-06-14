@@ -25,8 +25,8 @@ public class UserService {
     public UserService(int port) {
         this.port = port;
     }
-    private HashMap<Integer, MapProxy> maps = new HashMap<Integer, MapProxy>();
-    private LinkedList<UserObject> users = new LinkedList<UserObject>();
+    private HashMap<Integer, MapProxy> maps = new HashMap<>();
+    private LinkedList<UserObject> users = new LinkedList<>();
 
     public void start() throws Exception {
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
@@ -75,7 +75,7 @@ public class UserService {
         if(src_map == null) return;
         src_map.moveObject(user, packet);
 
-        int dest_map_id = (int) packet.get("dest_map_id");
+        int dest_map_id = (int)(long) packet.get("dest_map_id");
         if(user.getMapId() == dest_map_id) return;
 
         MapProxy dest_map = getMapProxy(dest_map_id, true);

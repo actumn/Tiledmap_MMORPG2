@@ -24,12 +24,12 @@ public class MapProxy {
     public void moveObject(UserObject user, JSONObject packet) {
         for(UserObject u : this.objects) {
             if (u == user) continue;
-            u.getChannel().writeAndFlush(packet);
+            u.getChannel().writeAndFlush(packet.toJSONString()+"\r\n");
         }
 
         int dest_map_id = Integer.parseInt(String.valueOf(packet.get("dest_map_id")));
-        int dx = Integer.parseInt(String.valueOf(packet.get("dx")));
-        int dy = Integer.parseInt(String.valueOf(packet.get("dy")));
+        int dx = Integer.parseInt(String.valueOf(packet.get("dest_x")));
+        int dy = Integer.parseInt(String.valueOf(packet.get("dest_y")));
         user.setX(dx);
         user.setY(dy);
         if (user.getMapId() == dest_map_id) return;
@@ -54,6 +54,10 @@ public class MapProxy {
             u.getChannel().writeAndFlush(packetFactory.move(user.getUuid(), user.getMapId(),
                     user.getX(), user.getY()).toJSONString()+"\r\n");
 
+            user.getChannel().writeAndFlush(packetFactory.character(u.getUuid(),
+                    u.getName(), u.getLevel(), u.getJobId()).toJSONString()+"\r\n");
+            user.getChannel().writeAndFlush(packetFactory.move(u.getUuid(), u.getMapId(),
+                    u.getX(), u.getY()).toJSONString()+"\r\n");
         }
     }
     public void exitUser(UserObject user) {

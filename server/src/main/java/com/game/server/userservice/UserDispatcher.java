@@ -40,6 +40,7 @@ public class UserDispatcher {
                 break;
 
             case "move" :
+                move(packet);
                 break;
 
             case "chat" :
@@ -123,15 +124,17 @@ public class UserDispatcher {
             if (user != null ){
                 channel.writeAndFlush(packetFactory.character
                         (user.getUuid(), user.getName(), user.getLevel(), user.getJobId()).toJSONString() +"\r\n");
-
-                this.service.loginUser(this.user);
-
                 channel.writeAndFlush(packetFactory.move
                         (user.getUuid(), user.getMapId(), user.getX(), user.getY()).toJSONString() +"\r\n");
+
+                this.service.loginUser(this.user);
             }
         }
     }
 
+    public void move(JSONObject packet) {
+        this.service.moveObject(this.user, packet);
+    }
 
     public void logout(Connection con) {
         if (this.user != null) {

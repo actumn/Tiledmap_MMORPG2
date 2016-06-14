@@ -5,11 +5,9 @@ package com.mygdx.game.map;
  */
 public class MapMovePoint {
     private int x, y;
-    private int hashCoefficient;
-    public MapMovePoint(int x, int y, int hashCoefficient) {
+    public MapMovePoint(int x, int y) {
         this.x = x;
         this.y = y;
-        this.hashCoefficient = hashCoefficient;
     }
 
     @Override
@@ -22,6 +20,6 @@ public class MapMovePoint {
 
     @Override
     public int hashCode() {
-        return x + hashCoefficient * y;
+        return x + 100000 * y;
     }
 }

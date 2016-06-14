@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
 public class JoinControllerTest {
     @Test
     public void joinTest() {
-        JoinScene joinController = new JoinScene();
+        JoinScene joinScene = new JoinScene();
         EmbeddedChannel testChannel = new EmbeddedChannel();
-        Network.getInstance().setChannel(testChannel);
+        Network.getInstance().TEST_setChannel(testChannel);
         PacketFactory packetFactory = Network.getInstance().getPacketFactory();
 
         assertNotNull(Network.getInstance());
@@ -34,7 +34,7 @@ public class JoinControllerTest {
 
         Network.getInstance().addPacket(packetFactory.notify("회원가입 성공"));
 
-        String joinRes = joinController.join(1,"test", "test", "test");
+        String joinRes = joinScene.join(1,"test", "test", "test");
         assertEquals("회원가입 성공", joinRes);
         String packetData = (String) testChannel.readOutbound();
         JSONObject packet = (JSONObject) JSONValue.parse(packetData);
