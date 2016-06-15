@@ -36,9 +36,6 @@ public class UserDispatcher {
                 login(DBManager.getConnection(), channel, packet);
                 break;
 
-            case "logout" :
-                break;
-
             case "move" :
                 move(packet);
                 break;
@@ -139,6 +136,13 @@ public class UserDispatcher {
     public void logout(Connection con) {
         if (this.user != null) {
             this.service.exitUser(user);
+
+            try {
+                String sql = "UPDATE USERS SET LEVEL=?, MAP_ID=?, X=?, Y=? WHERE ID=?";
+                PreparedStatement ps = con.prepareStatement(sql);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
