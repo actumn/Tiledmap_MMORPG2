@@ -57,13 +57,13 @@ public class TestScene extends GameScene {
 
 
     private void initMap() {
-        //this.m = new Map("test", "maps/sample.tmx");
+        //this.m = new Map("test", "maps/starting.tmx");
         try {
             this.m = this.xmlDataLoader.loadMap(1);
 
             Player c = this.xmlDataLoader.loadPlayer(1)
                     .level(1)
-                    .setName("admin")
+                    .setName("adm\nin")
                     .setMap(m);
             m.add(c);
             m.setCenterCharacter(c);

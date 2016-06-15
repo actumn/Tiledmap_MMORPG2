@@ -57,7 +57,6 @@ public class SystemMessage {
         Gdx.gl.glDisable(GL20.GL_BLEND);
 
         this.spriteBatch.begin();
-        this.spriteBatch.setColor(r, g, b, a);
         BitmapFont font = Font.getInstance().getFont(size);
         font.setColor(this.r, this.g, this.b, this.a);
         font.draw(this.spriteBatch, this.message,

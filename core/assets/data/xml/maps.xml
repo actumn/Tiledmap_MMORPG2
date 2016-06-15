@@ -1,5 +1,5 @@
 <maps>
-    <map id='1' name="시작위치" filename="maps/sample.tmx">
+    <map id='1' name="시작위치" filename="maps/starting.tmx">
         <moves>
             <move x="29" y="17" new_map="2" new_x="12" new_y="22"/>
             <move x="18" y="30" new_map="3" new_x="14" new_y="16"/>

@@ -1,8 +1,10 @@
 package com.mygdx.game.object;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -11,6 +13,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.scene.Assets;
 import com.mygdx.game.ui.Font;
+import com.mygdx.game.ui.SystemMessage;
 
 /**
  * Created by Lee on 2016-05-19.
@@ -19,6 +22,7 @@ public class Player extends Entity {
     public final int speedX = 5;
     public final int speedY = 5;
 
+    private ChatBubble chatBubble;
 
     /* player job properties */
     private String jobName;
@@ -33,8 +37,8 @@ public class Player extends Entity {
         this.x = 100;
         this.y = 100;
         this.entityState = EntityState.normal;
-
         this.team = 0;
+
     }
 
     @Override
@@ -102,6 +106,7 @@ public class Player extends Entity {
         this.animations.insert(stateValue, new Animation(1.0f, frames));
 
         this.shapeRenderer = new ShapeRenderer();
+        this.chatBubble = new ChatBubble(this, shapeRenderer);
 
         this.bounds = new Rectangle(getDrawX(), getDrawY(),
                 this.getTextureRegion().getRegionWidth(), this.getTextureRegion().getRegionHeight());
@@ -185,6 +190,7 @@ public class Player extends Entity {
                 this.getDrawX() + this.getTextureRegion().getRegionWidth() / 2 - this.nameWidth / 2.0f,
                 this.getDrawY() + this.getTextureRegion().getRegionHeight() + Font.getInstance().getFont(this.nameSize).getCapHeight());
 
+        this.chatBubble.render(batch);
     }
 
     public void update() {
@@ -207,10 +213,72 @@ public class Player extends Entity {
         this.def = this.lvdef * this.level;
     }
 
+    public void chat() {
+        this.chatBubble.chat("default message");
+    }
+
 
     @Override
     public String toString() {
         return name;
     }
 
+    private class ChatBubble {
+        private Player player;
+        private ShapeRenderer shapeRenderer;
+        private int fontSize;
+        private String message;
+        private float r, g, b, a;
+        private long expiryTime;
+        private float chatWidth;
+
+        private ChatBubble(Player player, ShapeRenderer shapeRenderer) {
+            this.shapeRenderer = shapeRenderer;
+            this.message = "default message";
+            this.r = this.g = this.b = this.a = 1.0f;
+            this.fontSize = 12;
+        }
+        private void chat(String message) {
+            this.message = message;
+            this.expiryTime = System.currentTimeMillis() + 1000;
+            this.chatWidth = Font.getInstance().getFont(12).getSpaceWidth() * this.message.length() * 2;
+        }
+
+        private void render(SpriteBatch batch) {
+            if (System.currentTimeMillis() > this.expiryTime) return;
+
+            /*
+            batch.end();
+            this.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            this.shapeRenderer.setColor(0.5f, 0.5f, 0.5f, 0.5f);
+            this.shapeRenderer.rect(
+                    getDrawX() + getTextureRegion().getRegionWidth() / 2 - 10, this.getDrawY() - 2, getPercentHp() / 5, 5
+            );
+            this.shapeRenderer.end();
+
+            this.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            this.shapeRenderer.setColor(0.0f, 0.0f, 0.0f, 1.0f);
+            this.shapeRenderer.rect(
+                    this.getDrawX() + this.getTextureRegion().getRegionWidth() / 2 - 10,
+                    this.getDrawY() - 2,
+                    20, 5
+            );
+            this.shapeRenderer.end();
+
+            batch.begin();
+
+            Font.getInstance().getFont(this.fontSize).setColor(r, g, b, a);
+            Font.getInstance().getFont(this.fontSize).draw(batch, this.message,
+                    this.getDrawX() + this.getTextureRegion().getRegionWidth() / 2 - this.nameWidth / 2.0f,
+                    this.getDrawY() + this.getTextureRegion().getRegionHeight() + Font.getInstance().getFont(this.nameSize).getCapHeight());
+
+
+            BitmapFont font = Font.getInstance().getFont(size);
+            font.setColor(this.r, this.g, this.b, this.a);
+            font.draw(this.spriteBatch, this.message,
+                    Gdx.graphics.getWidth() / 2 - Gdx.graphics.getHeight() * size / Gdx.graphics.getWidth() * this.message.length() / 2,
+                    Gdx.graphics.getHeight() / 2 + font.getCapHeight() / 2);
+                    */
+        }
+    }
 }
