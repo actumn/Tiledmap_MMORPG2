@@ -1,4 +1,4 @@
-package com.mygdx.game.ui;
+package com.mygdx.game.ui.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 /**
  * Created by Lee on 2016-05-23.
  */
-public class HealthBar extends Actor {
+public class HealthBar extends BaseActor {
     private NinePatchDrawable loadingBarBackground;
     private NinePatchDrawable loadingBar;
 
@@ -22,10 +22,10 @@ public class HealthBar extends Actor {
         this.loadingBar = new NinePatchDrawable(loadingBarPatch);
         this.loadingBarBackground = new NinePatchDrawable(loadingBarBackgroundPatch);
 
-        setX(100.0f);
-        setY(100.0f);
-        setWidth(100.0f);
-        setHeight(10.0f);
+        this.setX(100.0f);
+        this.setY(Gdx.graphics.getHeight() - 100.0f);
+        this.setWidth(100.0f);
+        this.setHeight(10.0f);
     }
 
     @Override

@@ -37,6 +37,9 @@ public class CharacterInputListener extends InputListener {
             case Input.Keys.CONTROL_LEFT:
                 player.attack();
                 break;
+            case Input.Keys.ENTER:
+                player.chat();
+                break;
             default:
                 break;
         }

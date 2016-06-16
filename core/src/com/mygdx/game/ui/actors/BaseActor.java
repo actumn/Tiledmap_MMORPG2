@@ -1,24 +1,13 @@
-package com.mygdx.game.ui.dialog;
+package com.mygdx.game.ui.actors;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 
 /**
- * Created by Lee on 2016-06-06.
+ * Created by Lee on 2016-06-16.
  */
-public abstract class BaseDialog extends Window {
-    public BaseDialog(String title, Skin skin) {
-        super(title, skin);
-    }
-
-    public BaseDialog(String title, Skin skin, String styleName) {
-        super(title, skin, styleName);
-    }
-
-    public WindowStyle getWindowStyle(Skin skin, BitmapFont font) {
-        return new WindowStyle(font, skin.getColor("white"), skin.getDrawable("default-window"));
-    }
-
+public abstract class BaseActor extends Actor {
     public TextButton.TextButtonStyle getTextButtonStyle(Skin skin, BitmapFont font) {
         return new TextButton.TextButtonStyle(skin.getDrawable("default-round"), skin.getDrawable("default-round-down"), skin.getDrawable("default-round"), font);
     }
@@ -43,5 +32,4 @@ public abstract class BaseDialog extends Window {
     public SelectBox.SelectBoxStyle getSelectBoxStyle(Skin skin, BitmapFont font) {
         return new SelectBox.SelectBoxStyle(font, skin.getColor("white"), skin.getDrawable("default-select"), getScrollPaneStyle(skin, font), new List.ListStyle(font, skin.getColor("black"), skin.getColor("white"), skin.getDrawable("default-select-selection")));
     }
-
 }

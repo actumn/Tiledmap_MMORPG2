@@ -8,11 +8,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.XmlDataLoader;
 import com.mygdx.game.listener.CharacterInputListener;
 import com.mygdx.game.map.Map;
-import com.mygdx.game.object.Entity;
-import com.mygdx.game.object.NPC;
 import com.mygdx.game.object.Player;
-import com.mygdx.game.object.Mob;
-import com.mygdx.game.ui.HealthBar;
+import com.mygdx.game.ui.actors.HealthBar;
 
 import java.io.IOException;
 
@@ -63,7 +60,7 @@ public class TestScene extends GameScene {
 
             Player c = this.xmlDataLoader.loadPlayer(1)
                     .level(1)
-                    .setName("adm\nin")
+                    .setName("admin")
                     .setMap(m);
             m.add(c);
             m.setCenterCharacter(c);

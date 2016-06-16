@@ -2,18 +2,14 @@ package com.mygdx.game.object;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.scene.Assets;
 import com.mygdx.game.ui.Font;
-import com.mygdx.game.ui.SystemMessage;
 
 /**
  * Created by Lee on 2016-05-19.
@@ -214,7 +210,7 @@ public class Player extends Entity {
     }
 
     public void chat() {
-        this.chatBubble.chat("default message");
+        this.chatBubble.chat(this.name + ":\n default\n message");
     }
 
 
@@ -224,61 +220,91 @@ public class Player extends Entity {
     }
 
     private class ChatBubble {
+        /* model */
         private Player player;
+
+        /* view */
         private ShapeRenderer shapeRenderer;
         private int fontSize;
+
+
+        /* properties */
+        private GlyphLayout layout;
         private String message;
         private float r, g, b, a;
         private long expiryTime;
         private float chatWidth;
+        private float chatHeight;
+        private float horizontalPad = 10.0f;
+        private float verticalPad = 10.0f;
 
         private ChatBubble(Player player, ShapeRenderer shapeRenderer) {
+            this.player = player;
             this.shapeRenderer = shapeRenderer;
-            this.message = "default message";
+
+            this.layout = new GlyphLayout();
             this.r = this.g = this.b = this.a = 1.0f;
-            this.fontSize = 12;
+            this.fontSize = 14;
         }
         private void chat(String message) {
             this.message = message;
             this.expiryTime = System.currentTimeMillis() + 1000;
-            this.chatWidth = Font.getInstance().getFont(12).getSpaceWidth() * this.message.length() * 2;
+
+            BitmapFont font = Font.getInstance().getFont(this.fontSize);
+            this.layout.setText(font, message);
+            this.chatWidth = layout.width;
+            this.chatHeight =  layout.height;
         }
 
         private void render(SpriteBatch batch) {
             if (System.currentTimeMillis() > this.expiryTime) return;
 
-            /*
             batch.end();
+
+            Gdx.gl.glEnable(GL20.GL_BLEND);
+            Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+
             this.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            this.shapeRenderer.setColor(0.5f, 0.5f, 0.5f, 0.5f);
-            this.shapeRenderer.rect(
-                    getDrawX() + getTextureRegion().getRegionWidth() / 2 - 10, this.getDrawY() - 2, getPercentHp() / 5, 5
-            );
+            this.shapeRenderer.setColor(0.5f, 0.5f, 0.5f, 0.4f);
+            this.render(getDrawX(), getDrawY(), chatWidth + horizontalPad, chatHeight + verticalPad, 4);
             this.shapeRenderer.end();
 
-            this.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-            this.shapeRenderer.setColor(0.0f, 0.0f, 0.0f, 1.0f);
-            this.shapeRenderer.rect(
-                    this.getDrawX() + this.getTextureRegion().getRegionWidth() / 2 - 10,
-                    this.getDrawY() - 2,
-                    20, 5
-            );
-            this.shapeRenderer.end();
+            Gdx.gl.glDisable(GL20.GL_BLEND);
 
             batch.begin();
 
-            Font.getInstance().getFont(this.fontSize).setColor(r, g, b, a);
-            Font.getInstance().getFont(this.fontSize).draw(batch, this.message,
-                    this.getDrawX() + this.getTextureRegion().getRegionWidth() / 2 - this.nameWidth / 2.0f,
-                    this.getDrawY() + this.getTextureRegion().getRegionHeight() + Font.getInstance().getFont(this.nameSize).getCapHeight());
 
+            BitmapFont chatFont = Font.getInstance().getFont(this.fontSize);
+            chatFont.setColor(r, g, b, a);
+            chatFont.draw(batch, this.message,
+                    this.getDrawX() + this.horizontalPad / 2.0f,
+                    this.getDrawY() + this.verticalPad / 2.0f + chatHeight);
 
-            BitmapFont font = Font.getInstance().getFont(size);
-            font.setColor(this.r, this.g, this.b, this.a);
-            font.draw(this.spriteBatch, this.message,
-                    Gdx.graphics.getWidth() / 2 - Gdx.graphics.getHeight() * size / Gdx.graphics.getWidth() * this.message.length() / 2,
-                    Gdx.graphics.getHeight() / 2 + font.getCapHeight() / 2);
-                    */
+        }
+
+        private float getDrawX() {
+            return this.player.x - chatWidth / 2.0f - horizontalPad / 2.0f;
+        }
+
+        private float getDrawY() {
+            return this.player.y + this.player.getTextureRegion().getRegionHeight() + 18;
+        }
+
+        private void render(float x, float y, float width, float height, float radius){
+            // Central rectangle
+            shapeRenderer.rect(x + radius, y + radius, width - 2*radius, height - 2*radius);
+
+            // Four side rectangles, in clockwise order
+            shapeRenderer.rect(x + radius, y, width - 2*radius, radius);
+            shapeRenderer.rect(x + width - radius, y + radius, radius, height - 2*radius);
+            shapeRenderer.rect(x + radius, y + height - radius, width - 2*radius, radius);
+            shapeRenderer.rect(x, y + radius, radius, height - 2*radius);
+
+            // Four arches, clockwise too
+            shapeRenderer.arc(x + radius, y + radius, radius, 180f, 90f);
+            shapeRenderer.arc(x + width - radius, y + radius, radius, 270f, 90f);
+            shapeRenderer.arc(x + width - radius, y + height - radius, radius, 0f, 90f);
+            shapeRenderer.arc(x + radius, y + height - radius, radius, 90f, 90f);
         }
     }
 }
