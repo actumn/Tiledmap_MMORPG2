@@ -11,7 +11,6 @@ import com.mygdx.game.object.Player;
 public class CharacterInputListener extends InputListener {
     private Player player;
     public boolean myCharacterMoveState[] = new boolean[4];
-    public boolean myCharacterSkillState = false;
 
     public CharacterInputListener (Player player) {
         this.player = player;

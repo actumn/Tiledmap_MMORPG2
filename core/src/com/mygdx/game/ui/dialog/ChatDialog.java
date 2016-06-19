@@ -1,10 +1,12 @@
 package com.mygdx.game.ui.dialog;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.StringBuilder;
 import com.mygdx.game.ui.Font;
 import com.mygdx.game.ui.actors.BaseActor;
 
@@ -13,8 +15,11 @@ import com.mygdx.game.ui.actors.BaseActor;
  */
 public class ChatDialog extends BaseDialog {
     private Skin skin;
+    private Label chatArea;
     private ScrollPane chatAreaPane;
     private TextField chatField;
+    private StringBuilder stringBuilder;
+
     public ChatDialog(String title, Skin skin) {
         super(title, skin);
 
@@ -31,9 +36,9 @@ public class ChatDialog extends BaseDialog {
         BitmapFont contentFont = Font.getInstance().getFont(textSize);
 
 
-        Label chatArea = new Label("", skin);
-        chatArea.setFillParent(true);
-        chatArea.setStyle(getLabelStyle(skin, contentFont));
+        this.chatArea = new Label("", skin);
+        this.chatArea.setFillParent(true);
+        this.chatArea.setStyle(getLabelStyle(skin, contentFont));
 
         this.chatAreaPane = new ScrollPane(chatArea, skin);
         this.chatAreaPane.setOverscroll(false, true);
@@ -51,11 +56,38 @@ public class ChatDialog extends BaseDialog {
 
         this.addActor(this.chatAreaPane);
         this.addActor(chatField);
+        this.setModal(true);
+        this.setMovable(false);
+
+        this.stringBuilder = new StringBuilder();
+        this.chatField.setDisabled(true);
+        this.addListener(new InputListener(){
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (keycode == Input.Keys.ENTER) {
+                    if(chatField.isDisabled()) {
+                        chatField.setDisabled(false);
+                        ChatDialog.this.getStage().setKeyboardFocus(chatField);
+                    }
+                    else {
+                        chatField.setDisabled(true);
+                        chat();
+                        chatField.setText("");
+                    }
+                }
+
+                return super.keyDown(event, keycode);
+            }
+        });
     }
 
 
 
     private void chat() {
+        String message = this.chatField.getText();
+        if(message.equals("")) return;
 
+        this.stringBuilder.append("\n").append(message);
+        this.chatArea.setText(this.stringBuilder.toString());
     }
 }

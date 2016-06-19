@@ -25,23 +25,26 @@ public class TestScene extends GameScene {
 
     // View
     private Skin skin;
-    private Stage stage;
+    private Stage gameStage;
+    private Stage chatStage;
+    private Stage escStage;
 
     // Controller
     private CharacterInputListener characterInputListener;
 
     @Override
     public void create() {
-        this.stage = new Stage(new ScreenViewport());
+        ScreenViewport screenViewport = new ScreenViewport();
+        this.gameStage = new Stage(screenViewport);
         this.skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 
         this.xmlDataLoader = new XmlDataLoader();
         initMap();
 
 
-        stage.addActor(new HealthBar());
-        stage.addActor(new ChatDialog("", skin));
-        Gdx.input.setInputProcessor(stage);
+        gameStage.addActor(new HealthBar());
+        gameStage.addActor(new ChatDialog("", skin));
+        Gdx.input.setInputProcessor(gameStage);
     }
 
     @Override
@@ -50,8 +53,8 @@ public class TestScene extends GameScene {
         characterInputListener.update();
         this.m.update();
 
-        stage.act(Gdx.graphics.getDeltaTime());
-        stage.draw();
+        gameStage.act(Gdx.graphics.getDeltaTime());
+        gameStage.draw();
     }
 
 
@@ -68,7 +71,7 @@ public class TestScene extends GameScene {
             m.setCenterCharacter(c);
 
             this.characterInputListener = new CharacterInputListener(c);
-            stage.addListener(this.characterInputListener);
+            gameStage.addListener(this.characterInputListener);
 
         } catch (IOException e) {
             e.printStackTrace();
