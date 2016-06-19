@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Lee on 2016-05-24.
  */
-public class Quadtree {
+public class Quadtree implements QuadtreeImpl {
 
     private int level;
     private List<Rectable> objects;
@@ -147,5 +147,10 @@ public class Quadtree {
         returnObjects.addAll(objects);
 
         return returnObjects;
+    }
+
+    public boolean isCollide(Rectable pRect) {
+
+        return false;
     }
 }

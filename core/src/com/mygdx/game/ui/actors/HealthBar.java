@@ -32,6 +32,7 @@ public class HealthBar extends BaseActor {
     public void draw(Batch batch, float parentAlpha) {
         float progress = 1.0f;
 
+        batch.setColor(1.0f, 1.0f, 1.0f, 1.0f);
         loadingBarBackground.draw(batch, getX(), getY(), getWidth() * getScaleX(), getHeight() * getScaleY());
         loadingBar.draw(batch, getX(), getY(), progress * getWidth() * getScaleX(), getHeight() * getScaleY());
     }

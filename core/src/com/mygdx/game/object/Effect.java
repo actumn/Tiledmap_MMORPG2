@@ -75,7 +75,7 @@ public class Effect implements DrawObject {
     @Override
     public void draw(SpriteBatch batch) {
         batch.draw(this.getTextureRegion(), this.getDrawX(), this.getDrawY());
-        batch.end();
+/*        batch.end();
 
         this.shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
 
@@ -89,7 +89,7 @@ public class Effect implements DrawObject {
         );
         this.shapeRenderer.end();
 
-        batch.begin();
+        batch.begin();*/
     }
 
     public void update(){
