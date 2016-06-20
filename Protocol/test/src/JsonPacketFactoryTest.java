@@ -117,15 +117,18 @@ public class JsonPacketFactoryTest {
         assertNotNull(testFactory);
 
         final String expect_type = "chat";
+        final long expect_entity_id = 1;
         final String expect_content = "hello";
 
-        JSONObject obj = testFactory.chat(expect_content);
+        JSONObject obj = testFactory.chat(expect_entity_id, expect_content);
         assertNotNull(obj);
 
         String actual_type = (String) obj.get("type");
+        long actual_entity_id = (long) obj.get("id");
         String actual_content = (String) obj.get("content");
 
         assertEquals(expect_type, actual_type);
+        assertEquals(expect_entity_id, actual_entity_id);
         assertEquals(expect_content, actual_content);
     }
 

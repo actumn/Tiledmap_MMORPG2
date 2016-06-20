@@ -50,7 +50,8 @@ public class NPC extends Entity {
     }
     public NPC team(int team) {
         this.team = team;
-        this.nameColor = new Color(0.0f, 1.0f, 0.0f, 1.0f);
+        if (team == 0) this.nameColor = new Color(0.0f, 1.0f, 0.0f, 1.0f);
+        else if (team == 1) this.nameColor = new Color(1.0f, 1.0f, 0.0f, 1.0f);
         return this;
     }
     public NPC dropExpGold(int dropExp, int dropGold) {

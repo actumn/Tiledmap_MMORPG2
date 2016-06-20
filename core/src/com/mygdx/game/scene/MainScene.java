@@ -112,7 +112,6 @@ public class MainScene extends GameScene {
         gameStage.addListener(this.characterInputListener);
         m.add(c);
         m.setCenterCharacter(c);
-        System.out.println(entityId);
     }
 
     private void updateNetwork() {

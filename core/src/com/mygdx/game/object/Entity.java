@@ -7,9 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.map.Map;
-import com.mygdx.game.ui.Font;
 import network.Network;
-import protocol.Packet.JsonPacketFactory;
 import protocol.Packet.PacketFactory;
 
 /**

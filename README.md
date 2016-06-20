@@ -7,3 +7,4 @@ data-driven test-driven
 JUnit DBUnit
 JMeter
 DBCP
+XmlPullParser

@@ -130,6 +130,7 @@ public class UserDispatcher {
     }
 
     public void move(JSONObject packet) {
+        packet.put("id", user.getUuid());
         this.service.moveObject(this.user, packet);
     }
 

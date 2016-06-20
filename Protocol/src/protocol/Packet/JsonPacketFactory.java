@@ -95,13 +95,15 @@ public class JsonPacketFactory implements PacketFactory {
         @return JSON like :
         {
             "type":"chat"
+            "id":entity_id
             "content":"Hello"
         }
      */
     @Override
-    public JSONObject chat(String content) {
+    public JSONObject chat(long entity_id, String content) {
         JSONObject obj = new JSONObject();
         obj.put("type", "chat");
+        obj.put("id", entity_id);
         obj.put("content", content);
 
         return obj;
