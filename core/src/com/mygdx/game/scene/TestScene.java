@@ -9,8 +9,8 @@ import com.mygdx.game.XmlDataLoader;
 import com.mygdx.game.listener.CharacterInputListener;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.object.Player;
+import com.mygdx.game.ui.actors.StateActor;
 import com.mygdx.game.ui.dialog.ChatDialog;
-import com.mygdx.game.ui.actors.HealthBar;
 
 import java.io.IOException;
 
@@ -26,7 +26,6 @@ public class TestScene extends GameScene {
     // View
     private Skin skin;
     private Stage gameStage;
-    private Stage chatStage;
     private Stage escStage;
 
     // Controller
@@ -42,7 +41,7 @@ public class TestScene extends GameScene {
         initMap();
 
 
-        gameStage.addActor(new HealthBar());
+        gameStage.addActor(new StateActor());
         gameStage.addActor(new ChatDialog("", skin));
         Gdx.input.setInputProcessor(gameStage);
     }

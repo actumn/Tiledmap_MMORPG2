@@ -20,7 +20,7 @@ public class Loading extends GameScene {
     }
 
     public Loading(GameScene nextController) {
-        this(nextController, "잠시만 기다려주세요.");
+        this(nextController, "잠시만 기다려주세요...");
     }
 
     @Override

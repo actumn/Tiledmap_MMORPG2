@@ -113,8 +113,39 @@ public class NPC extends Entity {
     public void Touch() {
 
     }
-    public void AI_Update(){
 
+    protected void spriteUpdate() {
+        if(this.dx != this.x || this.dy != this.y || this.s_state != 0) {
+            this.s_state += 1;
+            if(this.s_state>=animationsCount*directionsCount) this.s_state = 0;
+
+            this.dx = this.x;
+            this.dy = this.y;
+        }
+    }
+
+    private long moveCoolDown = 0;
+    public void AI_Update(){
+        if (System.currentTimeMillis() < moveCoolDown) return;
+        final int speed = 32;
+        int dir = (int)(Math.random()*4);   // will gen 0 1 2 3
+        double stand = ((double)dir - 1.5) * 2;
+        /*  stand = north : 3
+                    east : 1
+                    west : -1
+                    south : -3
+        */
+        int dirX = (int)stand % 3;
+        int dirY = (int)stand / 3;
+        /*
+            x,y =   north : 0,1
+                    east : 1,0
+                    west : -1,0
+                    south : 0, -1
+         */
+        dirX *= 32; dirY *= 32;
+        move(this.x, this.y, this.x + dirX, this.y + dirY);
+        moveCoolDown = System.currentTimeMillis() + 1000;
     }
 
 
@@ -136,6 +167,7 @@ public class NPC extends Entity {
     @Override
     public void update() {
         //AI_Update();
+        spriteUpdate();
     }
 
 

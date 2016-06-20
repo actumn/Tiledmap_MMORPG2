@@ -152,9 +152,9 @@ public class Quadtree implements QuadtreeImpl {
     public boolean isCollide(Rectable pRect, Rectangle pRectangle) {
         for (Rectable rectable : objects) {
             if (pRect == rectable) continue;
-            if (pRect.getBounds().overlaps(pRectangle)) return true;
+            if (rectable.getBounds().overlaps(pRectangle)) return true;
         }
         int index = getIndex(pRectangle);
-        return index != -1 && nodes[index].isCollide(pRect, pRectangle);
+        return index != -1 && nodes[index] != null && nodes[index].isCollide(pRect, pRectangle);
     }
 }

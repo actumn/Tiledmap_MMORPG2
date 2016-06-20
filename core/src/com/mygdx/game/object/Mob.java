@@ -50,11 +50,11 @@ public class Mob extends NPC {
     @Override
     public void update() {
         super.update();
-        spriteUpdate();
     }
 
 
-    private void spriteUpdate() {
+    @Override
+    protected void spriteUpdate() {
 
         if(this.dx != this.x || this.dy != this.y || this.s_state != 0) {
             this.s_state += 1;

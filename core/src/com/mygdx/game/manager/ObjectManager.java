@@ -147,4 +147,8 @@ public class ObjectManager {
     public void setCenterPlayer(Player centerPlayer) {
         this.centerPlayer = centerPlayer;
     }
+
+    public boolean isCollide(Entity entity, Rectangle eRect) {
+        return entityQuadtree.isCollide(entity, eRect);
+    }
 }

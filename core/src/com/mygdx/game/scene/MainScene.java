@@ -11,8 +11,8 @@ import com.mygdx.game.listener.CharacterInputListener;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.object.Entity;
 import com.mygdx.game.object.Player;
-import com.mygdx.game.ui.actors.HealthBar;
 import com.mygdx.game.ui.SystemMessage;
+import com.mygdx.game.ui.actors.StateActor;
 import network.Network;
 import org.json.simple.JSONObject;
 
@@ -30,7 +30,6 @@ public class MainScene extends GameScene {
     // View
     private Skin skin;
     private Stage gameStage;
-    private Stage chatStage;
     private Stage escStage;
 
     // Controller
@@ -54,7 +53,6 @@ public class MainScene extends GameScene {
         }
 
         // Control
-        gameStage.addActor(new HealthBar());
         Gdx.input.setInputProcessor(gameStage);
     }
 

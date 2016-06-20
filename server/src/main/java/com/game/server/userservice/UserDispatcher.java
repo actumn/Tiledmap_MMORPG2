@@ -140,6 +140,13 @@ public class UserDispatcher {
             try {
                 String sql = "UPDATE USERS SET LEVEL=?, MAP_ID=?, X=?, Y=? WHERE ID=?";
                 PreparedStatement ps = con.prepareStatement(sql);
+
+                ps.setString(1, String.valueOf(user.getLevel()));
+                ps.setString(2, String.valueOf(user.getMapId()));
+                ps.setString(3, String.valueOf(user.getX()));
+                ps.setString(4, String.valueOf(user.getY()));
+                ps.setString(5, String.valueOf(user.getDbid()));
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }

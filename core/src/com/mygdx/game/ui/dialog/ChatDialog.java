@@ -82,6 +82,9 @@ public class ChatDialog extends BaseDialog {
     }
 
 
+    public void chat(String message) {
+
+    }
 
     private void chat() {
         String message = this.chatField.getText();

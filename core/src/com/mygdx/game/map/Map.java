@@ -128,4 +128,8 @@ public class Map {
     public HashMap<MapMovePoint, MapMoveDestination> getMoves() {
         return moves;
     }
+
+    public boolean isCollide(Entity entity, Rectangle eRect) {
+        return objectManager.isCollide(entity, eRect);
+    }
 }

@@ -5,7 +5,7 @@ import com.badlogic.gdx.ApplicationListener;
 /**
  * Created by Lee on 2016-05-21.
  */
-public class GameScene implements ApplicationListener {
+public abstract class GameScene implements ApplicationListener {
     @Override
     public void create() {
 

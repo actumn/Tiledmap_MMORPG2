@@ -55,7 +55,10 @@ public abstract class Entity implements DrawObject, Rectable {
         return entityId;
     }
     public float getPercentHp(){
-        return hp * 100 / maxHp;
+        return maxHp == 0? 0 : hp * 100 / maxHp;
+    }
+    public float getPercentMp() {
+        return maxMp == 0? 0 : mp * 100 / maxMp;
     }
 
     public int getDrawX() {
@@ -74,6 +77,8 @@ public abstract class Entity implements DrawObject, Rectable {
     public void move(int sx, int sy, int dx, int dy) {
         if (entityState != EntityState.normal) return;
         else if (map.checkCollision(dx, dy)) return;
+        else if (map.isCollide(this, new Rectangle(dx - this.getTextureRegion().getRegionWidth() / 2, dy,
+                this.getTextureRegion().getRegionWidth(), this.getTextureRegion().getRegionHeight())))  return;
 
         PacketFactory packetFactory = Network.getInstance().getPacketFactory();
 
