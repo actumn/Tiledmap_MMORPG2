@@ -13,6 +13,7 @@ import com.mygdx.game.object.Entity;
 import com.mygdx.game.object.Player;
 import com.mygdx.game.ui.SystemMessage;
 import com.mygdx.game.ui.actors.StateActor;
+import com.mygdx.game.ui.dialog.ChatDialog;
 import network.Network;
 import org.json.simple.JSONObject;
 
@@ -32,6 +33,9 @@ public class MainScene extends GameScene {
     private Stage gameStage;
     private Stage escStage;
 
+        // Dialog
+    private ChatDialog chatDialog;
+
     // Controller
     private CharacterInputListener characterInputListener;
 
@@ -43,6 +47,7 @@ public class MainScene extends GameScene {
         ScreenViewport screenViewport = new ScreenViewport();
         this.gameStage = new Stage(screenViewport);
         this.skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+        this.chatDialog = new ChatDialog("", skin);
 
         // model
         this.xmlDataLoader = new XmlDataLoader();
@@ -125,7 +130,6 @@ public class MainScene extends GameScene {
                 int level = (int)(long) packet.get("level");
                 int job_id = (int)(long) packet.get("job_id");
 
-                System.out.println("Character id : " + entityId);
                 try {
                     Player c = this.xmlDataLoader.loadPlayer(job_id)
                             .level(level)
@@ -152,6 +156,12 @@ public class MainScene extends GameScene {
                 else {
                     e.show_move(e.x, e.y, destX, destY);
                 }
+            }
+
+            else if (packet.get("type").equals("chat")) {
+                long entityId = (long) packet.get("id");
+                String content = (String) packet.get("content");
+
             }
         }
     }

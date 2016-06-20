@@ -1,24 +1,29 @@
 package com.mygdx.game.ui.dialog;
 
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.StringBuilder;
+import com.mygdx.game.object.Entity;
+import com.mygdx.game.object.Player;
 import com.mygdx.game.ui.Font;
-import com.mygdx.game.ui.actors.BaseActor;
+import network.Network;
+import protocol.Packet.PacketFactory;
+
+import java.util.ArrayList;
 
 /**
  * Created by Lee on 2016-06-16.
  */
 public class ChatDialog extends BaseDialog {
     private Skin skin;
-    private Label chatArea;
+    private List chatList;
     private ScrollPane chatAreaPane;
     private TextField chatField;
-    private StringBuilder stringBuilder;
+
+    /* messages */
+    private ArrayList<ChatMessage> chatMessages;
 
     public ChatDialog(String title, Skin skin) {
         super(title, skin);
@@ -36,11 +41,10 @@ public class ChatDialog extends BaseDialog {
         BitmapFont contentFont = Font.getInstance().getFont(textSize);
 
 
-        this.chatArea = new Label("", skin);
-        this.chatArea.setFillParent(true);
-        this.chatArea.setStyle(getLabelStyle(skin, contentFont));
+        this.chatList = new List(skin);
+        this.chatList.setStyle(getListStyle(skin, contentFont));
 
-        this.chatAreaPane = new ScrollPane(chatArea, skin);
+        this.chatAreaPane = new ScrollPane(chatList, skin);
         this.chatAreaPane.setOverscroll(false, true);
         this.chatAreaPane.setSmoothScrolling(true);
         this.chatAreaPane.setFlickScroll(false);
@@ -59,7 +63,6 @@ public class ChatDialog extends BaseDialog {
         this.setModal(true);
         this.setMovable(false);
 
-        this.stringBuilder = new StringBuilder();
         this.chatField.setDisabled(true);
         this.addListener(new InputListener(){
             @Override
@@ -79,18 +82,38 @@ public class ChatDialog extends BaseDialog {
                 return super.keyDown(event, keycode);
             }
         });
+
+        this.chatMessages = new ArrayList<>();
     }
 
+    public void chat(Entity entity, String message) {
+        this.chatMessages.add(new ChatMessage(entity, message));
 
-    public void chat(String message) {
-
+        this.chatList.setItems(chatMessages.toArray());
+        chatAreaPane.layout();
+        chatAreaPane.scrollTo(0,0,0,0, true, true);
     }
 
     private void chat() {
-        String message = this.chatField.getText();
-        if(message.equals("")) return;
+        String message = chatField.getText();
+        if (message.equals("") || message.length() == 0) return;
 
-        this.stringBuilder.append("\n").append(message);
-        this.chatArea.setText(this.stringBuilder.toString());
+        PacketFactory packetFactory = Network.getInstance().getPacketFactory();
+        Network.getInstance().send(packetFactory.chat(0, message));
+    }
+
+    private class ChatMessage {
+        private Entity entity;
+        private String message;
+
+        ChatMessage(Entity entity, String message) {
+            this.entity = entity;
+            this.message = message;
+        }
+
+        @Override
+        public String toString() {
+            return entity + ": " + message;
+        }
     }
 }
