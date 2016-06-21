@@ -163,8 +163,14 @@ public abstract class Entity implements DrawObject, Rectable {
         }
     }
 
-    public void chat(String message) {
-        this.chatBubble.chat(this.name + ": " +message);
+    public void chat(final String message) {
+        StringBuilder messageBuilder = new StringBuilder();
+        messageBuilder.append(this.name).append(": ").append(message);
+        int index = 0;
+        while ((index += 10) < messageBuilder.length()) {
+            messageBuilder.insert(index, '\n');
+        }
+        this.chatBubble.chat(messageBuilder.toString());
     }
 
     protected class ChatBubble {
@@ -196,7 +202,7 @@ public abstract class Entity implements DrawObject, Rectable {
         }
         private void chat(String message) {
             this.message = message;
-            this.expiryTime = System.currentTimeMillis() + 1000;
+            this.expiryTime = System.currentTimeMillis() + 2000;
 
             BitmapFont font = Font.getInstance().getFont(this.fontSize);
             this.layout.setText(font, message);

@@ -87,7 +87,12 @@ public class ChatDialog extends BaseDialog {
     }
 
     public void append(Entity entity, String message) {
-        this.chatMessages.add(new ChatMessage(entity, message));
+        StringBuilder messageBuilder = new StringBuilder(message);
+        int index = 0;
+        while ((index += 40) < messageBuilder.length()) {
+            messageBuilder.insert(index, '\n');
+        }
+        this.chatMessages.add(new ChatMessage(entity, messageBuilder.toString()));
 
         this.chatList.setItems(chatMessages.toArray());
         chatAreaPane.layout();

@@ -41,7 +41,7 @@ public class TestScene extends GameScene {
         initMap();
 
 
-        gameStage.addActor(new StateActor());
+        gameStage.addActor(new StateActor(m.getCenterPlayer()));
         gameStage.addActor(new ChatDialog("", skin));
         Gdx.input.setInputProcessor(gameStage);
     }
@@ -67,7 +67,7 @@ public class TestScene extends GameScene {
                     .setName("admin")
                     .setMap(m);
             m.add(c);
-            m.setCenterCharacter(c);
+            m.setCenterPlayer(c);
 
             this.characterInputListener = new CharacterInputListener(c);
             gameStage.addListener(this.characterInputListener);

@@ -58,7 +58,7 @@ public class MainScene extends GameScene {
         }
 
         // Control
-        gameStage.addActor(new StateActor());
+        gameStage.addActor(new StateActor(map.getCenterPlayer()));
         gameStage.addActor(this.chatDialog);
         Gdx.input.setInputProcessor(gameStage);
     }
@@ -118,7 +118,7 @@ public class MainScene extends GameScene {
         this.characterInputListener = new CharacterInputListener(c);
         gameStage.addListener(this.characterInputListener);
         map.add(c);
-        map.setCenterCharacter(c);
+        map.setCenterPlayer(c);
     }
 
     private void updateNetwork() {

@@ -125,6 +125,7 @@ public class Player extends Entity {
 
         this.entityState = EntityState.casting;
         s_state = 1;
+        mp -= 5;
 
         Effect effect = new RectableEffect("몰라씨발");
 

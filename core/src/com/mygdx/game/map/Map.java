@@ -117,9 +117,10 @@ public class Map {
     public int getTilePosY(int y) {
         return (Integer) this.tiledMap.getProperties().get("tileheight") * y;
     }
-    public void setCenterCharacter(Player centerPlayer) {
+    public void setCenterPlayer(Player centerPlayer) {
         objectManager.setCenterPlayer(centerPlayer);
     }
+    public Player getCenterPlayer() { return objectManager.getCenterPlayer(); }
 
     public int getMapId() {
         return mapId;
