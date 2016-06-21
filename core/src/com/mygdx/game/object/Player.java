@@ -10,6 +10,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.scene.Assets;
 import com.mygdx.game.ui.Font;
+import network.Network;
+import protocol.Packet.PacketFactory;
 
 /**
  * Created by Lee on 2016-05-19.
@@ -18,7 +20,10 @@ public class Player extends Entity {
     public final int speedX = 5;
     public final int speedY = 5;
 
+    /* character textrue */
     private ChatBubble chatBubble;
+    private float boundsWidth, boundsHeight;
+    private float horizontalPad = 72, verticalPad = 12;
 
     /* player job properties */
     private String jobName;
@@ -101,11 +106,15 @@ public class Player extends Entity {
         }
         this.animations.insert(stateValue, new Animation(1.0f, frames));
 
+        this.boundsWidth = this.getTextureRegion().getRegionWidth() - horizontalPad;
+        this.boundsHeight = this.getTextureRegion().getRegionHeight() - verticalPad;
+
+
         this.shapeRenderer = new ShapeRenderer();
         this.chatBubble = new ChatBubble(this, shapeRenderer);
 
-        this.bounds = new Rectangle(getDrawX(), getDrawY(),
-                this.getTextureRegion().getRegionWidth(), this.getTextureRegion().getRegionHeight());
+        this.bounds = new Rectangle(getDrawX() + horizontalPad / 2.0f, getDrawY() + verticalPad / 2.0f,
+                boundsWidth, boundsHeight);
 
         return this;
     }
@@ -118,7 +127,7 @@ public class Player extends Entity {
         this.entityState = EntityState.casting;
         s_state = 1;
 
-        Effect effect = new RectableEffect("effects/blue_crystal.png");
+        Effect effect = new RectableEffect("몰라씨발");
 
         double stand = ((double)direction - 1.5) * 2;
         /*  stand = north : 3
@@ -142,6 +151,27 @@ public class Player extends Entity {
         map.add(effect);
 
         skillCoolDown = System.currentTimeMillis() + 2000;
+    }
+
+    @Override
+    public void move(int sx, int sy, int dx, int dy) {
+        if (entityState != EntityState.normal) return;
+        else if (map.checkCollision(dx, dy)) return;
+        else if (map.isCollide(this, new Rectangle(dx - getTextureRegion().getRegionWidth() / 2 + horizontalPad / 2.0f,
+                dy + verticalPad / 2.0f,
+                boundsWidth, boundsHeight))) return;
+
+
+        PacketFactory packetFactory = Network.getInstance().getPacketFactory();
+        Network.getInstance().send(packetFactory.move(this.entityId, this.map.getMapId(),dx, dy));
+
+        show_move(sx, sy, dx, dy);
+    }
+
+    @Override
+    public void show_move(int sx, int sy, int dx, int dy) {
+        super.show_move(sx, sy, dx, dy);
+        this.bounds.setPosition(getDrawX() + horizontalPad / 2.0f, getDrawY() + verticalPad / 2.0f);
     }
 
     @Override
@@ -209,10 +239,23 @@ public class Player extends Entity {
         this.def = this.lvdef * this.level;
     }
 
+    @Override
+    public float getBoundsWidth() {
+        return this.boundsWidth;
+    }
+
+    @Override
+    public float getBoundsHeight() {
+        return this.boundsHeight;
+    }
+
     public void chat() {
         this.chatBubble.chat(this.name + ":\n default\n message");
     }
 
+    public String getJobName() {
+        return jobName;
+    }
 
     @Override
     public String toString() {
@@ -266,7 +309,7 @@ public class Player extends Entity {
 
             this.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             this.shapeRenderer.setColor(0.5f, 0.5f, 0.5f, 0.4f);
-            this.render(getDrawX(), getDrawY(), chatWidth + horizontalPad, chatHeight + verticalPad, 4);
+            this.render(getDrawX(), getDrawY(), chatWidth + horizontalPad, chatHeight + verticalPad, 10);
             this.shapeRenderer.end();
 
             Gdx.gl.glDisable(GL20.GL_BLEND);

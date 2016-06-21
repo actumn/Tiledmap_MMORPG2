@@ -26,7 +26,7 @@ public class NPC extends Entity {
     public NPC xy(int x, int y) {
         this.x = x;
         this.y = y;
-        this.bounds.setPosition(x,y);
+        this.bounds.setPosition(this.getDrawX(),this.getDrawY());
         return this;
     }
     @Override

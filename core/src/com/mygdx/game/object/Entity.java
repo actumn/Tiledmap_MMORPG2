@@ -76,10 +76,9 @@ public abstract class Entity implements DrawObject, Rectable {
         if (entityState != EntityState.normal) return;
         else if (map.checkCollision(dx, dy)) return;
         else if (map.isCollide(this, new Rectangle(dx - this.getTextureRegion().getRegionWidth() / 2, dy,
-                this.getTextureRegion().getRegionWidth(), this.getTextureRegion().getRegionHeight())))  return;
+                this.getBoundsWidth(), this.getBoundsHeight())))  return;
 
         PacketFactory packetFactory = Network.getInstance().getPacketFactory();
-
         Network.getInstance().send(packetFactory.move(this.entityId, this.map.getMapId(),dx, dy));
 
         show_move(sx, sy, dx, dy);
@@ -132,6 +131,14 @@ public abstract class Entity implements DrawObject, Rectable {
     public Rectangle getBounds() {
         return bounds;
     }
+
+    public float getBoundsWidth() {
+        return this.bounds.getWidth();
+    }
+    public float getBoundsHeight() {
+        return this.bounds.getHeight();
+    }
+
 
     protected enum Direction {
         south(0), west(1), east(2), north(3);
