@@ -15,9 +15,7 @@ public class Font {
     private static Font instance = new Font();
     public static Font getInstance() { return instance; }
 
-    private int uiFontSize = 13;
-
-    private HashMap<Integer, BitmapFont> fonts = new HashMap<Integer, BitmapFont>();
+    private HashMap<Integer, BitmapFont> fonts = new HashMap<>();
     public void reloadFont() { fonts.clear(); }
 
     public BitmapFont getFont(int size) {
@@ -33,9 +31,5 @@ public class Font {
             generator.dispose();
         }
         return fonts.get(size);
-    }
-
-    public int getUiFontSize() {
-        return uiFontSize;
     }
 }

@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.scene.Assets;
 import com.mygdx.game.ui.Font;
+import com.mygdx.game.ui.MyShapeRenderer;
 import network.Network;
 import protocol.Packet.PacketFactory;
 
@@ -109,7 +110,7 @@ public class Player extends Entity {
         this.boundsHeight = this.getTextureRegion().getRegionHeight() - verticalPad;
 
 
-        this.shapeRenderer = new ShapeRenderer();
+        this.shapeRenderer = new MyShapeRenderer();
         this.chatBubble = new ChatBubble(this, shapeRenderer);
 
         this.bounds = new Rectangle(getDrawX() + horizontalPad / 2.0f, getDrawY() + verticalPad / 2.0f,

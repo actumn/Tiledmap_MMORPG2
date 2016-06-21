@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.scene.Assets;
 import com.mygdx.game.ui.Font;
+import com.mygdx.game.ui.MyShapeRenderer;
 
 /**
  * Created by Lee on 2016-05-26.
@@ -103,7 +104,7 @@ public class NPC extends Entity {
 
         this.animations.insert(stateValue, new Animation(1.0f, frames));
 
-        this.shapeRenderer = new ShapeRenderer();
+        this.shapeRenderer = new MyShapeRenderer();
 
         this.bounds = new Rectangle(this.getDrawX(), this.getDrawY(),
                 this.getTextureRegion().getRegionWidth(), this.getTextureRegion().getRegionHeight());

@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.ui.Font;
+import com.mygdx.game.ui.MyShapeRenderer;
 import network.Network;
 import protocol.Packet.PacketFactory;
 
@@ -28,7 +29,7 @@ public abstract class Entity implements DrawObject, Rectable {
 
     /* texture properties */
     protected ChatBubble chatBubble;
-    protected ShapeRenderer shapeRenderer;
+    protected MyShapeRenderer shapeRenderer;
 
     /* animations properties */
     protected Array<Animation> animations = new Array<>();
@@ -144,6 +145,10 @@ public abstract class Entity implements DrawObject, Rectable {
         return this.bounds.getHeight();
     }
 
+    public int getHp() { return hp; }
+    public int getMaxHp() { return maxHp; }
+    public int getMp() { return mp; }
+    public int getMaxMp() { return maxMp; }
 
     protected enum Direction {
         south(0), west(1), east(2), north(3);
@@ -178,7 +183,7 @@ public abstract class Entity implements DrawObject, Rectable {
         private Entity entity;
 
         /* view */
-        private ShapeRenderer shapeRenderer;
+        private MyShapeRenderer shapeRenderer;
         private int fontSize;
 
 
@@ -192,7 +197,7 @@ public abstract class Entity implements DrawObject, Rectable {
         private float horizontalPad = 10.0f;
         private float verticalPad = 10.0f;
 
-        protected ChatBubble(Entity entity, ShapeRenderer shapeRenderer) {
+        protected ChatBubble(Entity entity, MyShapeRenderer shapeRenderer) {
             this.entity = entity;
             this.shapeRenderer = shapeRenderer;
 
@@ -220,7 +225,7 @@ public abstract class Entity implements DrawObject, Rectable {
 
             this.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             this.shapeRenderer.setColor(0.5f, 0.5f, 0.5f, 0.4f);
-            this.renderBackground(getDrawX(), getDrawY(), chatWidth + horizontalPad, chatHeight + verticalPad, 10);
+            this.shapeRenderer.roundedRect(getDrawX(), getDrawY(), chatWidth + horizontalPad, chatHeight + verticalPad, 10);
             this.shapeRenderer.end();
 
             Gdx.gl.glDisable(GL20.GL_BLEND);
@@ -242,23 +247,6 @@ public abstract class Entity implements DrawObject, Rectable {
 
         private float getDrawY() {
             return this.entity.y + this.entity.getTextureRegion().getRegionHeight() + 18;
-        }
-
-        private void renderBackground(float x, float y, float width, float height, float radius){
-            // Central rectangle
-            shapeRenderer.rect(x + radius, y + radius, width - 2*radius, height - 2*radius);
-
-            // Four side rectangles, in clockwise order
-            shapeRenderer.rect(x + radius, y, width - 2*radius, radius);
-            shapeRenderer.rect(x + width - radius, y + radius, radius, height - 2*radius);
-            shapeRenderer.rect(x + radius, y + height - radius, width - 2*radius, radius);
-            shapeRenderer.rect(x, y + radius, radius, height - 2*radius);
-
-            // Four arches, clockwise too
-            shapeRenderer.arc(x + radius, y + radius, radius, 180f, 90f);
-            shapeRenderer.arc(x + width - radius, y + radius, radius, 270f, 90f);
-            shapeRenderer.arc(x + width - radius, y + height - radius, radius, 0f, 90f);
-            shapeRenderer.arc(x + radius, y + height - radius, radius, 90f, 90f);
         }
     }
 }

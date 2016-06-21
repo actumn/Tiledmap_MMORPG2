@@ -1,39 +1,92 @@
 package com.mygdx.game.ui.actors;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.mygdx.game.object.Player;
+import com.mygdx.game.ui.Font;
+import com.mygdx.game.ui.MyShapeRenderer;
 
 /**
  * Created by Lee on 2016-06-20.
  */
 public class StateActor extends BaseActor {
+
+    /* objects */
     private HealthBar healthBar;
     private MagicBar magicBar;
     private Player centerPlayer;
+    private MyShapeRenderer shapeRenderer;
+
+    /* font position properties */
+    final int fontSize = 14;
+    final float hpFontX, hpFontY;
+    final float mpFontX, mpFontY;
+    final float hpInfoX, hpInfoY;
+    final float mpInfoX, mpInfoY;
+
 
     public StateActor(Player centerPlayer) {
         this.healthBar = new HealthBar();
         this.magicBar = new MagicBar();
         this.centerPlayer = centerPlayer;
 
-        this.healthBar.setX(100.0f); this.healthBar.setY(Gdx.graphics.getHeight() - 100.0f);
-        this.healthBar.setWidth(100.0f); this.healthBar.setHeight(10.0f);
-        this.magicBar.setX(100.0f); this.magicBar.setY(Gdx.graphics.getHeight() - 120.0f);
-        this.magicBar.setWidth(100.0f); this.magicBar.setHeight(10.0f);
+        final float x = 100.0f, y = Gdx.graphics.getHeight() - 200.0f;
+        final float width = 200.0f, height = 100.0f;
+        this.setPosition(x, y);
+        this.setSize(width, height);
+
+        final float healthBarX = x + 40.0f, healthBarY = y + 35.0f;
+        final float healthBarWidth = 100.0f, healthBarHeight = 10.0f;
+        final float magicBarX = x + 40.0f, magicBarY = y + 15.0f;
+        final float magicBarWidth = 100.0f, magicBarHeight = 10.0f;
+
+        this.healthBar.setX(healthBarX); this.healthBar.setY(healthBarY);
+        this.healthBar.setWidth(healthBarWidth); this.healthBar.setHeight(healthBarHeight);
+        this.magicBar.setX(magicBarX); this.magicBar.setY(magicBarY);
+        this.magicBar.setWidth(magicBarWidth); this.magicBar.setHeight(magicBarHeight);
 
 
+        this.hpFontX = x + 10.0f; this.hpFontY = y + 45.0f;
+        this.mpFontX = x + 10.0f; this.mpFontY = y + 25.0f;
+        this.hpInfoX = x + width - 50.0f; this.hpInfoY = y + 45.0f;
+        this.mpInfoX = x + width - 50.0f; this.mpInfoY = y + 25.0f;
+
+
+        this.shapeRenderer = new MyShapeRenderer();
     }
 
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        batch.end();
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+
+        this.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        this.shapeRenderer.setColor(0.2f, 0.2f, 0.2f, 0.5f);
+        this.shapeRenderer.roundedRect(getX(), getY(), getWidth(), getHeight(), 4);
+        this.shapeRenderer.end();
+
+        Gdx.gl.glDisable(GL20.GL_BLEND);
+        batch.begin();
+
         this.healthBar.setProgress(centerPlayer.getPercentHp()); this.magicBar.setProgress(centerPlayer.getPercentMp());
         this.healthBar.draw(batch, parentAlpha);
         this.magicBar.draw(batch, parentAlpha);
+
+
+        BitmapFont chatFont = Font.getInstance().getFont(this.fontSize);
+        chatFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+        chatFont.draw(batch, "HP", this.hpFontX, this.hpFontY);
+        chatFont.draw(batch, "MP", this.mpFontX, this.mpFontY);
+        chatFont.draw(batch, centerPlayer.getHp()+"/"+centerPlayer.getMaxHp(), this.hpInfoX, this.hpInfoY);
+        chatFont.draw(batch, centerPlayer.getMp()+"/"+centerPlayer.getMaxMp(), this.mpInfoX, this.mpInfoY);
     }
 
     private class HealthBar extends BaseActor {
