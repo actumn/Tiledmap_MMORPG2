@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2a052141-7e26-4f53-801b-3ada9c2b7fa8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/ui/MyShapeRenderer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tiledmap_RPG.iws" afterPath="$PROJECT_DIR$/Tiledmap_RPG.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/object/Entity.java" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/object/Entity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/object/NPC.java" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/object/NPC.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/object/Player.java" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/object/Player.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/ui/Font.java" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/ui/Font.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/ui/actors/StateActor.java" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/ui/actors/StateActor.java" />
     </list>
     <ignored path="BossRush.iws" />
@@ -93,11 +89,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Player.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/object/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="112" column="35" selection-start-line="112" selection-start-column="35" selection-end-line="112" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.6745562">
+              <caret line="61" column="42" selection-start-line="61" selection-start-column="42" selection-end-line="61" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -137,28 +133,28 @@
         <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/object/Entity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="148" column="36" selection-start-line="148" selection-start-column="36" selection-end-line="148" selection-end-column="36" />
+              <caret line="151" column="42" selection-start-line="151" selection-start-column="42" selection-end-line="151" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#7170#7171#0" expanded="true" />
-                <element signature="e#7270#7271#0" expanded="true" />
+                <element signature="e#7214#7215#0" expanded="true" />
+                <element signature="e#7314#7315#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StateActor.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="StateActor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/ui/actors/StateActor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.26923078">
-              <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
               <folding>
                 <element signature="class#HealthBar#0;class#StateActor#0" expanded="false" />
-                <element signature="e#4214#4215#0" expanded="true" />
-                <element signature="e#4267#4268#0" expanded="true" />
+                <element signature="e#4769#4770#0" expanded="true" />
+                <element signature="e#4822#4823#0" expanded="true" />
                 <element signature="class#MagicBar#0;class#StateActor#0" expanded="false" />
-                <element signature="e#5471#5472#0" expanded="true" />
-                <element signature="e#5524#5525#0" expanded="true" />
+                <element signature="e#6026#6027#0" expanded="true" />
+                <element signature="e#6079#6080#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1010,11 +1006,11 @@
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/scene/TestScene.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/ui/dialog/ChatDialog.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/ui/Font.java" />
-        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/object/Player.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/object/NPC.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/ui/MyShapeRenderer.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/object/Entity.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/ui/actors/StateActor.java" />
+        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/object/Player.java" />
       </list>
     </option>
   </component>
@@ -2533,7 +2529,7 @@
       <workItem from="1466395770410" duration="142000" />
       <workItem from="1466395949670" duration="16000" />
       <workItem from="1466395995424" duration="178000" />
-      <workItem from="1466401223751" duration="28747000" />
+      <workItem from="1466401223751" duration="29948000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1464181649040</created>
@@ -2745,7 +2741,13 @@
       <option name="project" value="LOCAL" />
       <updated>1466490202021</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="client stateActor">
+      <created>1466495233007</created>
+      <option name="number" value="00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1466495233007</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2781,7 +2783,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="446012000" />
+    <option name="totallyTimeSpent" value="447213000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2835,7 +2837,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add Server, protocol" />
     <MESSAGE value="Server Update and lua Script Manager" />
     <MESSAGE value="DBCP and DBUnit" />
     <MESSAGE value="Server Update" />
@@ -2860,7 +2861,8 @@
     <MESSAGE value="client entity collide" />
     <MESSAGE value="client server chat" />
     <MESSAGE value="client chat insert new line" />
-    <option name="LAST_COMMIT_MESSAGE" value="client chat insert new line" />
+    <MESSAGE value="client stateActor" />
+    <option name="LAST_COMMIT_MESSAGE" value="client stateActor" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -3274,38 +3276,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/object/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="112" column="35" selection-start-line="112" selection-start-column="35" selection-end-line="112" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/object/Entity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="148" column="36" selection-start-line="148" selection-start-column="36" selection-end-line="148" selection-end-column="36" />
+          <caret line="151" column="42" selection-start-line="151" selection-start-column="42" selection-end-line="151" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7170#7171#0" expanded="true" />
-            <element signature="e#7270#7271#0" expanded="true" />
+            <element signature="e#7214#7215#0" expanded="true" />
+            <element signature="e#7314#7315#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/ui/actors/StateActor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26923078">
-          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
           <folding>
             <element signature="class#HealthBar#0;class#StateActor#0" expanded="false" />
-            <element signature="e#4214#4215#0" expanded="true" />
-            <element signature="e#4267#4268#0" expanded="true" />
+            <element signature="e#4769#4770#0" expanded="true" />
+            <element signature="e#4822#4823#0" expanded="true" />
             <element signature="class#MagicBar#0;class#StateActor#0" expanded="false" />
-            <element signature="e#5471#5472#0" expanded="true" />
-            <element signature="e#5524#5525#0" expanded="true" />
+            <element signature="e#6026#6027#0" expanded="true" />
+            <element signature="e#6079#6080#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/object/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6745562">
+          <caret line="61" column="42" selection-start-line="61" selection-start-column="42" selection-end-line="61" selection-end-column="42" />
+          <folding />
         </state>
       </provider>
     </entry>

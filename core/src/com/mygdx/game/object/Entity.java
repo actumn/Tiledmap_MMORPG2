@@ -149,6 +149,7 @@ public abstract class Entity implements DrawObject, Rectable {
     public int getMaxHp() { return maxHp; }
     public int getMp() { return mp; }
     public int getMaxMp() { return maxMp; }
+    public int getLevel() { return level; }
 
     protected enum Direction {
         south(0), west(1), east(2), north(3);

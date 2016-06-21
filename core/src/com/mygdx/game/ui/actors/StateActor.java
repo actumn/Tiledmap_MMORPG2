@@ -29,6 +29,9 @@ public class StateActor extends BaseActor {
     final float mpFontX, mpFontY;
     final float hpInfoX, hpInfoY;
     final float mpInfoX, mpInfoY;
+    final float nameFontX, nameFontY;
+    final float jobFontX, jobFontY;
+    final float lvFontX, lvFontY;
 
 
     public StateActor(Player centerPlayer) {
@@ -36,7 +39,7 @@ public class StateActor extends BaseActor {
         this.magicBar = new MagicBar();
         this.centerPlayer = centerPlayer;
 
-        final float x = 100.0f, y = Gdx.graphics.getHeight() - 200.0f;
+        final float x = 50.0f, y = Gdx.graphics.getHeight() - 150.0f;
         final float width = 200.0f, height = 100.0f;
         this.setPosition(x, y);
         this.setSize(width, height);
@@ -56,6 +59,9 @@ public class StateActor extends BaseActor {
         this.mpFontX = x + 10.0f; this.mpFontY = y + 25.0f;
         this.hpInfoX = x + width - 50.0f; this.hpInfoY = y + 45.0f;
         this.mpInfoX = x + width - 50.0f; this.mpInfoY = y + 25.0f;
+        this.nameFontX = x + 10f; this.nameFontY = y + 80f;
+        this.jobFontX = x + 100f; this.jobFontY = y + 80f;
+        this.lvFontX = x + 170f; this.lvFontY = y + 80f;
 
 
         this.shapeRenderer = new MyShapeRenderer();
@@ -81,12 +87,15 @@ public class StateActor extends BaseActor {
         this.magicBar.draw(batch, parentAlpha);
 
 
-        BitmapFont chatFont = Font.getInstance().getFont(this.fontSize);
-        chatFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-        chatFont.draw(batch, "HP", this.hpFontX, this.hpFontY);
-        chatFont.draw(batch, "MP", this.mpFontX, this.mpFontY);
-        chatFont.draw(batch, centerPlayer.getHp()+"/"+centerPlayer.getMaxHp(), this.hpInfoX, this.hpInfoY);
-        chatFont.draw(batch, centerPlayer.getMp()+"/"+centerPlayer.getMaxMp(), this.mpInfoX, this.mpInfoY);
+        BitmapFont infoFont = Font.getInstance().getFont(this.fontSize);
+        infoFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+        infoFont.draw(batch, "HP", this.hpFontX, this.hpFontY);
+        infoFont.draw(batch, "MP", this.mpFontX, this.mpFontY);
+        infoFont.draw(batch, centerPlayer.getHp()+"/"+centerPlayer.getMaxHp(), this.hpInfoX, this.hpInfoY);
+        infoFont.draw(batch, centerPlayer.getMp()+"/"+centerPlayer.getMaxMp(), this.mpInfoX, this.mpInfoY);
+        infoFont.draw(batch, centerPlayer.getName(), this.nameFontX, this.nameFontY);
+        infoFont.draw(batch, centerPlayer.getJobName(), this.jobFontX, this.jobFontY);
+        infoFont.draw(batch, String.valueOf(centerPlayer.getLevel()), this.lvFontX, this.lvFontY);
     }
 
     private class HealthBar extends BaseActor {
