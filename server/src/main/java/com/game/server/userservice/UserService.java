@@ -83,6 +83,14 @@ public class UserService {
         dest_map.moveObject(user, packet);
     }
 
+    public void chat(final UserObject user, final JSONObject packet) {
+        final int mapid = user.getMapId();
+
+        MapProxy map = getMapProxy(mapid, false);
+        if (map == null) return;
+        map.sendChat(packet);;
+    }
+
     public void exitUser(final UserObject user) {
         final int mapId = user.getMapId();
 

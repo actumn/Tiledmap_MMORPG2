@@ -49,13 +49,13 @@ public class ChatDialog extends BaseDialog {
         this.chatAreaPane.setSmoothScrolling(true);
         this.chatAreaPane.setFlickScroll(false);
         this.chatAreaPane.setPosition(horizontalPad / 2.0f, verticalPad / 2.0f + 35);
-        this.chatAreaPane.setSize(width - horizontalPad / 2.0f, height - 65);
+        this.chatAreaPane.setSize(width - horizontalPad, height - 65);
 
 
         this.chatField = new TextField("", skin);
         this.chatField.setStyle(getTextFieldStyle(skin, contentFont));
         this.chatField.setPosition(horizontalPad / 2.0f, verticalPad / 2.0f);
-        this.chatField.setSize(width - horizontalPad / 2.0f, 30f);
+        this.chatField.setSize(width - horizontalPad, 30f);
         this.chatField.setStyle(getTextFieldStyle(skin, contentFont));
 
         this.addActor(this.chatAreaPane);
@@ -86,7 +86,7 @@ public class ChatDialog extends BaseDialog {
         this.chatMessages = new ArrayList<>();
     }
 
-    public void chat(Entity entity, String message) {
+    public void append(Entity entity, String message) {
         this.chatMessages.add(new ChatMessage(entity, message));
 
         this.chatList.setItems(chatMessages.toArray());

@@ -16,6 +16,9 @@
         <avo>0</avo>
         <sprites>
             <sprite state="0" key="npc-monsters" i_index="0" j_index="0"/>
+            <sprite state="1" key="npc-monsters" i_index="0" j_index="0"/>
+            <sprite state="2" key="npc-monsters" i_index="0" j_index="0"/>
+            <sprite state="3" key="npc-monsters" i_index="0" j_index="0"/>
         </sprites>
         <drop_items>
 
@@ -29,6 +32,9 @@
         <mp>0</mp>
         <sprites>
             <sprite state="0" key="npc-npcs" i_index="1" j_index="2"/>
+            <sprite state="1" key="npc-npcs" i_index="1" j_index="2"/>
+            <sprite state="2" key="npc-npcs" i_index="1" j_index="2"/>
+            <sprite state="3" key="npc-npcs" i_index="1" j_index="2"/>
         </sprites>
         <tps>1500</tps>
         <vision>5</vision>

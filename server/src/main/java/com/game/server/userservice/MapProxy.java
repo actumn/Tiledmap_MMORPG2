@@ -64,8 +64,10 @@ public class MapProxy {
         this.objects.remove(user);
     }
 
-    public void sendChat() {
-
+    public void sendChat(JSONObject packet) {
+        for(UserObject u : this.objects) {
+            u.getChannel().writeAndFlush(packet.toJSONString() + "\r\n");
+        }
     }
 
     public int getMap_id() {

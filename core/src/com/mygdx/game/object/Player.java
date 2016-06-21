@@ -21,7 +21,6 @@ public class Player extends Entity {
     public final int speedY = 5;
 
     /* character textrue */
-    private ChatBubble chatBubble;
     private float boundsWidth, boundsHeight;
     private float horizontalPad = 72, verticalPad = 12;
 
@@ -249,9 +248,6 @@ public class Player extends Entity {
         return this.boundsHeight;
     }
 
-    public void chat() {
-        this.chatBubble.chat(this.name + ":\n default\n message");
-    }
 
     public String getJobName() {
         return jobName;
@@ -262,92 +258,5 @@ public class Player extends Entity {
         return name;
     }
 
-    private class ChatBubble {
-        /* model */
-        private Player player;
 
-        /* view */
-        private ShapeRenderer shapeRenderer;
-        private int fontSize;
-
-
-        /* properties */
-        private GlyphLayout layout;
-        private String message;
-        private float r, g, b, a;
-        private long expiryTime;
-        private float chatWidth;
-        private float chatHeight;
-        private float horizontalPad = 10.0f;
-        private float verticalPad = 10.0f;
-
-        private ChatBubble(Player player, ShapeRenderer shapeRenderer) {
-            this.player = player;
-            this.shapeRenderer = shapeRenderer;
-
-            this.layout = new GlyphLayout();
-            this.r = this.g = this.b = this.a = 1.0f;
-            this.fontSize = 14;
-        }
-        private void chat(String message) {
-            this.message = message;
-            this.expiryTime = System.currentTimeMillis() + 1000;
-
-            BitmapFont font = Font.getInstance().getFont(this.fontSize);
-            this.layout.setText(font, message);
-            this.chatWidth = layout.width;
-            this.chatHeight =  layout.height;
-        }
-
-        private void render(SpriteBatch batch) {
-            if (System.currentTimeMillis() > this.expiryTime) return;
-
-            batch.end();
-
-            Gdx.gl.glEnable(GL20.GL_BLEND);
-            Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-
-            this.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            this.shapeRenderer.setColor(0.5f, 0.5f, 0.5f, 0.4f);
-            this.render(getDrawX(), getDrawY(), chatWidth + horizontalPad, chatHeight + verticalPad, 10);
-            this.shapeRenderer.end();
-
-            Gdx.gl.glDisable(GL20.GL_BLEND);
-
-            batch.begin();
-
-
-            BitmapFont chatFont = Font.getInstance().getFont(this.fontSize);
-            chatFont.setColor(r, g, b, a);
-            chatFont.draw(batch, this.message,
-                    this.getDrawX() + this.horizontalPad / 2.0f,
-                    this.getDrawY() + this.verticalPad / 2.0f + chatHeight);
-
-        }
-
-        private float getDrawX() {
-            return this.player.x - chatWidth / 2.0f - horizontalPad / 2.0f;
-        }
-
-        private float getDrawY() {
-            return this.player.y + this.player.getTextureRegion().getRegionHeight() + 18;
-        }
-
-        private void render(float x, float y, float width, float height, float radius){
-            // Central rectangle
-            shapeRenderer.rect(x + radius, y + radius, width - 2*radius, height - 2*radius);
-
-            // Four side rectangles, in clockwise order
-            shapeRenderer.rect(x + radius, y, width - 2*radius, radius);
-            shapeRenderer.rect(x + width - radius, y + radius, radius, height - 2*radius);
-            shapeRenderer.rect(x + radius, y + height - radius, width - 2*radius, radius);
-            shapeRenderer.rect(x, y + radius, radius, height - 2*radius);
-
-            // Four arches, clockwise too
-            shapeRenderer.arc(x + radius, y + radius, radius, 180f, 90f);
-            shapeRenderer.arc(x + width - radius, y + radius, radius, 270f, 90f);
-            shapeRenderer.arc(x + width - radius, y + height - radius, radius, 0f, 90f);
-            shapeRenderer.arc(x + radius, y + height - radius, radius, 90f, 90f);
-        }
-    }
 }

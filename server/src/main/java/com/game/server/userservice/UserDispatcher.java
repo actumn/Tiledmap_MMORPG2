@@ -41,9 +41,11 @@ public class UserDispatcher {
                 break;
 
             case "chat" :
+                chat(packet);
                 break;
         }
     }
+
 
     public void join(Connection con, Channel channel, JSONObject packet) {
         String user_id = (String) packet.get("user_id");
@@ -132,6 +134,11 @@ public class UserDispatcher {
     public void move(JSONObject packet) {
         packet.put("id", user.getUuid());
         this.service.moveObject(this.user, packet);
+    }
+
+    public void chat(JSONObject packet) {
+        packet.put("id", user.getUuid());
+        this.service.chat(this.user, packet);
     }
 
     public void logout(Connection con) {

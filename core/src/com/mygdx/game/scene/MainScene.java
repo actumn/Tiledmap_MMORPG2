@@ -26,7 +26,7 @@ public class MainScene extends GameScene {
 
     // Model
     private XmlDataLoader xmlDataLoader;
-    private Map m;
+    private Map map;
 
     // View
     private Skin skin;
@@ -58,6 +58,8 @@ public class MainScene extends GameScene {
         }
 
         // Control
+        gameStage.addActor(new StateActor());
+        gameStage.addActor(this.chatDialog);
         Gdx.input.setInputProcessor(gameStage);
     }
 
@@ -67,7 +69,7 @@ public class MainScene extends GameScene {
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         characterInputListener.update();
-        this.m.update();
+        this.map.update();
 
         gameStage.act(Gdx.graphics.getDeltaTime());
         gameStage.draw();
@@ -105,18 +107,18 @@ public class MainScene extends GameScene {
         int destY = (int)(long) movePacket.get("dest_y");
 
 
-        this.m = this.xmlDataLoader.loadMap(destMapId);
+        this.map = this.xmlDataLoader.loadMap(destMapId);
         Player c = this.xmlDataLoader.loadPlayer(job_id)
                 .level(level)
                 .setName(name)
                 .entityId(entityId)
-                .setMap(m)
+                .setMap(map)
                 .xy(destX, destY);
 
         this.characterInputListener = new CharacterInputListener(c);
         gameStage.addListener(this.characterInputListener);
-        m.add(c);
-        m.setCenterCharacter(c);
+        map.add(c);
+        map.setCenterCharacter(c);
     }
 
     private void updateNetwork() {
@@ -135,8 +137,8 @@ public class MainScene extends GameScene {
                             .level(level)
                             .setName(name)
                             .entityId(entityId)
-                            .setMap(m);
-                    m.add(c);
+                            .setMap(map);
+                    map.add(c);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -148,10 +150,10 @@ public class MainScene extends GameScene {
                 int destX = (int)(long) packet.get("dest_x");
                 int destY = (int)(long) packet.get("dest_y");
 
-                Entity e = this.m.getEntityById(entityId);
+                Entity e = this.map.getEntityById(entityId);
 
-                if (destMapId != this.m.getMapId()) {
-                    this.m.remove(e);
+                if (destMapId != this.map.getMapId()) {
+                    this.map.remove(e);
                 }
                 else {
                     e.show_move(e.x, e.y, destX, destY);
@@ -162,6 +164,9 @@ public class MainScene extends GameScene {
                 long entityId = (long) packet.get("id");
                 String content = (String) packet.get("content");
 
+                Entity entity = this.map.getEntityById(entityId);
+                entity.chat(content);
+                this.chatDialog.append(entity, content);
             }
         }
     }

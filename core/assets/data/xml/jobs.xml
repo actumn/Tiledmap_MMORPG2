@@ -9,6 +9,7 @@
             <sprite state="0" key="character-walk"/>
             <sprite state="1" key="character-attack"/>
             <sprite state="2" key="character-casting"/>
+            <sprite state="3" key="character-walk"/>
         </sprites>
     </job>
 </jobs>

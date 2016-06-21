@@ -1,4 +1,4 @@
-package com.game.server.userservice;
+package com.game.server.mapservice;
 
 /**
  * Created by Lee on 2016-06-15.
