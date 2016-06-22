@@ -53,9 +53,6 @@ public class Map {
     }
 
     public void update() {
-        if (tiledMap == null) {
-
-        }
         objectManager.update();
         objectManager.draw();
     }
@@ -109,6 +106,17 @@ public class Map {
     }
     public int getMapHeight() {
         return (Integer) this.tiledMap.getProperties().get("height") * (Integer) this.tiledMap.getProperties().get("tileheight");
+    }
+
+    public int getHorizontalTiles() {
+        return (Integer) this.tiledMap.getProperties().get("width");
+    }
+    public int getVerticalTiles() {
+        return (Integer) this.tiledMap.getProperties().get("height");
+    }
+
+    public TiledMap getTiledMap() {
+        return tiledMap;
     }
 
     public int getTilePosX(int x) {

@@ -868,11 +868,17 @@
   </tile>
  </tileset>
  <layer name="BaseField" width="80" height="80">
+  <properties>
+   <property name="count" value="0"/>
+  </properties>
   <data encoding="base64" compression="zlib">
    eJzt06ENADAMA0Fnku6/ZWhUXimVDhw38FeSAgAAAAAAAL5xFmyAySdhn7tLnQIAAAAAAAAAAAAAAAAAAAC81ey2GXk=
   </data>
  </layer>
  <layer name="Tree" width="80" height="80">
+  <properties>
+   <property name="count" value="1"/>
+  </properties>
   <data encoding="base64" compression="zlib">
    eJzt1btOQlEQhlEan4HyPJ9cChAKuRQqFoq+M39JDCSaA5mzzVrJl91OJpPs0YhbeEyTNE2zNK8dpzmLtExPaZXWteM05zlt0jbt0r52nOa8pNf0lg7pvXac5nykz3RMX+m7dhwAABis7kf0Y5/9dGevHf5dd+Xld9xfP/bGkLnLyx6qB/iH7JQhGFcP0Bh/BLTLv8uQ+V+4NzdGBXcHAAAAAAAAAAAAAAAAAG07AV6+D28=
   </data>

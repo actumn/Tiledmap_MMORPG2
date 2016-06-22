@@ -39,7 +39,7 @@ public abstract class Entity implements DrawObject, Rectable {
     /* name properties */
     protected Color nameColor;
     protected int nameSize;
-    protected int nameWidth;
+    protected float nameWidth;
     protected Rectangle bounds;
 
     /* stat properties */

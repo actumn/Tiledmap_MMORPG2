@@ -9,6 +9,7 @@ import com.mygdx.game.XmlDataLoader;
 import com.mygdx.game.listener.CharacterInputListener;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.object.Player;
+import com.mygdx.game.ui.actors.MiniMapActor;
 import com.mygdx.game.ui.actors.StateActor;
 import com.mygdx.game.ui.dialog.ChatDialog;
 
@@ -43,6 +44,7 @@ public class TestScene extends GameScene {
 
         gameStage.addActor(new StateActor(m.getCenterPlayer()));
         gameStage.addActor(new ChatDialog("", skin));
+        gameStage.addActor(new MiniMapActor(this.m));
         Gdx.input.setInputProcessor(gameStage);
     }
 
@@ -64,7 +66,7 @@ public class TestScene extends GameScene {
 
             Player c = this.xmlDataLoader.loadPlayer(1)
                     .level(1)
-                    .setName("admin")
+                    .setName("테스트")
                     .setMap(m);
             m.add(c);
             m.setCenterPlayer(c);

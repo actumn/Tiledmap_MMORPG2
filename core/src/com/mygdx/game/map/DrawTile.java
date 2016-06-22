@@ -17,8 +17,6 @@ public class DrawTile implements DrawObject {
     private int y;
     private int z;
     private TextureRegion textureRegion;
-    private LinkedList<Entity> objects;
-    private LinkedList<Effect> effects;
 
     public DrawTile(TiledMapTileLayer tileLayer, int x, int y) {
         int priority = 0;

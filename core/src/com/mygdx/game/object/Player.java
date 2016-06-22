@@ -62,7 +62,10 @@ public class Player extends Entity {
         this.nameColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
         this.nameSize = 14;
         this.name = name;
-        this.nameWidth = (int)(Font.getInstance().getFont(12).getSpaceWidth() * this.name.length() * 2);
+
+        BitmapFont font = Font.getInstance().getFont(12);
+        GlyphLayout layout = new GlyphLayout(font, name);
+        this.nameWidth = layout.width;
         return this;
     }
     public Player setMap(Map map) {

@@ -2,9 +2,7 @@ package com.mygdx.game.object;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.map.Map;
@@ -38,7 +36,10 @@ public class NPC extends Entity {
     public NPC setName(String name) {
         this.nameSize = 14;
         this.name = name;
-        this.nameWidth = (int)(Font.getInstance().getFont(12).getSpaceWidth() * this.name.length() * 2);
+
+        BitmapFont font = Font.getInstance().getFont(12);
+        GlyphLayout layout = new GlyphLayout(font, name);
+        this.nameWidth = layout.width;
         return this;
     }
     public NPC setMap(Map map) {
