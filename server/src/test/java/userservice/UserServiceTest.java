@@ -1,3 +1,5 @@
+package userservice;
+
 import com.game.server.userservice.MapProxy;
 import com.game.server.userservice.UserObject;
 import com.game.server.userservice.UserService;

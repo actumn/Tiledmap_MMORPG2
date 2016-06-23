@@ -1,3 +1,5 @@
+package userservice;
+
 /**
  * Created by Lee on 2016-06-02.
  */

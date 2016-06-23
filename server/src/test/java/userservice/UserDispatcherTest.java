@@ -1,3 +1,5 @@
+package userservice;
+
 import com.game.server.db.DBManager;
 import com.game.server.userservice.UserDispatcher;
 import com.game.server.userservice.UserObject;

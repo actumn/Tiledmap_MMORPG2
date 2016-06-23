@@ -1,3 +1,5 @@
+package userservice;
+
 import com.game.server.userservice.UserObject;
 import io.netty.channel.embedded.EmbeddedChannel;
 import org.junit.Test;

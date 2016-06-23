@@ -1,19 +1,17 @@
 package com.game.server.userservice;
 
+import com.game.server.Server;
 import io.netty.channel.Channel;
-import protocol.Packet.JsonPacketFactory;
 
 /**
  * Created by Lee on 2016-06-01.
  */
 public class UserObject {
-    private static long unique;
-
     private Channel channel;
     private int dbid;
     private long uuid;
     private MapProxy map;
-    private int loginMapId;
+    private int mapId;
     private int level;
     private int jobId;
     private String name;
@@ -22,7 +20,7 @@ public class UserObject {
 
     public UserObject() {
         this.inventory = new Inventory();
-        this.uuid = unique++;
+        this.uuid = Server.unique++;
     }
     public UserObject dbid(int dbid) {
         this.dbid = dbid;
@@ -46,7 +44,7 @@ public class UserObject {
     }
 
     public UserObject mapId(int mapId) {
-        this.loginMapId = mapId;
+        this.mapId = mapId;
         return this;
     }
     public UserObject XY(int x, int y) {
@@ -91,7 +89,7 @@ public class UserObject {
     }
 
     public int getMapId() {
-        return loginMapId;
+        return mapId;
     }
 
     public String getName() {
@@ -104,6 +102,7 @@ public class UserObject {
 
     public void setMap(MapProxy map) {
         this.map = map;
+        this.mapId = map.getMap_id();
     }
 
     public int getLevel() {

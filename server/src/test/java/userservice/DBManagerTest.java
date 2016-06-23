@@ -1,3 +1,5 @@
+package userservice;
+
 import com.game.server.db.DBManager;
 import org.junit.Test;
 
