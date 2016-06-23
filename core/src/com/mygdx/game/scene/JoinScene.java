@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Client;
 import com.mygdx.game.ui.Font;
 import com.mygdx.game.ui.SystemMessage;
-import com.mygdx.game.ui.dialog.BaseDialog;
+import com.mygdx.game.ui.actors.dialogs.BaseDialog;
 import network.Network;
 import org.json.simple.JSONObject;
 import protocol.Packet.PacketFactory;
@@ -180,14 +180,14 @@ public class JoinScene extends GameScene {
                             nameField.getText(), pwField.getText());
 
                     SystemMessage.getInstance().show(response, 2000, 16, 1.0f, 1.0f, 1.0f, 1.0f);
-                    if (response.equals("회원가입 성공")) Client.changeCurrentController(new Loading(new LoginScene(), response));
+                    if (response.equals("회원가입 성공")) Client.changeCurrentScene(new Loading(new LoginScene(), response));
                 }
             });
 
             backButton.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    Client.changeCurrentController(new Loading(new LoginScene()));
+                    Client.changeCurrentScene(new Loading(new LoginScene()));
                 }
             });
 

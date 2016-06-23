@@ -12,8 +12,9 @@ import com.mygdx.game.map.Map;
 import com.mygdx.game.object.Entity;
 import com.mygdx.game.object.Player;
 import com.mygdx.game.ui.SystemMessage;
+import com.mygdx.game.ui.actors.MiniMapActor;
 import com.mygdx.game.ui.actors.StateActor;
-import com.mygdx.game.ui.dialog.ChatDialog;
+import com.mygdx.game.ui.actors.dialogs.ChatDialog;
 import network.Network;
 import org.json.simple.JSONObject;
 
@@ -59,7 +60,9 @@ public class MainScene extends GameScene {
 
         // Control
         gameStage.addActor(new StateActor(map.getCenterPlayer()));
+        gameStage.addActor(new MiniMapActor(map));
         gameStage.addActor(this.chatDialog);
+
         Gdx.input.setInputProcessor(gameStage);
     }
 
@@ -122,7 +125,7 @@ public class MainScene extends GameScene {
     }
 
     private void updateNetwork() {
-        while (Client.getCurrentController() == this) {
+        while (Client.getCurrentScene() == this) {
             JSONObject packet = (JSONObject) Network.getInstance().pollPacket();
             if (packet == null) return;
 

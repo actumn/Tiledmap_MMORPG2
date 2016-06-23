@@ -11,7 +11,7 @@ import com.mygdx.game.map.Map;
 import com.mygdx.game.object.Player;
 import com.mygdx.game.ui.actors.MiniMapActor;
 import com.mygdx.game.ui.actors.StateActor;
-import com.mygdx.game.ui.dialog.ChatDialog;
+import com.mygdx.game.ui.actors.dialogs.ChatDialog;
 
 import java.io.IOException;
 
@@ -27,7 +27,6 @@ public class TestScene extends GameScene {
     // View
     private Skin skin;
     private Stage gameStage;
-    private Stage escStage;
 
     // Controller
     private CharacterInputListener characterInputListener;
@@ -41,10 +40,11 @@ public class TestScene extends GameScene {
         this.xmlDataLoader = new XmlDataLoader();
         initMap();
 
-
         gameStage.addActor(new StateActor(m.getCenterPlayer()));
         gameStage.addActor(new ChatDialog("", skin));
         gameStage.addActor(new MiniMapActor(this.m));
+
+
         Gdx.input.setInputProcessor(gameStage);
     }
 
@@ -55,6 +55,7 @@ public class TestScene extends GameScene {
         this.m.update();
 
         gameStage.act(Gdx.graphics.getDeltaTime());
+
         gameStage.draw();
     }
 
@@ -65,7 +66,7 @@ public class TestScene extends GameScene {
             this.m = this.xmlDataLoader.loadMap(1);
 
             Player c = this.xmlDataLoader.loadPlayer(1)
-                    .level(1)
+                    .level(10)
                     .setName("테스트")
                     .setMap(m);
             m.add(c);
@@ -78,5 +79,12 @@ public class TestScene extends GameScene {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        skin.dispose();
+        gameStage.dispose();
     }
 }

@@ -1,12 +1,10 @@
-package com.mygdx.game.ui.dialog;
+package com.mygdx.game.ui.actors.dialogs;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.object.Entity;
-import com.mygdx.game.object.Player;
 import com.mygdx.game.ui.Font;
 import network.Network;
 import protocol.Packet.PacketFactory;

@@ -1,22 +1,16 @@
-package com.mygdx.game.ui.dialog;
+package com.mygdx.game.ui.actors.tables;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 
 /**
- * Created by Lee on 2016-06-06.
+ * Created by Lee on 2016-06-22.
  */
-public abstract class BaseDialog extends Window {
-    public BaseDialog(String title, Skin skin) {
-        super(title, skin);
-    }
+public abstract class BaseTable extends Table {
 
-    public BaseDialog(String title, Skin skin, String styleName) {
-        super(title, skin, styleName);
-    }
-
-    public WindowStyle getWindowStyle(Skin skin, BitmapFont font) {
-        return new WindowStyle(font, skin.getColor("white"), skin.getDrawable("default-window"));
+    public BaseTable(Skin skin) {
+        super(skin);
     }
 
     public TextButton.TextButtonStyle getTextButtonStyle(Skin skin, BitmapFont font) {

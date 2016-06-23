@@ -55,7 +55,7 @@ public class Network {
 
 
     public void disconnect() {
-        this.group.shutdownGracefully();
+        if (connected) this.group.shutdownGracefully();
         this.connected = false;
     }
 

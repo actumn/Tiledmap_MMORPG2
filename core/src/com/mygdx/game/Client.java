@@ -14,22 +14,22 @@ import network.Network;
  */
 public class Client extends ApplicationAdapter {
     private static Client instance;
-    private GameScene currentController;
-    private GameScene preController;
+    private GameScene currentScene;
+    private GameScene preScene;
 
     public Client() { Client.instance = this; }
 
-    public static GameScene getCurrentController() {
-        return instance.currentController;
+    public static GameScene getCurrentScene() {
+        return instance != null? instance.currentScene : null;
     }
-    public static void changeCurrentController(GameScene controller) {
-        instance.currentController = controller;
+    public static void changeCurrentScene(GameScene scene) {
+        instance.currentScene = scene;
     }
 
 
     @Override
     public void create() {
-        this.currentController = new Loading(new LoginScene(), "초기화 중입니다.");
+        this.currentScene = new Loading(new LoginScene(), "초기화 중입니다.");
         try {
             Network.getInstance().connect();
         } catch (InterruptedException e) {
@@ -43,17 +43,18 @@ public class Client extends ApplicationAdapter {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if (this.preController != this.currentController) {
-            if (this.preController != null) this.preController.dispose();
-            if (this.currentController != null) this.currentController.create();
-            this.preController = this.currentController;
+        if (this.preScene != this.currentScene) {
+            if (this.preScene != null) this.preScene.dispose();
+            if (this.currentScene != null) this.currentScene.create();
+            this.preScene = this.currentScene;
         }
-        if (this.currentController != null) this.currentController.render();
+        if (this.currentScene != null) this.currentScene.render();
         SystemMessage.getInstance().render();
     }
 
     @Override
     public void dispose() {
-        if (this.currentController != null) this.currentController.dispose();
+        Network.getInstance().disconnect();
+        if (this.currentScene != null) this.currentScene.dispose();
     }
 }

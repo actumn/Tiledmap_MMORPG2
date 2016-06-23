@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Client;
 import com.mygdx.game.ui.Font;
 import com.mygdx.game.ui.SystemMessage;
+import com.mygdx.game.ui.actors.tables.BaseTable;
 import network.Network;
 import org.json.simple.JSONObject;
 import protocol.Packet.PacketFactory;
@@ -38,7 +39,7 @@ public class LoginScene extends GameScene {
 
         this.stage.addActor(table);
 
-        Gdx.input.setInputProcessor(stage);;
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
@@ -80,7 +81,7 @@ public class LoginScene extends GameScene {
     }
 
 
-    private class LoginTable extends Table {
+    private class LoginTable extends BaseTable {
         /* ui properties */
         private TextField idField;
         private TextField pwField;
@@ -155,7 +156,7 @@ public class LoginScene extends GameScene {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     String response = login(idField.getText(), pwField.getText());
-                    if (response.equals("로그인 성공")) Client.changeCurrentController(
+                    if (response.equals("로그인 성공")) Client.changeCurrentScene(
                             new Loading(new MainScene())
                     );
                     else SystemMessage.getInstance().show(response, 2000, 16, 1.0f, 1.0f, 1.0f, 1.0f);
@@ -173,7 +174,7 @@ public class LoginScene extends GameScene {
             joinButton.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    Client.changeCurrentController(new Loading(new JoinScene()));
+                    Client.changeCurrentScene(new Loading(new JoinScene()));
                 }
             });
 
@@ -184,18 +185,6 @@ public class LoginScene extends GameScene {
                 }
             });
         }
-        private TextButton.TextButtonStyle getTextButtonStyle(Skin skin, BitmapFont font) {
-            return new TextButton.TextButtonStyle(skin.getDrawable("default-round"), skin.getDrawable("default-round-down"), skin.getDrawable("default-round"), font);
-        }
-
-        private TextField.TextFieldStyle getTextFieldStyle(Skin skin, BitmapFont font) {
-            return new TextField.TextFieldStyle(font, skin.getColor("white"), skin.getDrawable("cursor"), skin.getDrawable("selection"), skin.getDrawable("textfield"));
-        }
-
-        private Label.LabelStyle getLabelStyle(Skin skin, BitmapFont font) {
-            return new Label.LabelStyle(font, skin.getColor("white"));
-        }
     }
-
 
 }

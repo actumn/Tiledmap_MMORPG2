@@ -35,6 +35,6 @@ public class Loading extends GameScene {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Assets.getInstance().drawTitleScreen(batch, 1.0f);
 
-        Client.changeCurrentController(nextController);
+        Client.changeCurrentScene(nextController);
     }
 }
