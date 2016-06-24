@@ -1,5 +1,6 @@
 package com.game.server.userservice;
 
+import com.game.server.service.Service;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -20,7 +21,9 @@ import java.util.LinkedList;
 /**
  * Created by Lee on 2016-06-01.
  */
-public class UserService {
+public class UserService implements Service {
+    public static final int serviceId = 1;
+
     private final int port;
     public UserService(int port) {
         this.port = port;
@@ -60,6 +63,7 @@ public class UserService {
             workerGroup.shutdownGracefully();
         }
     }
+
 
     public void loginUser(final UserObject user) {
         final int mapId = user.getMapId();

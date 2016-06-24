@@ -1,6 +1,5 @@
 package userservice;
 
-import com.game.server.db.DBManager;
 import com.game.server.userservice.UserHandler;
 import com.game.server.userservice.UserService;
 import io.netty.channel.embedded.EmbeddedChannel;
@@ -8,8 +7,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.junit.Test;
 import protocol.Packet.JsonPacketFactory;
-
-import java.security.MessageDigest;
 
 import static org.junit.Assert.*;
 /**

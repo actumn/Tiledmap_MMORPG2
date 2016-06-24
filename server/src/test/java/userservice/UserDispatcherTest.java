@@ -1,13 +1,9 @@
 package userservice;
 
-import com.game.server.db.DBManager;
 import com.game.server.userservice.UserDispatcher;
 import com.game.server.userservice.UserObject;
 import com.game.server.userservice.UserService;
 import io.netty.channel.embedded.EmbeddedChannel;
-import io.netty.handler.codec.base64.Base64Encoder;
-import io.netty.handler.codec.string.StringDecoder;
-import io.netty.handler.codec.string.StringEncoder;
 import org.dbunit.IDatabaseTester;
 import org.dbunit.JdbcDatabaseTester;
 import org.dbunit.dataset.IDataSet;
@@ -22,7 +18,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import protocol.Packet.JsonPacketFactory;
 
-import javax.sql.DataSource;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.sql.Connection;

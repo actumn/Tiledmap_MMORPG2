@@ -1,3 +1,4 @@
+<?xml version="1.0f" encoding="utf-8" ?>
 <maps>
     <map id='1' name="시작위치" filename="maps/starting.tmx">
         <moves>
@@ -10,6 +11,4 @@
         </npcs>
         <root map='1' x='100' y='100' direction='1'/>
     </map>
-
-
 </maps>

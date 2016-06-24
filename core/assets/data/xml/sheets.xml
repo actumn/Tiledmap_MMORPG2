@@ -1,3 +1,4 @@
+<?xml version="1.0f" encoding="utf-8" ?>
 <sheets>
     <sheet key="character-walk" filepath="characters/character-walk.png"/>
     <sheet key="character-attack" filepath="characters/character-attack.png"/>
