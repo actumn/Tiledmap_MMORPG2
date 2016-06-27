@@ -22,7 +22,6 @@ import java.util.LinkedList;
  * Created by Lee on 2016-06-01.
  */
 public class UserService implements Service {
-    public static final int serviceId = 1;
 
     private final int port;
     public UserService(int port) {
@@ -32,6 +31,7 @@ public class UserService implements Service {
     private LinkedList<UserObject> users = new LinkedList<>();
 
     public void start() throws Exception {
+        System.out.println("UserService start.");
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
 
@@ -63,7 +63,6 @@ public class UserService implements Service {
             workerGroup.shutdownGracefully();
         }
     }
-
 
     public void loginUser(final UserObject user) {
         final int mapId = user.getMapId();

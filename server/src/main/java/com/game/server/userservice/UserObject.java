@@ -20,7 +20,7 @@ public class UserObject {
 
     public UserObject() {
         this.inventory = new Inventory();
-        this.uuid = Server.unique++;
+        this.uuid = Server.uniqueId++;
     }
     public UserObject dbid(int dbid) {
         this.dbid = dbid;

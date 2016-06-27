@@ -68,6 +68,26 @@ public class JsonPacketFactory implements PacketFactory {
         return obj;
     }
 
+    @Override
+    public JSONObject npc(long entityId, int npcId) {
+        JSONObject obj = new JSONObject();
+        obj.put("type", "npc");
+        obj.put("id", entityId);
+        obj.put("npc_id", npcId);
+
+        return obj;
+    }
+
+    @Override
+    public JSONObject entityUpdate(long entityId, int entityHp) {
+        JSONObject obj = new JSONObject();
+        obj.put("type", "update");
+        obj.put("id", entityId);
+        obj.put("entity_hp", entityHp);
+
+        return obj;
+    }
+
     /*
         @return JSON like :
         {

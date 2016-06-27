@@ -63,7 +63,7 @@ public class TestScene extends GameScene {
     private void initMap() {
         //this.m = new Map("test", "maps/starting.tmx");
         try {
-            this.m = this.xmlDataLoader.loadMap(1);
+            this.m = this.xmlDataLoader.loadMap(-1);
 
             Player c = this.xmlDataLoader.loadPlayer(1)
                     .level(10)

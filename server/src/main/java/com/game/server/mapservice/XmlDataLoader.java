@@ -1,4 +1,4 @@
-package com.game.server;
+package com.game.server.mapservice;
 
 import com.game.server.mapservice.Map;
 import com.game.server.mapservice.MapService;
