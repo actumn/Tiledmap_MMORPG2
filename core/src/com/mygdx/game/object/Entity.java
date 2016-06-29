@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.ui.Font;
-import com.mygdx.game.ui.MyShapeRenderer;
+import com.mygdx.game.ui.graphics.MyShapeRenderer;
 import network.Network;
 import protocol.Packet.PacketFactory;
 

@@ -1,10 +1,11 @@
 <?xml version="1.0f" encoding="utf-8" ?>
 <sheets>
-    <sheet key="character-walk" filepath="characters/character-walk.png"/>
-    <sheet key="character-attack" filepath="characters/character-attack.png"/>
-    <sheet key="character-casting" filepath="characters/character-casting.png"/>
-    <sheet key="skill-heal" filepath="effects/heal.png"/>
-    <sheet key="skill-blue_crystal" filepath="effects/blue_crystal.png"/>
-    <sheet key="npc-monsters" filepath="npcs/monsters.png"/>
-    <sheet key="npc-npcs" filepath="npcs/npcs.png"/>
+    <sheet key="character-walk" filepath="characters/character-walk.png" horizon="1" vertical="1"/>
+    <sheet key="character-attack" filepath="characters/character-attack.png" horizon="1" vertical="1"/>
+    <sheet key="character-casting" filepath="characters/character-casting.png" horizon="1" vertical="1"/>
+    <sheet key="skill-heal" filepath="effects/heal.png" horizon="1" vertical="1"/>
+    <sheet key="skill-blue_crystal" filepath="effects/blue_crystal.png" horizon="1" vertical="1"/>
+    <sheet key="npc-monsters" filepath="npcs/monsters.png" horizon="4" vertical="2"/>
+    <sheet key="npc-people1" filepath="npcs/people1.png" horizon="4" vertical="2"/>
+    <sheet key="npc-queen" filepath="npcs/queen.png" horizon="1" vertical="1"/>
 </sheets>

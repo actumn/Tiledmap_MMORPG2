@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.mygdx.game.object.Player;
 import com.mygdx.game.ui.Font;
-import com.mygdx.game.ui.MyShapeRenderer;
+import com.mygdx.game.ui.graphics.MyShapeRenderer;
 
 /**
  * Created by Lee on 2016-06-20.

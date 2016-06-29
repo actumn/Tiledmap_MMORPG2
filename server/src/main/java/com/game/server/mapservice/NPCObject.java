@@ -21,7 +21,9 @@ public class NPCObject {
     }
 
     public void regen() {
+        if(!dead) return;
 
+        dead = false;
     }
     public void update(){
 

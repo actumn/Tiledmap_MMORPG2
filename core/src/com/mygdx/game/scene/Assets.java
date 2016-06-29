@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
 import com.mygdx.game.XmlDataLoader;
+import com.mygdx.game.ui.graphics.EntitySheet;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -22,7 +23,7 @@ public class Assets {
     private Texture titleBackground;
     //private Texture titleGameLogo;
 
-    private HashMap<String, Texture> sheetMap;
+    private HashMap<String, EntitySheet> sheetMap;
 
     public static Assets getInstance() {
         if (instance == null) instance = new Assets();
@@ -53,7 +54,7 @@ public class Assets {
         batch.end();
     }
 
-    public Texture getSheet(String key) {
+    public EntitySheet getSheet(String key) {
         return sheetMap.get(key);
     }
 }

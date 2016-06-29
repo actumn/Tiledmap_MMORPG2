@@ -1,5 +1,13 @@
 <?xml version="1.0f" encoding="utf-8" ?>
 <maps>
+    <map id="-2" name="테스트" filename="maps/throne_room.tmx">
+        <moves>
+
+        </moves>
+        <npcs>
+            <npc id="0" x="18" y="35" direction="0"/>
+        </npcs>
+    </map>
     <map id="-1" name="테스트" filename="maps/starting.tmx">
         <moves>
             <move x="29" y="17" new_map="2" new_x="12" new_y="22"/>

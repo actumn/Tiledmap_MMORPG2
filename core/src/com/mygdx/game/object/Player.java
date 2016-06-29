@@ -1,8 +1,6 @@
 package com.mygdx.game.object;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -10,7 +8,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.scene.Assets;
 import com.mygdx.game.ui.Font;
-import com.mygdx.game.ui.MyShapeRenderer;
+import com.mygdx.game.ui.graphics.EntitySheet;
+import com.mygdx.game.ui.graphics.MyShapeRenderer;
 import network.Network;
 import protocol.Packet.PacketFactory;
 
@@ -21,7 +20,7 @@ public class Player extends Entity {
     public final int speedX = 5;
     public final int speedY = 5;
 
-    /* character textrue */
+    /* character texture */
     private float boundsWidth, boundsHeight;
     private float horizontalPad = 72, verticalPad = 12;
 
@@ -84,11 +83,10 @@ public class Player extends Entity {
         return this.loadAnimation(stateValue, key, 0, 0);
     }
     public Player loadAnimation(int stateValue, String key, int iIndex, int jIndex) {
-        final int horizontalCharactersCount = 1;
-        final int verticalCharactersCount = 1;
-
         // load texture
-        Texture animationSheet = Assets.getInstance().getSheet(key);
+        EntitySheet animationSheet = Assets.getInstance().getSheet(key);
+        final int horizontalCharactersCount = animationSheet.getHorizontalCharactersCount();
+        final int verticalCharactersCount = animationSheet.getVerticalCharactersCount();
 
         TextureRegion[] frames = new TextureRegion[animationsCount * directionsCount];
 

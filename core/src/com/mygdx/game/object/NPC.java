@@ -8,7 +8,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.scene.Assets;
 import com.mygdx.game.ui.Font;
-import com.mygdx.game.ui.MyShapeRenderer;
+import com.mygdx.game.ui.graphics.EntitySheet;
+import com.mygdx.game.ui.graphics.MyShapeRenderer;
 
 /**
  * Created by Lee on 2016-05-26.
@@ -52,7 +53,8 @@ public class NPC extends Entity {
     }
     public NPC team(int team) {
         this.team = team;
-        if (team == 0) this.nameColor = new Color(0.0f, 1.0f, 0.0f, 1.0f);
+        if (team == 0) this.nameColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        else if (team == -1) this.nameColor = new Color(0.0f, 1.0f, 0.0f, 1.0f);
         else if (team == 1) this.nameColor = new Color(1.0f, 1.0f, 0.0f, 1.0f);
         return this;
     }
@@ -80,11 +82,10 @@ public class NPC extends Entity {
 
 
     public NPC loadAnimation(int stateValue, String key, int iIndex, int jIndex) {
-        final int horizontalCharactersCount = 4;
-        final int verticalCharactersCount = 2;
-
         // load texture
-        Texture animationSheet = Assets.getInstance().getSheet(key);
+        EntitySheet animationSheet = Assets.getInstance().getSheet(key);
+        final int horizontalCharactersCount = animationSheet.getHorizontalCharactersCount();
+        final int verticalCharactersCount = animationSheet.getVerticalCharactersCount();
 
         TextureRegion[] frames = new TextureRegion[animationsCount * directionsCount];
 
@@ -177,6 +178,15 @@ public class NPC extends Entity {
     @Override
     public void draw(SpriteBatch batch) {
         batch.draw(this.getTextureRegion(), this.getDrawX(), this.getDrawY());
+
+
+        Font.getInstance().getFont(this.nameSize).setColor(nameColor);
+        Font.getInstance().getFont(this.nameSize).draw(batch, this.name,
+                this.getDrawX() + this.getTextureRegion().getRegionWidth() / 2 - this.nameWidth / 2.0f,
+                this.getDrawY() + this.getTextureRegion().getRegionHeight() + Font.getInstance().getFont(this.nameSize).getCapHeight());
+
+        if (team == 0) return;
+
         batch.end();
 
         // hp bar
@@ -199,10 +209,6 @@ public class NPC extends Entity {
 
         batch.begin();
 
-        Font.getInstance().getFont(this.nameSize).setColor(nameColor);
-        Font.getInstance().getFont(this.nameSize).draw(batch, this.name,
-                this.getDrawX() + this.getTextureRegion().getRegionWidth() / 2 - this.nameWidth / 2.0f,
-                this.getDrawY() + this.getTextureRegion().getRegionHeight() + Font.getInstance().getFont(this.nameSize).getCapHeight());
 
     }
 

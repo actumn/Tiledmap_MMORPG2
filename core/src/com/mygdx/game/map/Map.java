@@ -120,10 +120,12 @@ public class Map {
     }
 
     public int getTilePosX(int x) {
-        return (Integer) this.tiledMap.getProperties().get("tilewidth") * x;
+        int tilewidth = (Integer) this.tiledMap.getProperties().get("tilewidth");
+        return tilewidth * (x) + tilewidth / 2;
     }
     public int getTilePosY(int y) {
-        return (Integer) this.tiledMap.getProperties().get("tileheight") * y;
+        int tileheight = (Integer) this.tiledMap.getProperties().get("tileheight");
+        return tileheight * y + tileheight / 2;
     }
     public void setCenterPlayer(Player centerPlayer) {
         objectManager.setCenterPlayer(centerPlayer);

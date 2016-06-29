@@ -83,7 +83,7 @@ public class MiniMapActor extends BaseActor {
         for (MapLayer layer: this.tiledMap.getLayers()) {
             if (layer instanceof TiledMapTileLayer) {
                 TiledMapTileLayer tileLayer = (TiledMapTileLayer) layer;
-                int count = Integer.parseInt((String) tileLayer.getProperties().get("count"));
+                int count = Integer.parseInt((String) tileLayer.getProperties().get("type"));
 
                 for (int tileY = 0; tileY < tileLayer.getHeight(); tileY += 1) {
                     for (int tileX = 0; tileX < tileLayer.getWidth(); tileX += 1) {

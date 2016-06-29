@@ -1,5 +1,29 @@
 <?xml version="1.0f" encoding="utf-8" ?>
 <npcs>
+    <npc id="0">
+        <name>실비아</name>
+        <team>0</team>
+        <hp>0</hp>
+        <mp>0</mp>
+        <sprites>
+            <sprite state="0" key="npc-queen" i_index="0" j_index="0"/>
+            <sprite state="1" key="npc-queen" i_index="0" j_index="0"/>
+            <sprite state="2" key="npc-queen" i_index="0" j_index="0"/>
+            <sprite state="3" key="npc-queen" i_index="0" j_index="0"/>
+        </sprites>
+        <tps>0</tps>
+        <vision>0</vision>
+        <level>0</level>
+        <drop_exp>0</drop_exp>
+        <drop_gold>0</drop_gold>
+        <regen>0</regen>
+        <atk>0</atk>
+        <def>0</def>
+        <hit>0</hit>
+        <avo>0</avo>
+        <drop_items>
+        </drop_items>
+    </npc>
     <npc id='1'>
         <name>baby dragon</name>
         <team>1</team>
@@ -32,10 +56,10 @@
         <hp>1000</hp>
         <mp>0</mp>
         <sprites>
-            <sprite state="0" key="npc-npcs" i_index="1" j_index="2"/>
-            <sprite state="1" key="npc-npcs" i_index="1" j_index="2"/>
-            <sprite state="2" key="npc-npcs" i_index="1" j_index="2"/>
-            <sprite state="3" key="npc-npcs" i_index="1" j_index="2"/>
+            <sprite state="0" key="npc-people1" i_index="1" j_index="2"/>
+            <sprite state="1" key="npc-people1" i_index="1" j_index="2"/>
+            <sprite state="2" key="npc-people1" i_index="1" j_index="2"/>
+            <sprite state="3" key="npc-people1" i_index="1" j_index="2"/>
         </sprites>
         <tps>1500</tps>
         <vision>5</vision>
@@ -51,4 +75,5 @@
 
         </drop_items>
     </npc>
+
 </npcs>

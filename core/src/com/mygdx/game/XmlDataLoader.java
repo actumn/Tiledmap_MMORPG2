@@ -11,6 +11,7 @@ import com.mygdx.game.map.MapMovePoint;
 import com.mygdx.game.object.Effect;
 import com.mygdx.game.object.NPC;
 import com.mygdx.game.object.Player;
+import com.mygdx.game.ui.graphics.EntitySheet;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -171,8 +172,8 @@ public class XmlDataLoader {
         return null;
     }
 
-    public HashMap<String, Texture> loadSheets() throws IOException{
-        HashMap<String,Texture> sheetMap = new HashMap<>();
+    public HashMap<String, EntitySheet> loadSheets() throws IOException{
+        HashMap<String,EntitySheet> sheetMap = new HashMap<>();
 
 
         XmlReader.Element sheets = reader.parse(sheetHandle);
@@ -182,8 +183,10 @@ public class XmlDataLoader {
         for(XmlReader.Element sheet: sheetArray) {
             String key = sheet.getAttribute("key");
             String filepath = sheet.getAttribute("filepath");
+            int horizonCount = Integer.parseInt(sheet.getAttribute("horizon"));
+            int verticalCount = Integer.parseInt(sheet.getAttribute("vertical"));
 
-            sheetMap.put(key, new Texture(Gdx.files.internal(filepath)));
+            sheetMap.put(key, new EntitySheet(Gdx.files.internal(filepath)).charactersCount(horizonCount, verticalCount));
         }
 
         return sheetMap;

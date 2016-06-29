@@ -1,6 +1,7 @@
 package com.mygdx.game.scene;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -63,7 +64,7 @@ public class TestScene extends GameScene {
     private void initMap() {
         //this.m = new Map("test", "maps/starting.tmx");
         try {
-            this.m = this.xmlDataLoader.loadMap(-1);
+            this.m = this.xmlDataLoader.loadMap(-2);
 
             Player c = this.xmlDataLoader.loadPlayer(1)
                     .level(10)
@@ -71,6 +72,8 @@ public class TestScene extends GameScene {
                     .setMap(m);
             m.add(c);
             m.setCenterPlayer(c);
+
+            c.move(c.x, c.y, 300, 400);
 
             this.characterInputListener = new CharacterInputListener(c);
             gameStage.addListener(this.characterInputListener);

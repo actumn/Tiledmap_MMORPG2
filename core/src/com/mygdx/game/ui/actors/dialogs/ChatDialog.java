@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.object.Entity;
 import com.mygdx.game.ui.Font;
 import network.Network;
@@ -83,7 +84,6 @@ public class ChatDialog extends BaseDialog {
 
         this.chatMessages = new ArrayList<>();
     }
-
     public void append(Entity entity, String message) {
         StringBuilder messageBuilder = new StringBuilder(message);
         int index = 0;
