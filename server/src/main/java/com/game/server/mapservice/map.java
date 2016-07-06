@@ -7,12 +7,12 @@ import java.util.HashMap;
  */
 public class Map {
     private MapService mapService;
-    private int mapId;
+    private long mapId;
     private int mapWidth, mapHeight;
     private HashMap<Long, NPCObject> npcObjects = new HashMap<>();
 
     public Map() {}
-    public Map mapId(int mapId) {
+    public Map mapId(long mapId) {
         this.mapId = mapId;
         return this;
     }
@@ -46,7 +46,7 @@ public class Map {
         return mapHeight;
     }
 
-    public int getMapId() {
+    public long getMapId() {
         return mapId;
     }
 

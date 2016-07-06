@@ -18,8 +18,14 @@ public class NPCObject {
 
     public NPCObject() {
         entityId = Server.uniqueId+=1;
+        dead = false;
     }
 
+    public NPCObject position(int x, int y) {
+        this.x = x;
+        this.y = y;
+        return this;
+    }
     public void regen() {
         if(!dead) return;
 

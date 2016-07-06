@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 /**
  * Created by Lee on 2016-07-06.
  */
-public class MapDataLoaderTest {
+public class JSONDataLoaderTest {
     @Test
     public void test() {
         JSONParser parser = new JSONParser();
@@ -23,17 +23,17 @@ public class MapDataLoaderTest {
         try {
             Object obj = parser.parse(new FileReader("server/src/main/resources/map/maps.json"));
             JSONObject jsonObject = (JSONObject) obj;
+            assertNotNull(jsonObject);
 
             JSONArray mapArray = (JSONArray) jsonObject.get("maps");
-            Iterator iterator = mapArray.iterator();
-            while (iterator.hasNext()) {
-                JSONObject arrayObject = (JSONObject) iterator.next();
+            assertNotNull(mapArray);
+
+            for (Object aMapArray : mapArray) {
+                JSONObject arrayObject = (JSONObject) aMapArray;
+                assertNotNull(arrayObject);
                 System.out.println(arrayObject);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            fail();
-        } catch (ParseException e) {
+        } catch (IOException | ParseException | NullPointerException e) {
             e.printStackTrace();
             fail();
         }

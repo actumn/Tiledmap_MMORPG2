@@ -15,7 +15,7 @@ public class MapService implements Service {
 
     /* properites */
     // key : mapId, value : mapdata
-    HashMap<Integer, Map> maps = new HashMap<>();
+    HashMap<Long, Map> maps = new HashMap<>();
 
 
     /* implements */
@@ -24,11 +24,11 @@ public class MapService implements Service {
         init();
     }
     private void init () {
-        //XmlDataLoader dataLoader = new XmlDataLoader();
-        //this.maps = dataLoader.loadMaps(this);
+        JSONDataLoader dataLoader = new JSONDataLoader();
+        this.maps = dataLoader.loadMaps(this);
     }
 
-    public Map getMap(int mapId) {
+    public Map getMap(long mapId) {
         return maps.get(mapId);
     }
 
@@ -53,7 +53,7 @@ public class MapService implements Service {
     }
 
     private void regenLoop() {
-        for(Entry<Integer, Map> mapEntry : maps.entrySet()) {
+        for(Entry<Long, Map> mapEntry : maps.entrySet()) {
             mapEntry.getValue().regenNPC();
         }
     }
