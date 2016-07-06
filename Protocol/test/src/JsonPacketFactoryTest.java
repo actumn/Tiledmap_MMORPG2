@@ -54,6 +54,8 @@ public class JsonPacketFactoryTest {
         assertEquals(expect_type, actual_type);
         assertEquals(actual_user_id, actual_user_id);
         assertEquals(actual_user_pw, actual_user_pw);
+
+
     }
 
     @Test

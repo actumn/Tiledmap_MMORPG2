@@ -2,7 +2,6 @@
 <maps>
     <map id="-2" name="테스트" filename="maps/throne_room.tmx">
         <moves>
-
         </moves>
         <npcs>
             <npc id="0" x="18" y="35" direction="0"/>
@@ -10,8 +9,6 @@
     </map>
     <map id="-1" name="테스트" filename="maps/starting.tmx">
         <moves>
-            <move x="29" y="17" new_map="2" new_x="12" new_y="22"/>
-            <move x="18" y="30" new_map="3" new_x="14" new_y="16"/>
         </moves>
         <npcs>
             <npc id='1' x='34' y='20' direction='1'/>
@@ -19,7 +16,7 @@
         </npcs>
         <root map='1' x='100' y='100' direction='1'/>
     </map>
-    <map id='1' name="시작위치" filename="maps/starting.tmx">
+    <map id='0' name="시작위치" filename="maps/starting.tmx">
         <moves>
             <move x="29" y="17" new_map="2" new_x="12" new_y="22"/>
             <move x="18" y="30" new_map="3" new_x="14" new_y="16"/>

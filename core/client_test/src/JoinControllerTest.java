@@ -22,8 +22,8 @@ public class JoinControllerTest {
         PacketFactory packetFactory = Network.getInstance().getPacketFactory();
 
         assertNotNull(Network.getInstance());
-        assertNotNull(Network.getInstance().getChannel());
-        assertEquals(testChannel, Network.getInstance().getChannel());
+        assertNotNull(Network.getInstance().TEST_getChannel());
+        assertEquals(testChannel, Network.getInstance().TEST_getChannel());
 
         String expect_type = "join";
         int expect_job_id = 1;

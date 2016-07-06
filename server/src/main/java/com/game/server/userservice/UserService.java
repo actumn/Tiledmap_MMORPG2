@@ -17,11 +17,13 @@ import org.json.simple.JSONObject;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Created by Lee on 2016-06-01.
  */
 public class UserService implements Service {
+    private ConcurrentLinkedQueue<JSONObject> servicePacketQueue = new ConcurrentLinkedQueue<>();
 
     private final int port;
     public UserService(int port) {

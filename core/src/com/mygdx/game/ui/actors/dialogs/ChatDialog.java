@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.object.Entity;
+import com.mygdx.game.object.Player;
 import com.mygdx.game.ui.Font;
 import network.Network;
 import protocol.Packet.PacketFactory;
@@ -103,6 +104,10 @@ public class ChatDialog extends BaseDialog {
 
         PacketFactory packetFactory = Network.getInstance().getPacketFactory();
         Network.getInstance().send(packetFactory.chat(0, message));
+
+        if (!Network.getInstance().isConnected()) {
+            append(new Player().setName("test"), message);
+        }
     }
 
     private class ChatMessage {

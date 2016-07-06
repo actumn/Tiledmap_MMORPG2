@@ -81,8 +81,8 @@ public class ObjectManager {
 
     public void draw() {
         if (centerPlayer != null) {
-            int x = this.centerPlayer.getDrawX() - (int) this.camera.position.x;
-            int y = this.centerPlayer.getDrawY() - (int) this.camera.position.y;
+            int x = this.centerPlayer.x - (int) this.camera.position.x;
+            int y = this.centerPlayer.y - (int) this.camera.position.y;
             this.camera.translate(Math.min(10, x), Math.min(10, y));
         }
 

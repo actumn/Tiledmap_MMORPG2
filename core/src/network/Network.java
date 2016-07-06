@@ -59,10 +59,6 @@ public class Network {
         this.connected = false;
     }
 
-    public Channel getChannel() {
-        return channel;
-    }
-
     public void send(JSONObject object) {
         if (this.connected)
             this.channel.writeAndFlush(object.toJSONString()+"\r\n");
@@ -74,6 +70,10 @@ public class Network {
 
     public PacketFactory getPacketFactory() {
         return packetFactory;
+    }
+
+    public Channel TEST_getChannel() {
+        return channel;
     }
 
     public void TEST_setChannel(Channel channel) {

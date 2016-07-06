@@ -6,7 +6,6 @@ import network.Network;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.junit.Test;
-import org.junit.Assert.*;
 import protocol.Packet.PacketFactory;
 
 import static org.junit.Assert.assertEquals;
@@ -24,8 +23,8 @@ public class LoginControllerTest {
         PacketFactory packetFactory = Network.getInstance().getPacketFactory();
 
         assertNotNull(Network.getInstance());
-        assertNotNull(Network.getInstance().getChannel());
-        assertEquals(testChannel, Network.getInstance().getChannel());
+        assertNotNull(Network.getInstance().TEST_getChannel());
+        assertEquals(testChannel, Network.getInstance().TEST_getChannel());
 
         String expect_user_id = "test";
         String expect_user_pw = "test";
