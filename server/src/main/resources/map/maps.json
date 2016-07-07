@@ -2,6 +2,8 @@
   "maps": [
     {
       "id": 0,
+      "tilewidth":32,
+      "tileheight":32,
       "width": 80,
       "height": 80,
       "npcs": [

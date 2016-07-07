@@ -13,9 +13,9 @@ import java.util.HashMap;
 /**
  * Created by Lee on 2016-06-19.
  */
-public class JsonDataLoader {
+public class MapDataLoader {
     private JSONParser parser;
-    public JsonDataLoader() {
+    public MapDataLoader() {
         this.parser = new JSONParser();
 
     }
@@ -63,6 +63,8 @@ public class JsonDataLoader {
      */
     private Map loadMapData(JSONObject mapObject) {
         long id = (long) mapObject.get("id");
+        int tilewidth = (int)(long) mapObject.get("tilewidth");
+        int tileheight = (int)(long) mapObject.get("tileheight");
         int width = (int)(long) mapObject.get("width");
         int height = (int)(long) mapObject.get("height");
         JSONArray npcArray = (JSONArray) mapObject.get("npcs");
@@ -70,14 +72,17 @@ public class JsonDataLoader {
         /* create new map */
         Map map = new Map()
                 .mapId(id)
-                .size(width, height);
+                .size(tilewidth, tileheight, width, height);
 
         /* load npcs */
         for (Object npcData : npcArray) {
             JSONObject npcObject = (JSONObject) npcData;
             long npcId = (long) npcObject.get("id");
             int x = (int)(long) npcObject.get("x"); int y = (int)(long) npcObject.get("y");
-            map.addNPC(loadNPCData((long) npcObject.get("id")).map(map).position(x, y));
+            map.addNPC(
+                    loadNPCData(npcId).map(map)
+                    .position(map.atTileX(x), map.atTileY(y))
+            );
         }
 
         return map;
@@ -152,5 +157,8 @@ public class JsonDataLoader {
     }
     public NPCObject TEST_loadNPCData(JSONObject npcObjectData) {
         return loadNPCData(npcObjectData);
+    }
+    public NPCObject TEST_loadNPCData(long id) {
+        return loadNPCData(id);
     }
 }

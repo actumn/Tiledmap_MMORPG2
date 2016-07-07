@@ -26,7 +26,7 @@ public class NPCObject {
       "npcs": [
         {
           "id":0,
-          "name":"실비아",
+          "name":"",
           "team":0,
           "level":0,
           "hp":0,

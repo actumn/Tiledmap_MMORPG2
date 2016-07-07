@@ -8,6 +8,7 @@ import java.util.HashMap;
 public class Map {
     private MapService mapService;
     private long mapId;
+    private int tileWidth, tileHeight;
     private int mapWidth, mapHeight;
     private HashMap<Long, NPCObject> npcObjects = new HashMap<>();
 
@@ -20,8 +21,9 @@ public class Map {
         this.mapService = mapService;
         return this;
     }
-    public Map size(int mapWidth, int mapHeight) {
-        this.mapWidth = mapWidth; this.mapHeight = mapHeight;
+    public Map size(int tileWidth, int tileHeight, int width, int height) {
+        this.tileWidth = tileWidth; this.tileHeight = tileHeight;
+        this.mapWidth = width; this.mapHeight = height;
         return this;
     }
     public void addNPC(NPCObject npcObject) {
@@ -37,6 +39,21 @@ public class Map {
 
     }
 
+    public int atTileX(int tileX) {
+        return this.tileWidth * tileX;
+    }
+    public int atTileY(int tileY) {
+        return this.tileHeight * tileY;
+    }
+
+
+    public int getTileWidth() {
+        return tileWidth;
+    }
+
+    public int getTileHeight() {
+        return tileHeight;
+    }
 
     public int getMapWidth() {
         return mapWidth;
@@ -46,11 +63,26 @@ public class Map {
         return mapHeight;
     }
 
+    public int getTotalWidth() {
+        return mapWidth * tileWidth;
+    }
+    public int getTotalHeight() {
+        return mapHeight * tileHeight;
+    }
+
     public long getMapId() {
         return mapId;
     }
 
     public MapService getMapService() {
         return mapService;
+    }
+
+    public boolean containsNPC(NPCObject npc) {
+        return this.npcObjects.containsValue(npc);
+    }
+
+    public HashMap<Long, NPCObject> TEST_getNpcObjects() {
+        return npcObjects;
     }
 }

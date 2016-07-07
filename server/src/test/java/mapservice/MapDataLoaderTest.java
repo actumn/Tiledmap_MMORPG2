@@ -1,6 +1,7 @@
 package mapservice;
 
-import com.game.server.mapservice.JsonDataLoader;
+import com.game.server.mapservice.MapDataLoader;
+import com.game.server.mapservice.Map;
 import com.game.server.mapservice.NPCObject;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -8,37 +9,41 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.Test;
 
+import java.util.HashMap;
+
 import static org.junit.Assert.*;
 
 /**
  * Created by Lee on 2016-07-06.
  */
-public class JsonDataLoaderTest {
+public class MapDataLoaderTest {
     @Test
     public void JSONArrayTest() {
         JSONParser parser = new JSONParser();
 
         try {
-            JSONObject jsonObject = (JSONObject) parser.parse("{\n" +
-                    "  \"maps\": [\n" +
-                    "    {\n" +
-                    "      \"id\": 0,\n" +
-                    "      \"width\": 80,\n" +
-                    "      \"height\": 80,\n" +
-                    "      \"npcs\": [\n" +
-                    "        {\n" +
-                    "          \"id\": 1,\n" +
-                    "          \"x\": 34,\n" +
-                    "          \"y\": 20\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "          \"id\": 2,\n" +
-                    "          \"x\": 10,\n" +
-                    "          \"y\": 10\n" +
-                    "        }\n" +
-                    "      ]\n" +
-                    "    }\n" +
-                    "  ]\n" +
+            JSONObject jsonObject = (JSONObject) parser.parse("{" +
+                    "  \"maps\": [" +
+                    "    {" +
+                    "      \"id\": 0," +
+                    "      \"tilewidth\":32," +
+                    "      \"tileheight\":32," +
+                    "      \"width\": 80," +
+                    "      \"height\": 80," +
+                    "      \"npcs\": [" +
+                    "        {" +
+                    "          \"id\": 1," +
+                    "          \"x\": 34," +
+                    "          \"y\": 20" +
+                    "        }," +
+                    "        {" +
+                    "          \"id\": 2," +
+                    "          \"x\": 10," +
+                    "          \"y\": 10" +
+                    "        }" +
+                    "      ]" +
+                    "    }" +
+                    "  ]" +
                     "}");
 
             assertNotNull(jsonObject);
@@ -59,10 +64,47 @@ public class JsonDataLoaderTest {
     }
 
 
+    /*
+    { "id": 0, "tilewidth":32, "tileheight":32,"width": 80, "height": 80, "npcs": [
+        {"id": 1, "x": 34, "y": 20},
+        {"id": 2, "x": 10, "y": 10}
+      ]
+    }
+     */
     @Test
     public void mapLoadTest() {
-        JsonDataLoader dataLoader = new JsonDataLoader();
+        try {
+            MapDataLoader dataLoader = new MapDataLoader();
+            JSONObject mapData = (JSONObject) new JSONParser().parse(
+                    "{ \"id\": 0, \"tilewidth\":32, \"tileheight\":32, \"width\": 80, \"height\": 80, \"npcs\": [" +
+                    "        {\"id\": 1, \"x\": 34, \"y\": 20}," +
+                    "        {\"id\": 2, \"x\": 10, \"y\": 10}" +
+                    "      ]" +
+                    "    }");
+            assertNotNull(mapData);
 
+            int expect_tilewidth = (int)(long) mapData.get("tilewidth");
+            int expect_tileheight = (int)(long) mapData.get("tileheight");
+            int expect_width = (int)(long) mapData.get("width");
+            int expect_height = (int)(long) mapData.get("height");
+
+            Map map = dataLoader.TEST_loadMapData(mapData);
+            assertNotNull(map);
+
+            assertEquals(expect_tilewidth, map.getTileWidth());
+            assertEquals(expect_tileheight, map.getTileHeight());
+            assertEquals(expect_width, map.getMapWidth());
+            assertEquals(expect_height, map.getMapHeight());
+
+
+            HashMap<Long, NPCObject> npcObjects = map.TEST_getNpcObjects();
+            assertNotNull(npcObjects);
+            assertEquals(2, npcObjects.size());
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            fail(e.toString());
+        }
     }
     /*
     {"id":1, "name":"베이비드래곤", "team":1, "level":1, "vision":5, "hp":100, "mp":0, "drop_exp":4, "drop_gold":10, "atk":8, "def":0, "drop_items":[] }
@@ -89,7 +131,7 @@ public class JsonDataLoaderTest {
             JSONArray drop_items = (JSONArray) npcData.get("drop_items");
             assertNotNull(drop_items);
 
-            JsonDataLoader dataLoader = new JsonDataLoader();
+            MapDataLoader dataLoader = new MapDataLoader();
             NPCObject npc = dataLoader.TEST_loadNPCData(npcData);
             assertNotNull(npc);
 
@@ -107,7 +149,15 @@ public class JsonDataLoaderTest {
 
         } catch (ParseException e) {
             e.printStackTrace();
-            fail();
+            fail(e.toString());
         }
+    }
+
+    @Test
+    public void npcLoadTestById() {
+        long npcId = 1;
+        MapDataLoader dataLoader = new MapDataLoader();
+        NPCObject testNPC = dataLoader.TEST_loadNPCData(npcId);
+        assertNotNull(testNPC);
     }
 }

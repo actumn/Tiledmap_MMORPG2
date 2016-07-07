@@ -24,7 +24,7 @@ public class MapService implements Service {
         init();
     }
     private void init () {
-        JsonDataLoader dataLoader = new JsonDataLoader();
+        MapDataLoader dataLoader = new MapDataLoader();
         this.maps = dataLoader.loadMaps(this);
     }
 
