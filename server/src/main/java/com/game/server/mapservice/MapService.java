@@ -24,7 +24,7 @@ public class MapService implements Service {
         init();
     }
     private void init () {
-        JSONDataLoader dataLoader = new JSONDataLoader();
+        JsonDataLoader dataLoader = new JsonDataLoader();
         this.maps = dataLoader.loadMaps(this);
     }
 
@@ -59,5 +59,11 @@ public class MapService implements Service {
     }
     private void updateLoop() {
 
+    }
+
+
+    @Override
+    public void addPacket(JSONObject packet) {
+        this.servicePacketQueue.add(packet);
     }
 }

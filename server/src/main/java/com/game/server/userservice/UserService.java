@@ -122,4 +122,10 @@ public class UserService implements Service {
     public boolean containsUser(UserObject user) {
         return this.users.contains(user);
     }
+
+    @Override
+    public void addPacket(JSONObject packet) {
+        this.servicePacketQueue.add(packet);
+    }
+
 }
