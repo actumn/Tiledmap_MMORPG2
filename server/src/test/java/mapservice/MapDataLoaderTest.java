@@ -22,8 +22,7 @@ public class MapDataLoaderTest {
         JSONParser parser = new JSONParser();
 
         try {
-            JSONObject jsonObject = (JSONObject) parser.parse("{" +
-                    "  \"maps\": [" +
+            JSONArray mapArray = (JSONArray) parser.parse("[" +
                     "    {" +
                     "      \"id\": 0," +
                     "      \"tilewidth\":32," +
@@ -43,18 +42,14 @@ public class MapDataLoaderTest {
                     "        }" +
                     "      ]" +
                     "    }" +
-                    "  ]" +
-                    "}");
+                    "]");
 
-            assertNotNull(jsonObject);
 
-            JSONArray mapArray = (JSONArray) jsonObject.get("maps");
             assertNotNull(mapArray);
 
             for (Object aMapArray : mapArray) {
                 JSONObject arrayObject = (JSONObject) aMapArray;
                 assertNotNull(arrayObject);
-                System.out.println(arrayObject);
             }
         } catch (ParseException | NullPointerException e) {
             e.printStackTrace();

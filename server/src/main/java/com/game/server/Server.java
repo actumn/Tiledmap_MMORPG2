@@ -20,11 +20,11 @@ public class Server {
     public static void main(String[] args) throws Exception {
         serviceMap = new HashMap<>();
 
-        serviceMap.put(MapServiceId, new MapService());
+        serviceMap.put(MapServiceId, new MapService().init());
         serviceMap.put(UserServiceId, new UserService(6112));
 
-        for(Entry<Integer, Service> entry: serviceMap.entrySet()) {
-            entry.getValue().start();
+        for(Service service: serviceMap.values()) {
+            service.start();
         }
 
     }

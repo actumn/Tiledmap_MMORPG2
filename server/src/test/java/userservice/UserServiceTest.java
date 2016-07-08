@@ -4,6 +4,7 @@ import com.game.server.userservice.MapProxy;
 import com.game.server.userservice.UserObject;
 import com.game.server.userservice.UserService;
 import io.netty.channel.embedded.EmbeddedChannel;
+import org.json.simple.JSONObject;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -11,6 +12,14 @@ import static org.junit.Assert.*;
  * Created by Lee on 2016-06-02.
  */
 public class UserServiceTest {
+    @Test
+    public void initTest() {
+        UserService userService = new UserService(6112);
+        assertNull(userService.pollPacket());
+
+        userService.addPacket(new JSONObject());
+        assertNotNull(userService.pollPacket());
+    }
 
     @Test
     public void getMapProxyTest() {

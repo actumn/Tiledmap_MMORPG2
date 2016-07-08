@@ -20,12 +20,11 @@ public class MapService implements Service {
 
     /* implements */
     // Constructor
-    public MapService() {
-        init();
-    }
-    private void init () {
+    public MapService() {}
+    public MapService init () {
         MapDataLoader dataLoader = new MapDataLoader();
         this.maps = dataLoader.loadMaps(this);
+        return this;
     }
 
     public Map getMap(long mapId) {
@@ -53,9 +52,7 @@ public class MapService implements Service {
     }
 
     private void regenLoop() {
-        for(Entry<Long, Map> mapEntry : maps.entrySet()) {
-            mapEntry.getValue().regenNPC();
-        }
+        maps.values().forEach(Map::regenNPC);
     }
     private void updateLoop() {
 
@@ -65,5 +62,14 @@ public class MapService implements Service {
     @Override
     public void addPacket(JSONObject packet) {
         this.servicePacketQueue.add(packet);
+    }
+    @Override
+    public JSONObject pollPacket() {
+        return this.servicePacketQueue.poll();
+    }
+
+    @Override
+    public void sendPacket(Service service, JSONObject object) {
+        service.addPacket(object);
     }
 }

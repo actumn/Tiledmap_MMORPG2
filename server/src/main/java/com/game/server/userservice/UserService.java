@@ -72,6 +72,7 @@ public class UserService implements Service {
         MapProxy map = getMapProxy(mapId, true);
         user.initMap(map);
 
+
         this.users.add(user);
     }
 
@@ -111,7 +112,7 @@ public class UserService implements Service {
         if(!maps.containsKey(mapId)) {
             if (!makable) return null;
 
-            MapProxy newMap = new MapProxy(mapId);
+            MapProxy newMap = new MapProxy(this, mapId);
             maps.put(mapId, newMap);
         }
         return maps.get(mapId);
@@ -127,5 +128,12 @@ public class UserService implements Service {
     public void addPacket(JSONObject packet) {
         this.servicePacketQueue.add(packet);
     }
-
+    @Override
+    public JSONObject pollPacket() {
+        return this.servicePacketQueue.poll();
+    }
+    @Override
+    public void sendPacket(Service service, JSONObject packet) {
+        service.addPacket(packet);
+    }
 }

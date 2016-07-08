@@ -1,5 +1,7 @@
 package com.game.server.userservice;
 
+import com.game.server.Server;
+import com.game.server.service.Service;
 import org.json.simple.JSONObject;
 import protocol.Packet.JsonPacketFactory;
 
@@ -9,13 +11,15 @@ import java.util.LinkedList;
  * Created by Lee on 2016-06-02.
  */
 public class MapProxy {
+    private Service service;
     private JsonPacketFactory packetFactory;
 
     private int map_id;
 
     private LinkedList<UserObject> objects = new LinkedList<>();
 
-    public MapProxy(int map_id) {
+    public MapProxy(UserService userService, int map_id) {
+        this.service = userService;
         this.map_id = map_id;
         this.packetFactory = new JsonPacketFactory();
     }
@@ -42,6 +46,7 @@ public class MapProxy {
     }
 
     public void joinUser(UserObject user) {
+
 
         this.objects.add(user);
         user.setMap(this);

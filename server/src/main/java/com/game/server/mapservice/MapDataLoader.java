@@ -23,10 +23,9 @@ public class MapDataLoader {
 
     public HashMap<Long, Map> loadMaps(MapService mapService) {
         HashMap<Long, Map> maps = new HashMap<>();
-        JSONObject mapsData = null;
+        JSONArray mapArray = null;
         try {
-            mapsData = (JSONObject) parser.parse(new FileReader("map/maps.json"));
-            JSONArray mapArray = (JSONArray) mapsData.get("maps");
+            mapArray = (JSONArray) parser.parse(new FileReader("map/maps.json"));
 
             for (Object mapObject : mapArray) {
                 JSONObject mapData = (JSONObject) mapObject;
@@ -89,8 +88,7 @@ public class MapDataLoader {
     }
 
     /*
-    {
-  "npcs": [
+    [
     {
       "id":0,
       "name":"test",
@@ -106,13 +104,11 @@ public class MapDataLoader {
       "drop_items":[]
     }
     ]
-    }
      */
     private NPCObject loadNPCData(long id) {
         NPCObject npc = null;
         try {
-            JSONObject npcsData = (JSONObject) parser.parse(new FileReader("map/npcs.json"));
-            JSONArray npcArray = (JSONArray) npcsData.get("npcs");
+            JSONArray npcArray = (JSONArray) parser.parse(new FileReader("map/npcs.json"));
 
             for(Object npcObject : npcArray) {
                 JSONObject npcData = (JSONObject) npcObject;

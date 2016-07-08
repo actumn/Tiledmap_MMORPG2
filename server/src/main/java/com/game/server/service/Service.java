@@ -8,4 +8,7 @@ import org.json.simple.JSONObject;
 public interface Service {
     void start() throws Exception;
     void addPacket(JSONObject packet);
+    JSONObject pollPacket();
+
+    void sendPacket(Service service, JSONObject object);
 }
