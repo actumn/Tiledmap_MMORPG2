@@ -17,5 +17,4 @@ public class MapServiceTest {
         assertNotNull(mapService.pollPacket());
     }
 
-
 }

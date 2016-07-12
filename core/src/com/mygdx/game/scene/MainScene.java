@@ -105,7 +105,7 @@ public class MainScene extends GameScene {
 
 
         long targetEntityId = (long) movePacket.get("id");
-        int destMapId = (int)(long) movePacket.get("dest_map_id");
+        long destMapId = (long) movePacket.get("dest_map_id");
         int destX = (int)(long) movePacket.get("dest_x");
         int destY = (int)(long) movePacket.get("dest_y");
 

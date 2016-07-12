@@ -80,9 +80,7 @@ public class NPCObject {
         this.x = dx; this.y = dy;
     }
     public void regen() {
-        if(!dead) return;
-
-        dead = false;
+        if(dead) dead = false;
     }
     public void update(){
 

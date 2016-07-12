@@ -2,8 +2,8 @@ package com.game.server.userservice;
 
 import com.game.server.Server;
 import com.game.server.service.Service;
+import com.game.server.service.JsonServicePacketFactory;
 import org.json.simple.JSONObject;
-import protocol.Packet.JsonPacketFactory;
 
 import java.util.LinkedList;
 
@@ -12,16 +12,16 @@ import java.util.LinkedList;
  */
 public class MapProxy {
     private Service service;
-    private JsonPacketFactory packetFactory;
+    private JsonServicePacketFactory packetFactory;
 
-    private int map_id;
+    private long map_id;
 
     private LinkedList<UserObject> objects = new LinkedList<>();
 
-    public MapProxy(UserService userService, int map_id) {
+    public MapProxy(UserService userService, long map_id) {
         this.service = userService;
         this.map_id = map_id;
-        this.packetFactory = new JsonPacketFactory();
+        this.packetFactory = new JsonServicePacketFactory();
     }
 
 
@@ -46,7 +46,10 @@ public class MapProxy {
     }
 
     public void joinUser(UserObject user) {
-
+        service.sendPacket(
+                Server.serviceMap.get(Server.MapServiceId),
+                packetFactory.maqRequest(this.map_id, user.getUuid())
+        );
 
         this.objects.add(user);
         user.setMap(this);
@@ -75,7 +78,7 @@ public class MapProxy {
         }
     }
 
-    public int getMap_id() {
+    public long getMap_id() {
         return map_id;
     }
 

@@ -9,9 +9,9 @@ public interface PacketFactory {
     JSONObject join(String user_id, String user_pw, String user_name, int job_id);
     JSONObject login(String user_id, String user_pw);
     JSONObject character(long uuid, String name, int level, int job_id);
-    JSONObject npc(long entityId, int npcId);
+    JSONObject npc(long entityId, long npcId, int hp, int mp, int x, int y);
     JSONObject entityUpdate(long entityId, int entityHp);
-    JSONObject move(long entity_id, int map_id, int dest_x, int dest_y);
+    JSONObject move(long entity_id, long map_id, int dest_x, int dest_y);
     JSONObject chat(long entity_id, String content);
     JSONObject notify(String content);
 }

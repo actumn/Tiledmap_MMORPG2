@@ -113,6 +113,49 @@ public class JsonPacketFactoryTest {
     }
 
 
+    /*
+    {
+        "type":"npc",
+        "id":entityId,
+        "npc_id": npcId,
+        "hp": hp,
+        "mp": mp,
+        "x": x,
+        "y": y
+    }
+ */
+    @Test
+    public void npcTest() {
+        JsonPacketFactory testFactory = new JsonPacketFactory();
+        assertNotNull(testFactory);
+
+        final String expect_type = "npc";
+        final long expect_id = 1343;
+        final long expect_npc_id = 1;
+        final int expect_hp = 100;
+        final int expect_mp = 0;
+        final int expect_x = 10;
+        final int expect_y = 40;
+
+        JSONObject obj = testFactory.npc(expect_id, expect_npc_id, expect_hp, expect_mp, expect_x, expect_y);
+        String actual_type = (String) obj.get("type");
+
+        long actual_id = (long) obj.get("id");
+        long actual_npc_id = (long) obj.get("npc_id");
+        int actual_hp = (int) obj.get("hp");
+        int actual_mp = (int) obj.get("mp");
+        int actual_x = (int) obj.get("x");
+        int actual_y = (int) obj.get("y");
+
+        assertEquals(expect_type, actual_type);
+        assertEquals(expect_id, actual_id);
+        assertEquals(expect_npc_id, actual_npc_id);
+        assertEquals(expect_hp, actual_hp);
+        assertEquals(expect_mp, actual_mp);
+        assertEquals(expect_x, actual_x);
+        assertEquals(expect_y, actual_y);
+    }
+
     @Test
     public void chatTest() {
         JsonPacketFactory testFactory = new JsonPacketFactory();
@@ -133,7 +176,6 @@ public class JsonPacketFactoryTest {
         assertEquals(expect_entity_id, actual_entity_id);
         assertEquals(expect_content, actual_content);
     }
-
 
     @Test
     public void notifyTest() {

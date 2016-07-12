@@ -19,14 +19,18 @@
         <def>0</def>
         <hit>0</hit>
         <avo>0</avo>
-        <drop_items>
-        </drop_items>
     </npc>
     <npc id='1'>
         <name>베이비드래곤</name>
         <team>1</team>
         <hp>100</hp>
         <mp>0</mp>
+        <sprites>
+            <sprite state="0" key="npc-monsters" i_index="0" j_index="0"/>
+            <sprite state="1" key="npc-monsters" i_index="0" j_index="0"/>
+            <sprite state="2" key="npc-monsters" i_index="0" j_index="0"/>
+            <sprite state="3" key="npc-monsters" i_index="0" j_index="0"/>
+        </sprites>
         <vision>5</vision>
         <level>1</level>
         <drop_exp>4</drop_exp>
@@ -35,15 +39,6 @@
         <def>0</def>
         <hit>100</hit>
         <avo>0</avo>
-        <sprites>
-            <sprite state="0" key="npc-monsters" i_index="0" j_index="0"/>
-            <sprite state="1" key="npc-monsters" i_index="0" j_index="0"/>
-            <sprite state="2" key="npc-monsters" i_index="0" j_index="0"/>
-            <sprite state="3" key="npc-monsters" i_index="0" j_index="0"/>
-        </sprites>
-        <drop_items>
-
-        </drop_items>
     </npc>
 
     <npc id='2'>
@@ -65,9 +60,6 @@
         <def>0</def>
         <hit>100</hit>
         <avo>0</avo>
-        <drop_items>
-
-        </drop_items>
     </npc>
 
 </npcs>

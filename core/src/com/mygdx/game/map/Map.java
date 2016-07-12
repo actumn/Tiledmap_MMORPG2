@@ -19,7 +19,7 @@ public class Map {
     // Managers
     private ObjectManager objectManager;
 
-    private int mapId;
+    private long mapId;
     private String mapName;
     private TiledMap tiledMap;
     private HashMap<MapMovePoint, MapMoveDestination> moves;
@@ -47,7 +47,7 @@ public class Map {
 
         objectManager.setMapRectangle(0,0, this.getMapWidth(), this.getMapHeight());
     }
-    public Map mapId(int mapId) {
+    public Map mapId(long mapId) {
         this.mapId = mapId;
         return this;
     }
@@ -132,7 +132,7 @@ public class Map {
     }
     public Player getCenterPlayer() { return objectManager.getCenterPlayer(); }
 
-    public int getMapId() {
+    public long getMapId() {
         return mapId;
     }
 

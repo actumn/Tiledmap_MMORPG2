@@ -68,12 +68,27 @@ public class JsonPacketFactory implements PacketFactory {
         return obj;
     }
 
+    /*
+        {
+            "type":"npc",
+            "id":entityId,
+            "npc_id": npcId,
+            "hp": hp,
+            "mp": mp,
+            "x": x,
+            "y": y
+        }
+     */
     @Override
-    public JSONObject npc(long entityId, int npcId) {
+    public JSONObject npc(long entityId, long npcId, int hp, int mp, int x, int y) {
         JSONObject obj = new JSONObject();
         obj.put("type", "npc");
         obj.put("id", entityId);
         obj.put("npc_id", npcId);
+        obj.put("hp", hp);
+        obj.put("mp", mp);
+        obj.put("x", x);
+        obj.put("y", y);
 
         return obj;
     }
@@ -99,7 +114,7 @@ public class JsonPacketFactory implements PacketFactory {
         }
      */
     @Override
-    public JSONObject move(long entity_id, int map_id, int dest_x, int dest_y) {
+    public JSONObject move(long entity_id, long map_id, int dest_x, int dest_y) {
         JSONObject obj = new JSONObject();
         obj.put("type", "move");
         obj.put("id", entity_id);

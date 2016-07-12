@@ -14,7 +14,7 @@ public class MapService implements Service {
     private ConcurrentLinkedQueue<JSONObject> servicePacketQueue = new ConcurrentLinkedQueue<>();
 
     /* properites */
-    // key : mapId, value : mapdata
+    // key : mapId, value : map data
     HashMap<Long, Map> maps = new HashMap<>();
 
 
@@ -35,21 +35,33 @@ public class MapService implements Service {
     public void start() throws Exception {
         System.out.println("MapService start.");
 
-        /*
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(true) {
-                    regenLoop();
-                    updateLoop();
+        new Thread(() -> {
+            while(true) {
+                JSONObject packet = pollPacket();
 
-                    JSONObject packet = servicePacketQueue.poll();
-
-                }
+                if (packet == null) continue;
+                dispatch(packet);
             }
         }).start();
-        */
+
     }
+
+    private void dispatch(JSONObject packet) {
+        String type = (String) packet.get("type");
+
+        switch (type) {
+            case "mapReq" :
+                long map_id = (long) packet.get("map_id");
+                long entity_id = (long) packet.get("entity_id");
+
+                this.maps.get(map_id).mapRes(entity_id);
+                break;
+            default:
+                // some log for it
+                break;
+        }
+    }
+
 
     private void regenLoop() {
         maps.values().forEach(Map::regenNPC);
@@ -72,4 +84,5 @@ public class MapService implements Service {
     public void sendPacket(Service service, JSONObject object) {
         service.addPacket(object);
     }
+
 }

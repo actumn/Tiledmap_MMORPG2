@@ -29,11 +29,23 @@ public class UserService implements Service {
     public UserService(int port) {
         this.port = port;
     }
-    private HashMap<Integer, MapProxy> maps = new HashMap<>();
+    private HashMap<Long, MapProxy> maps = new HashMap<>();
     private LinkedList<UserObject> users = new LinkedList<>();
 
     public void start() throws Exception {
         System.out.println("UserService start.");
+
+        new Thread(() -> {
+            while (true) {
+                JSONObject packet = pollPacket();
+
+                if (packet == null) continue;
+                dispatch(packet);
+            }
+        });
+
+
+
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
 
@@ -67,7 +79,7 @@ public class UserService implements Service {
     }
 
     public void loginUser(final UserObject user) {
-        final int mapId = user.getMapId();
+        final long mapId = user.getMapId();
 
         MapProxy map = getMapProxy(mapId, true);
         user.initMap(map);
@@ -90,7 +102,7 @@ public class UserService implements Service {
     }
 
     public void chat(final UserObject user, final JSONObject packet) {
-        final int mapid = user.getMapId();
+        final long mapid = user.getMapId();
 
         MapProxy map = getMapProxy(mapid, false);
         if (map == null) return;
@@ -98,7 +110,7 @@ public class UserService implements Service {
     }
 
     public void exitUser(final UserObject user) {
-        final int mapId = user.getMapId();
+        final long mapId = user.getMapId();
 
         MapProxy map = getMapProxy(mapId, false);
         if (map == null) return;
@@ -108,7 +120,7 @@ public class UserService implements Service {
         this.users.remove(user);
     }
 
-    public MapProxy getMapProxy(int mapId, boolean makable) {
+    public MapProxy getMapProxy(long mapId, boolean makable) {
         if(!maps.containsKey(mapId)) {
             if (!makable) return null;
 
@@ -118,6 +130,9 @@ public class UserService implements Service {
         return maps.get(mapId);
     }
 
+    private void dispatch(JSONObject packet) {
+
+    }
 
 
     public boolean containsUser(UserObject user) {

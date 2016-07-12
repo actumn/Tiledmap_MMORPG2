@@ -11,7 +11,7 @@ public class UserObject {
     private int dbid;
     private long uuid;
     private MapProxy map;
-    private int mapId;
+    private long mapId;
     private int level;
     private int jobId;
     private String name;
@@ -88,7 +88,7 @@ public class UserObject {
         return y;
     }
 
-    public int getMapId() {
+    public long getMapId() {
         return mapId;
     }
 

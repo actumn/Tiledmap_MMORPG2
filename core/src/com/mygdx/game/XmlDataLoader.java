@@ -35,13 +35,13 @@ public class XmlDataLoader {
     }
 
 
-    public Map loadMap(int mapId) throws IOException {
+    public Map loadMap(long mapId) throws IOException {
         XmlReader.Element maps = reader.parse(mapHandle);
         Array<XmlReader.Element> mapArray = maps.getChildrenByName("map");
         Map map = null;
 
         for (XmlReader.Element mapData: mapArray) {
-            if (Integer.parseInt(mapData.getAttribute("id")) != mapId) continue;
+            if (Long.parseLong(mapData.getAttribute("id")) != mapId) continue;
 
             String mapName = mapData.getAttribute("name");
             String mapFileName = mapData.getAttribute("filename");
