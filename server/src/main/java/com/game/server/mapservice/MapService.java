@@ -52,7 +52,7 @@ public class MapService implements Service {
         switch (type) {
             case "mapReq" :
                 long map_id = (long) packet.get("map_id");
-                long entity_id = (long) packet.get("entity_id");
+                long entity_id = (long) packet.get("uuid");
 
                 this.maps.get(map_id).mapRes(entity_id);
                 break;

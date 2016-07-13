@@ -12,6 +12,7 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.nio.charset.Charset;
@@ -42,7 +43,7 @@ public class UserService implements Service {
                 if (packet == null) continue;
                 dispatch(packet);
             }
-        });
+        }).start();
 
 
 
@@ -75,6 +76,21 @@ public class UserService implements Service {
         } finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
+        }
+    }
+    private void dispatch(JSONObject packet) {
+        String type = (String) packet.get("type");
+
+        switch (type) {
+            case "mapRes":
+                long mapId = (long) packet.get("map_id");
+                long uuid = (long) packet.get("uuid");
+                JSONArray npcs = (JSONArray) packet.get("npcs");
+
+                MapProxy map = getMapProxy(mapId, false);
+                if (map == null) return;
+                map.mapRes(uuid, npcs);
+                break;
         }
     }
 
@@ -130,9 +146,6 @@ public class UserService implements Service {
         return maps.get(mapId);
     }
 
-    private void dispatch(JSONObject packet) {
-
-    }
 
 
     public boolean containsUser(UserObject user) {

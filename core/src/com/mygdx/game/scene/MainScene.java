@@ -10,6 +10,7 @@ import com.mygdx.game.XmlDataLoader;
 import com.mygdx.game.listener.CharacterInputListener;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.object.Entity;
+import com.mygdx.game.object.NPC;
 import com.mygdx.game.object.Player;
 import com.mygdx.game.ui.SystemMessage;
 import com.mygdx.game.ui.actors.MiniMapActor;
@@ -170,6 +171,38 @@ public class MainScene extends GameScene {
                 Entity entity = this.map.getEntityById(entityId);
                 entity.chat(content);
                 this.chatDialog.append(entity, content);
+            }
+
+            /*
+        {
+            "type":"npc",
+            "id":entityId,
+            "npc_id": npcId,
+            "hp": hp,
+            "mp": mp,
+            "x": x,
+            "y": y
+        }
+     */
+            else if (packet.get("type").equals("npc")) {
+                long entityId = (long) packet.get("id");
+                long npcId = (long) packet.get("npc_id");
+                int hp = (int)(long) packet.get("hp");
+                int mp = (int)(long) packet.get("mp");
+                int x = (int)(long) packet.get("x");
+                int y = (int)(long) packet.get("y");
+
+                try {
+                    NPC npc = this.xmlDataLoader.loadNPC(npcId)
+                            .entityId(entityId)
+                            .setMap(map)
+                            .position(x,y);
+                    npc.setHp(hp); npc.setMp(mp);
+
+                    map.add(npc);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

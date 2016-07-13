@@ -23,7 +23,7 @@ public class NPC extends Entity {
     /* stat properties */
     protected int vision;
 
-    public NPC xy(int x, int y) {
+    public NPC position(int x, int y) {
         this.x = x;
         this.y = y;
         this.bounds.setPosition(this.getDrawX(),this.getDrawY());
@@ -192,18 +192,16 @@ public class NPC extends Entity {
         // hp bar
         this.shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         this.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        this.shapeRenderer.setColor(0.8f, 0.0f, 0.0f, 1.0f);
-        this.shapeRenderer.rect(
-                getDrawX() + getTextureRegion().getRegionWidth() / 2 - 10, this.getDrawY() - 2, getPercentHp() / 5, 5
-        );
-        this.shapeRenderer.end();
-
-        this.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         this.shapeRenderer.setColor(0.0f, 0.0f, 0.0f, 1.0f);
         this.shapeRenderer.rect(
                 this.getDrawX() + this.getTextureRegion().getRegionWidth() / 2 - 10,
                 this.getDrawY() - 2,
                 20, 5
+        );
+
+        this.shapeRenderer.setColor(0.8f, 0.0f, 0.0f, 1.0f);
+        this.shapeRenderer.rect(
+                getDrawX() + getTextureRegion().getRegionWidth() / 2 - 10, this.getDrawY() - 2, getPercentHp() / 5, 5
         );
         this.shapeRenderer.end();
 

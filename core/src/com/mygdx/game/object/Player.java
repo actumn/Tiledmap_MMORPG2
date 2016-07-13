@@ -195,22 +195,20 @@ public class Player extends Entity {
 
         // hp bar
         this.shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
-        this.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        this.shapeRenderer.setColor(0.8f, 0.0f, 0.0f, 1.0f);
-        this.shapeRenderer.rect(
-                getDrawX() + getTextureRegion().getRegionWidth() / 2 - 10, this.getDrawY() - 2, getPercentHp() / 5, 5
-        );
-        this.shapeRenderer.end();
 
-        this.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        this.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         this.shapeRenderer.setColor(0.0f, 0.0f, 0.0f, 1.0f);
         this.shapeRenderer.rect(
                 this.getDrawX() + this.getTextureRegion().getRegionWidth() / 2 - 10,
                 this.getDrawY() - 2,
                 20, 5
         );
-        this.shapeRenderer.end();
 
+        this.shapeRenderer.setColor(0.8f, 0.0f, 0.0f, 1.0f);
+        this.shapeRenderer.rect(
+                getDrawX() + getTextureRegion().getRegionWidth() / 2 - 10, this.getDrawY() - 2, getPercentHp() / 5, 5
+        );
+        this.shapeRenderer.end();
         batch.begin();
 
         Font.getInstance().getFont(this.nameSize).setColor(nameColor);

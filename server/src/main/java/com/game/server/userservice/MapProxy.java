@@ -3,6 +3,7 @@ package com.game.server.userservice;
 import com.game.server.Server;
 import com.game.server.service.Service;
 import com.game.server.service.JsonServicePacketFactory;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.LinkedList;
@@ -76,6 +77,26 @@ public class MapProxy {
         for(UserObject u : this.objects) {
             u.getChannel().writeAndFlush(packet.toJSONString() + "\r\n");
         }
+    }
+
+    public void mapRes(long uuid, JSONArray npcs) {
+        UserObject joinUser = getUser(uuid);
+        if (joinUser == null) {
+            // some log for it
+            return;
+        }
+
+        for (Object npcData: npcs) {
+            JSONObject npcPacket = (JSONObject) npcData;
+            joinUser.getChannel().writeAndFlush(npcPacket.toJSONString() + "\r\n");
+        }
+    }
+
+    public UserObject getUser(long entityId) {
+        for (UserObject user: objects) {
+            if (user.getUuid() == entityId) return user;
+        }
+        return null;
     }
 
     public long getMap_id() {

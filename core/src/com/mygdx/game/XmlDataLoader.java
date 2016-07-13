@@ -2,7 +2,6 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
 import com.mygdx.game.map.Map;
@@ -68,7 +67,7 @@ public class XmlDataLoader {
 
             long uniqueId = -1;
             for (XmlReader.Element npcData: npcArray) {
-                int npcId = Integer.parseInt(npcData.getAttribute("id"));
+                long npcId = Long.parseLong(npcData.getAttribute("id"));
                 int npcX = Integer.parseInt(npcData.getAttribute("x"));
                 int npcY = Integer.parseInt(npcData.getAttribute("y"));
                 int direction = Integer.parseInt(npcData.getAttribute("direction"));
@@ -76,7 +75,7 @@ public class XmlDataLoader {
                 NPC npc = loadNPC(npcId)
                         .entityId(--uniqueId)
                         .setMap(map)
-                        .xy(map.getTilePosX(npcX), map.getTilePosY(npcY))
+                        .position(map.getTilePosX(npcX), map.getTilePosY(npcY))
                         .direction(direction);
 
                 map.add(npc);
@@ -89,13 +88,13 @@ public class XmlDataLoader {
     }
 
 
-    public NPC loadNPC(int npcId) throws IOException {
+    public NPC loadNPC(long npcId) throws IOException {
         XmlReader.Element npcs = reader.parse(npcHandle);
         Array<XmlReader.Element> npcArray = npcs.getChildrenByName("npc");
 
         NPC npc = null;
         for (XmlReader.Element npcData: npcArray) {
-            if (Integer.parseInt(npcData.getAttribute("id")) != npcId) continue;
+            if (Long.parseLong(npcData.getAttribute("id")) != npcId) continue;
 
             String name = npcData.get("name");
             int team = Integer.parseInt(npcData.get("team"));

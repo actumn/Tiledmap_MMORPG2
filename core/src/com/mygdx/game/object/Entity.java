@@ -250,4 +250,12 @@ public abstract class Entity implements DrawObject, Rectable {
             return this.entity.y + this.entity.getTextureRegion().getRegionHeight() + 18;
         }
     }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public void setMp(int mp) {
+        this.mp = mp;
+    }
 }

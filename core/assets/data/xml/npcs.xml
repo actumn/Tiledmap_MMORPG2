@@ -17,8 +17,6 @@
         <drop_gold>0</drop_gold>
         <atk>0</atk>
         <def>0</def>
-        <hit>0</hit>
-        <avo>0</avo>
     </npc>
     <npc id='1'>
         <name>베이비드래곤</name>
@@ -37,8 +35,6 @@
         <drop_gold>10</drop_gold>
         <atk>8</atk>
         <def>0</def>
-        <hit>100</hit>
-        <avo>0</avo>
     </npc>
 
     <npc id='2'>
@@ -58,8 +54,6 @@
         <drop_gold>0</drop_gold>
         <atk>8</atk>
         <def>0</def>
-        <hit>100</hit>
-        <avo>0</avo>
     </npc>
 
 </npcs>

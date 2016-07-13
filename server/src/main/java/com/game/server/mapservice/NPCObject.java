@@ -64,6 +64,7 @@ public class NPCObject {
         this.level = level; this.vision = vision;
         this.hp = this.maxHp = hp; this.mp = this.maxMp = mp;
         this.atk = atk; this.def = def;
+        this.hp = 50;
         return this;
     }
     public NPCObject reward(int drop_exp, int drop_gold) {

@@ -16,15 +16,15 @@ public class JsonServicePacketFactory extends JsonPacketFactory implements Servi
     {
         "type": "mapReq",
         "map_id": mapId,
-        "entity_id": entityId
+        "uuid": uuid
     }
     */
     @Override
-    public JSONObject maqRequest(long mapId, long entityId) {
+    public JSONObject maqRequest(long mapId, long uuid) {
         JSONObject obj = new JSONObject();
         obj.put("type", "mapReq");
         obj.put("map_id", mapId);
-        obj.put("entity_id", entityId);
+        obj.put("uuid", uuid);
 
         return obj;
     }
@@ -33,7 +33,7 @@ public class JsonServicePacketFactory extends JsonPacketFactory implements Servi
     {
         "type": "mapRes",
         "map_id": mapId
-        "entity_id": entityId
+        "uuid": uuid
         "npcs": [
             {},
             {}
@@ -41,8 +41,14 @@ public class JsonServicePacketFactory extends JsonPacketFactory implements Servi
     }
      */
     @Override
-    public JSONObject mapResponse(long mapId, long entityId, JSONArray npcs) {
-        return null;
+    public JSONObject mapResponse(long mapId, long uuid, JSONArray npcs) {
+        JSONObject obj = new JSONObject();
+        obj.put("type", "mapRes");
+        obj.put("map_id", mapId);
+        obj.put("uuid", uuid);
+        obj.put("npcs", npcs);
+
+        return obj;
     }
 
 }
