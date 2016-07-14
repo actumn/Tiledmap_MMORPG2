@@ -20,7 +20,7 @@ public class UserObject {
 
     public UserObject() {
         this.inventory = new Inventory();
-        this.uuid = Server.uniqueId++;
+        this.uuid = Server.uniqueId+=1;
     }
     public UserObject dbid(int dbid) {
         this.dbid = dbid;
@@ -60,6 +60,9 @@ public class UserObject {
     }
 
 
+    public MapProxy getMap() {
+        return map;
+    }
 
     public void setX(int x) {
         this.x = x;

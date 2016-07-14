@@ -118,6 +118,7 @@ public class MainScene extends GameScene {
                 .entityId(entityId)
                 .setMap(map)
                 .xy(destX, destY);
+        System.out.println(c.getName() + ": entityId"+entityId);
 
         this.characterInputListener = new CharacterInputListener(c);
         gameStage.addListener(this.characterInputListener);
@@ -142,6 +143,7 @@ public class MainScene extends GameScene {
                             .setName(name)
                             .entityId(entityId)
                             .setMap(map);
+                    System.out.println(c.getName() + ": entityId"+entityId);
                     map.add(c);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -173,17 +175,6 @@ public class MainScene extends GameScene {
                 this.chatDialog.append(entity, content);
             }
 
-            /*
-        {
-            "type":"npc",
-            "id":entityId,
-            "npc_id": npcId,
-            "hp": hp,
-            "mp": mp,
-            "x": x,
-            "y": y
-        }
-     */
             else if (packet.get("type").equals("npc")) {
                 long entityId = (long) packet.get("id");
                 long npcId = (long) packet.get("npc_id");
@@ -199,10 +190,17 @@ public class MainScene extends GameScene {
                             .position(x,y);
                     npc.setHp(hp); npc.setMp(mp);
 
+                    System.out.println(npc.getName() + ": entityId"+entityId);
+
                     map.add(npc);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+
+            else if (packet.get("type").equals("attack")) {
+                long entityId = (long) packet.get("id");
+                map.getEntityById(entityId).show_attack();
             }
         }
     }

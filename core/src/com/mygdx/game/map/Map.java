@@ -11,6 +11,7 @@ import com.mygdx.game.object.Effect;
 import com.mygdx.game.object.Entity;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Lee on 2016-05-20.
@@ -142,5 +143,9 @@ public class Map {
 
     public boolean isCollide(Entity entity, Rectangle eRect) {
         return objectManager.isCollide(entity, eRect);
+    }
+
+    public List getEntitiesByBounds(Rectangle bounds) {
+        return objectManager.getEntitiesByBounds(bounds);
     }
 }

@@ -112,18 +112,6 @@ public class JsonPacketFactoryTest {
         assertEquals(expect_dest_y, actual_dest_y);
     }
 
-
-    /*
-    {
-        "type":"npc",
-        "id":entityId,
-        "npc_id": npcId,
-        "hp": hp,
-        "mp": mp,
-        "x": x,
-        "y": y
-    }
- */
     @Test
     public void npcTest() {
         JsonPacketFactory testFactory = new JsonPacketFactory();
@@ -175,6 +163,44 @@ public class JsonPacketFactoryTest {
         assertEquals(expect_type, actual_type);
         assertEquals(expect_entity_id, actual_entity_id);
         assertEquals(expect_content, actual_content);
+    }
+
+    @Test
+    public void attackTest() {
+        JsonPacketFactory testFactory = new JsonPacketFactory();
+
+        final String expect_type = "attack";
+        final long expect_entity_id = 1;
+
+        JSONObject obj = testFactory.attack(expect_entity_id);
+
+        String actual_type = (String) obj.get("type");
+        long actual_entity_id = (long) obj.get("id");
+
+        assertEquals(expect_type, actual_type);
+        assertEquals(expect_entity_id, actual_entity_id);
+    }
+
+    @Test
+    public void damagingTest() {
+        JsonPacketFactory testFactory = new JsonPacketFactory();
+
+        final String expect_type = "damaging";
+        final long expect_entity_id = 1;
+        final long expect_target_id = 2;
+        final int expect_damage = 10;
+
+        JSONObject obj = testFactory.damaging(expect_entity_id, expect_target_id, expect_damage);
+
+        String actual_type = (String) obj.get("type");
+        long actual_entity_id = (long) obj.get("id");
+        long actual_target_id = (long) obj.get("target_id");
+        int actual_damage = (int) obj.get("damage");
+
+        assertEquals(expect_type, actual_type);
+        assertEquals(expect_entity_id, actual_entity_id);
+        assertEquals(expect_target_id, actual_target_id);
+        assertEquals(expect_damage, actual_damage);
     }
 
     @Test

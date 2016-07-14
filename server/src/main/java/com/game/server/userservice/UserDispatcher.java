@@ -40,12 +40,17 @@ public class UserDispatcher {
                 move(packet);
                 break;
 
+            case "attack" :
+                attack(packet);
+                break;
+
             case "chat" :
                 chat(packet);
                 break;
         }
     }
 
+    /* public for junit test */
 
     public void join(Connection con, Channel channel, JSONObject packet) {
         String user_id = (String) packet.get("user_id");
@@ -139,6 +144,11 @@ public class UserDispatcher {
     public void chat(JSONObject packet) {
         packet.put("id", user.getUuid());
         this.service.chat(this.user, packet);
+    }
+
+    public void attack(JSONObject packet) {
+        packet.put("id", user.getUuid());
+        this.service.attack(this.user, packet);
     }
 
     public void logout(Connection con) {

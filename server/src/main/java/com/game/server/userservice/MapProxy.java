@@ -92,6 +92,13 @@ public class MapProxy {
         }
     }
 
+    public void attack(UserObject user, JSONObject packet) {
+        for(UserObject u : this.objects) {
+            if (u == user) continue;
+            u.getChannel().writeAndFlush(packet+ "\r\n");
+        }
+    }
+
     public UserObject getUser(long entityId) {
         for (UserObject user: objects) {
             if (user.getUuid() == entityId) return user;

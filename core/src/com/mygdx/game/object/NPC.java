@@ -164,6 +164,11 @@ public class NPC extends Entity {
     }
 
     @Override
+    public void show_attack() {
+
+    }
+
+    @Override
     public void skillAttack() {
 
     }

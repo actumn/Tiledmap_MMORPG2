@@ -110,6 +110,8 @@ public abstract class Entity implements DrawObject, Rectable {
 
     public abstract void attack();
 
+    public abstract void show_attack();
+
     // 스킬
     public abstract void skillAttack();
 

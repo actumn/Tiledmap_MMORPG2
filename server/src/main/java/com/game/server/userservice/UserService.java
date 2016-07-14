@@ -118,11 +118,19 @@ public class UserService implements Service {
     }
 
     public void chat(final UserObject user, final JSONObject packet) {
-        final long mapid = user.getMapId();
+        final long mapId = user.getMapId();
 
-        MapProxy map = getMapProxy(mapid, false);
+        MapProxy map = getMapProxy(mapId, false);
         if (map == null) return;
-        map.sendChat(packet);;
+        map.sendChat(packet);
+    }
+
+    public void attack(UserObject user, JSONObject packet) {
+        final long mapId = user.getMapId();
+
+        MapProxy map = getMapProxy(mapId, false);
+        if (map == null) return;
+        map.attack(user, packet);
     }
 
     public void exitUser(final UserObject user) {
@@ -136,6 +144,8 @@ public class UserService implements Service {
         this.users.remove(user);
     }
 
+
+
     public MapProxy getMapProxy(long mapId, boolean makable) {
         if(!maps.containsKey(mapId)) {
             if (!makable) return null;
@@ -146,12 +156,9 @@ public class UserService implements Service {
         return maps.get(mapId);
     }
 
-
-
     public boolean containsUser(UserObject user) {
         return this.users.contains(user);
     }
-
     @Override
     public void addPacket(JSONObject packet) {
         this.servicePacketQueue.add(packet);
@@ -160,6 +167,7 @@ public class UserService implements Service {
     public JSONObject pollPacket() {
         return this.servicePacketQueue.poll();
     }
+
     @Override
     public void sendPacket(Service service, JSONObject packet) {
         service.addPacket(packet);

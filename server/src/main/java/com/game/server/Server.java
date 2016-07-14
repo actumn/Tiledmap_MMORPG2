@@ -14,7 +14,7 @@ public class Server {
     public static final int MapServiceId = 1;
     public static final int UserServiceId = 2;
 
-    public static long uniqueId;
+    public static long uniqueId = 0;
     public static HashMap<Integer, Service> serviceMap;
 
     public static void main(String[] args) throws Exception {

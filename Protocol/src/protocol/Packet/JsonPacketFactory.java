@@ -145,6 +145,41 @@ public class JsonPacketFactory implements PacketFactory {
     }
 
     /*
+        {
+            "type":"attack"
+            "id":entity_id
+        }
+     */
+
+    @Override
+    public JSONObject attack(long entityId) {
+        JSONObject obj = new JSONObject();
+
+        obj.put("type", "attack");
+        obj.put("id", entityId);
+        return obj;
+    }
+
+    /*
+            {
+                "type":"damaging"
+                "id":entity_id
+                "target_id": target_id
+                "damage": damage
+            }
+         */
+    @Override
+    public JSONObject damaging(long entity_id, long target_id, int damage) {
+        JSONObject obj = new JSONObject();
+
+        obj.put("type", "damaging");
+        obj.put("id", entity_id);
+        obj.put("target_id", target_id);
+        obj.put("damage", damage);
+        return obj;
+    }
+
+    /*
         @return JSON like :
         {
             "type":"notify"

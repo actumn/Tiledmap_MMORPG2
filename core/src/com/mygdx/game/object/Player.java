@@ -1,7 +1,6 @@
 package com.mygdx.game.object;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -13,6 +12,8 @@ import com.mygdx.game.ui.graphics.MyShapeRenderer;
 import network.Network;
 import protocol.Packet.PacketFactory;
 
+import java.util.List;
+
 /**
  * Created by Lee on 2016-05-19.
  */
@@ -21,6 +22,7 @@ public class Player extends Entity {
     public final int speedY = 5;
 
     /* character texture */
+    // will be width : 100 - 72 = 28, height : 60 - 12 = 48
     private float boundsWidth, boundsHeight;
     private float horizontalPad = 72, verticalPad = 12;
 
@@ -124,35 +126,12 @@ public class Player extends Entity {
 
     public void skillAttack(){
         if (System.currentTimeMillis() <= skillCoolDown) return;
+        if (this.entityState != EntityState.normal) return;
 
         this.entityState = EntityState.casting;
         s_state = 1;
-        mp -= 5;
 
-        Effect effect = new RectableEffect("몰라씨발");
-
-        double stand = ((double)direction - 1.5) * 2;
-        /*  stand = north : 3
-                    east : 1
-                    west : -1
-                    south : -3
-        */
-        int skillX = (int)stand % 3;
-        int skillY = (int)stand / 3;
-        /*
-            x,y =   north : 0,1
-                    east : 1,0
-                    west : -1,0
-                    south : 0, -1
-         */
-        final int distance = 70;
-        skillX *= distance; skillY *= distance;
-
-        effect.setXY(this.x + skillX, this.y + skillY);
-
-        map.add(effect);
-
-        skillCoolDown = System.currentTimeMillis() + 2000;
+        skillCoolDown = System.currentTimeMillis() + 0;
     }
 
     @Override
@@ -183,10 +162,71 @@ public class Player extends Entity {
 
     @Override
     public void attack() {
+        if (this.entityState != EntityState.normal) return;
+        Network network = Network.getInstance();
+        network.send(network.getPacketFactory().attack(this.getEntityId()));
+
+        final float centerX = this.x;
+        final float centerY = this.y + boundsHeight / 2;
+
+        final float attackBoundsHorizon = 64f;
+        final float attackBoundsVertical = 32f;
+
+        /*  factor = north : 3
+                    east : 1
+                    west : -1
+                    south : -3
+        */
+        float factor = ((float)direction - 1.5f) * 2.0f;
+        /*
+            factorX,factorY =
+                    north : 0,1
+                    east : 1,0
+                    west : -1,0
+                    south : 0, -1
+         */
+        int factorX = (int)factor % 3;
+        int factorY = (int)factor / 3;
+
+        // rotate
+        float attackBoundsWidth = Math.abs(factorX) * attackBoundsVertical + Math.abs(factorY) * attackBoundsHorizon;
+        float attackBoundsHeight = Math.abs(factorX) * attackBoundsHorizon + Math.abs(factorY) * attackBoundsVertical;
+
+        float horizontalDistance = factorX * (boundsWidth + attackBoundsWidth) / 2.0f;
+        float verticalDistance = factorY * (boundsHeight + attackBoundsHeight) / 2.0f;
+
+        float attackX = centerX + horizontalDistance - attackBoundsWidth / 2.0f;
+        float attackY = centerY + verticalDistance - attackBoundsHeight / 2.0f;
+
+        Rectangle attackBounds = new Rectangle(attackX, attackY, attackBoundsWidth, attackBoundsHeight);
+
+        attackEnemy(attackBounds);
+        show_attack();
+    }
+    private void attackEnemy(Rectangle bounds) {
+        List entities = this.map.getEntitiesByBounds(bounds);
+        for (Object entityObject : entities) {
+            Entity entity = (Entity) entityObject;
+            if (entity == this || entity.team == this.team) continue;
+            attackEnemy(entity);
+        }
+    }
+    private void attackEnemy(Entity e) {
+        Network network = Network.getInstance();
+        PacketFactory packetFactory = network.getPacketFactory();
+
+        network.send(packetFactory.damaging(this.getEntityId(), e.getEntityId(), this.atk));
+    }
+
+    @Override
+    public void show_attack() {
         this.entityState = EntityState.attacking;
 
         s_state = 1;
     }
+
+
+
 
     @Override
     public void draw(SpriteBatch batch) {
@@ -208,6 +248,7 @@ public class Player extends Entity {
         this.shapeRenderer.rect(
                 getDrawX() + getTextureRegion().getRegionWidth() / 2 - 10, this.getDrawY() - 2, getPercentHp() / 5, 5
         );
+
         this.shapeRenderer.end();
         batch.begin();
 

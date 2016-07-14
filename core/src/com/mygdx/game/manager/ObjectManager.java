@@ -56,7 +56,7 @@ public class ObjectManager {
         // Entity Update
 
         this.effects.forEach(Effect::update);
-        effectCollision();
+        // effectCollision();
         // Effect update
 
 
@@ -69,7 +69,7 @@ public class ObjectManager {
                 iter.remove();
         }
     }
-
+    /*
     private void effectCollision() {
         List<Entity> entityList = new LinkedList<>();
         // rectangle effect
@@ -77,7 +77,31 @@ public class ObjectManager {
             rectEffectCollision(entityList, (RectableEffect) effect);
         });
     }
+    private void rectEffectCollision(List<Entity> entityList, RectableEffect effect) {
+        Rectangle effectBounds = ((RectableEffect) effect).getBounds();
+        entityList = entityQuadtree.retrieve(entityList, effectBounds);
 
+        for (Entity entity: entityList) {
+            Rectangle entityBounds = entity.getBounds();
+
+            if(effectBounds.overlaps(entityBounds)) {
+                effect.work(entity);
+            }
+        }
+    }
+    */
+
+    public List getEntitiesByBounds(Rectangle bounds) {
+        List entities = new LinkedList<>();
+        entities = entityQuadtree.retrieve(entities, bounds);
+        Iterator iter = entities.iterator();
+        while (iter.hasNext()) {
+            Entity entity = (Entity) iter.next();
+            if (!entity.getBounds().overlaps(bounds))
+                iter.remove();
+        }
+        return entities;
+    }
 
     public void draw() {
         if (centerPlayer != null) {
@@ -129,20 +153,7 @@ public class ObjectManager {
     }
 
 
-    public void getNearestObject() {}
 
-    private void rectEffectCollision(List<Entity> entityList, RectableEffect effect) {
-        Rectangle effectBounds = ((RectableEffect) effect).getBounds();
-        entityList = entityQuadtree.retrieve(entityList, effectBounds);
-
-        for (Entity entity: entityList) {
-            Rectangle entityBounds = entity.getBounds();
-
-            if(effectBounds.overlaps(entityBounds)) {
-                effect.work(entity);
-            }
-        }
-    }
 
     public void setCenterPlayer(Player centerPlayer) {
         this.centerPlayer = centerPlayer;
