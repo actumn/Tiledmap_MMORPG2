@@ -64,7 +64,6 @@ public class NPCObject {
         this.level = level; this.vision = vision;
         this.hp = this.maxHp = hp; this.mp = this.maxMp = mp;
         this.atk = atk; this.def = def;
-        this.hp = 50;
         return this;
     }
     public NPCObject reward(int drop_exp, int drop_gold) {
@@ -76,15 +75,18 @@ public class NPCObject {
 
 
 
+    public void damaged(int damage) {
+        this.hp = Math.max(0, this.hp - damage);
+        if (hp <= 0) this.dead = true;
+    }
 
     public void move(int dx, int dy) {
         this.x = dx; this.y = dy;
     }
     public void regen() {
         if(dead) dead = false;
-    }
-    public void update(){
-
+        this.hp = this.maxHp;
+        this.mp = this.maxMp;
     }
 
     public long getEntityId() {

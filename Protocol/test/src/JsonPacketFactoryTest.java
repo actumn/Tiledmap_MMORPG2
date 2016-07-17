@@ -10,7 +10,6 @@ import static org.junit.Assert.*;
  * Created by Lee on 2016-06-04.
  */
 public class JsonPacketFactoryTest {
-
     @Test
     public void joinTest() {
         JsonPacketFactory testFactory = new JsonPacketFactory();
@@ -187,18 +186,21 @@ public class JsonPacketFactoryTest {
 
         final String expect_type = "damaging";
         final long expect_entity_id = 1;
+        final long expect_map_id = 3;
         final long expect_target_id = 2;
         final int expect_damage = 10;
 
-        JSONObject obj = testFactory.damaging(expect_entity_id, expect_target_id, expect_damage);
+        JSONObject obj = testFactory.damaging(expect_entity_id, expect_map_id, expect_target_id, expect_damage);
 
         String actual_type = (String) obj.get("type");
         long actual_entity_id = (long) obj.get("id");
+        long actual_map_id = (long) obj.get("map_id");
         long actual_target_id = (long) obj.get("target_id");
         int actual_damage = (int) obj.get("damage");
 
         assertEquals(expect_type, actual_type);
         assertEquals(expect_entity_id, actual_entity_id);
+        assertEquals(expect_map_id, actual_map_id);
         assertEquals(expect_target_id, actual_target_id);
         assertEquals(expect_damage, actual_damage);
     }

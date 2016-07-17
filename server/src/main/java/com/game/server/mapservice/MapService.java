@@ -49,12 +49,19 @@ public class MapService implements Service {
     private void dispatch(JSONObject packet) {
         String type = (String) packet.get("type");
 
+        long mapId;
+        long entityId;
         switch (type) {
             case "mapReq" :
-                long map_id = (long) packet.get("map_id");
-                long entity_id = (long) packet.get("uuid");
+                mapId = (long) packet.get("map_id");
+                entityId = (long) packet.get("uuid");
 
-                this.maps.get(map_id).mapRes(entity_id);
+                this.maps.get(mapId).mapRes(entityId);
+                break;
+            case "damaging" :
+                mapId = (long) packet.get("map_id");
+
+                this.maps.get(mapId).damaging(packet);
                 break;
             default:
                 // some log for it

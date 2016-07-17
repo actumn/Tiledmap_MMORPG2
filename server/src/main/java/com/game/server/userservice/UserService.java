@@ -1,5 +1,6 @@
 package com.game.server.userservice;
 
+import com.game.server.Server;
 import com.game.server.service.Service;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -31,7 +32,7 @@ public class UserService implements Service {
         this.port = port;
     }
     private HashMap<Long, MapProxy> maps = new HashMap<>();
-    private LinkedList<UserObject> users = new LinkedList<>();
+    private HashMap<Long, UserObject> users = new HashMap<>();
 
     public void start() throws Exception {
         System.out.println("UserService start.");
@@ -81,15 +82,26 @@ public class UserService implements Service {
     private void dispatch(JSONObject packet) {
         String type = (String) packet.get("type");
 
+        long mapId;
+        long uuid;
         switch (type) {
             case "mapRes":
-                long mapId = (long) packet.get("map_id");
-                long uuid = (long) packet.get("uuid");
+                mapId = (long) packet.get("map_id");
+                uuid = (long) packet.get("uuid");
                 JSONArray npcs = (JSONArray) packet.get("npcs");
 
                 MapProxy map = getMapProxy(mapId, false);
                 if (map == null) return;
                 map.mapRes(uuid, npcs);
+                break;
+            case "damaged":
+                mapId = (long) packet.get("map_id");
+
+                map = getMapProxy(mapId, false);
+                if (map == null) return;
+                map.damaged(packet);
+                break;
+            default:
                 break;
         }
     }
@@ -100,8 +112,7 @@ public class UserService implements Service {
         MapProxy map = getMapProxy(mapId, true);
         user.initMap(map);
 
-
-        this.users.add(user);
+        this.users.put(user.getUuid(), user);
     }
 
     public void moveObject(final UserObject user, final JSONObject packet) {
@@ -125,13 +136,21 @@ public class UserService implements Service {
         map.sendChat(packet);
     }
 
-    public void attack(UserObject user, JSONObject packet) {
+    public void attack(UserObject user, final JSONObject packet) {
         final long mapId = user.getMapId();
 
         MapProxy map = getMapProxy(mapId, false);
         if (map == null) return;
         map.attack(user, packet);
     }
+
+    public void damaging(UserObject user, final JSONObject packet) {
+        this.sendPacket(
+                Server.serviceMap.get(Server.MapServiceId),
+                packet
+        );
+    }
+
 
     public void exitUser(final UserObject user) {
         final long mapId = user.getMapId();
@@ -157,7 +176,7 @@ public class UserService implements Service {
     }
 
     public boolean containsUser(UserObject user) {
-        return this.users.contains(user);
+        return this.users.containsValue(user);
     }
     @Override
     public void addPacket(JSONObject packet) {

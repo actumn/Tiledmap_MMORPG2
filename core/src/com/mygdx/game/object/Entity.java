@@ -105,6 +105,11 @@ public abstract class Entity implements DrawObject, Rectable {
         this.bounds.setPosition(this.getDrawX(), this.getDrawY());
     }
 
+    public void damaged(int newHp) {
+        int damage = this.hp - newHp;
+        this.hp = newHp;
+    }
+
     // 행동
     public abstract void action();
 
@@ -114,8 +119,6 @@ public abstract class Entity implements DrawObject, Rectable {
 
     // 스킬
     public abstract void skillAttack();
-
-
 
     // 갱신
     public abstract void update();

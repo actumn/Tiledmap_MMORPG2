@@ -95,7 +95,7 @@ public class MapProxy {
     public void attack(UserObject user, JSONObject packet) {
         for(UserObject u : this.objects) {
             if (u == user) continue;
-            u.getChannel().writeAndFlush(packet+ "\r\n");
+            u.getChannel().writeAndFlush(packet.toJSONString() + "\r\n");
         }
     }
 
@@ -114,5 +114,12 @@ public class MapProxy {
 
     public boolean containsUser(UserObject user) {
         return this.objects.contains(user);
+    }
+
+    public void damaged(JSONObject packet) {
+        packet.remove("map_id");
+        for (UserObject user: objects) {
+            user.getChannel().writeAndFlush(packet.toJSONString() + "\r\n");
+        }
     }
 }

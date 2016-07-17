@@ -200,22 +200,22 @@ public class Player extends Entity {
 
         Rectangle attackBounds = new Rectangle(attackX, attackY, attackBoundsWidth, attackBoundsHeight);
 
-        attackEnemy(attackBounds);
+        attackEnemies(attackBounds);
         show_attack();
     }
-    private void attackEnemy(Rectangle bounds) {
+    private void attackEnemies(Rectangle bounds) {
         List entities = this.map.getEntitiesByBounds(bounds);
         for (Object entityObject : entities) {
             Entity entity = (Entity) entityObject;
             if (entity == this || entity.team == this.team) continue;
-            attackEnemy(entity);
+            damagingEnemy(entity);
         }
     }
-    private void attackEnemy(Entity e) {
+    private void damagingEnemy(Entity e) {
         Network network = Network.getInstance();
         PacketFactory packetFactory = network.getPacketFactory();
 
-        network.send(packetFactory.damaging(this.getEntityId(), e.getEntityId(), this.atk));
+        network.send(packetFactory.damaging(this.getEntityId(), this.map.getMapId(), e.getEntityId(), this.atk));
     }
 
     @Override

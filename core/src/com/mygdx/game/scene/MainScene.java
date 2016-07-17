@@ -33,7 +33,6 @@ public class MainScene extends GameScene {
     // View
     private Skin skin;
     private Stage gameStage;
-    private Stage escStage;
 
         // Dialog
     private ChatDialog chatDialog;
@@ -201,6 +200,12 @@ public class MainScene extends GameScene {
             else if (packet.get("type").equals("attack")) {
                 long entityId = (long) packet.get("id");
                 map.getEntityById(entityId).show_attack();
+            }
+
+            else if (packet.get("type").equals("damaged")) {
+                long entityId = (long) packet.get("entity_id");
+                int newHp = (int)(long) packet.get("hp");
+                map.getEntityById(entityId).damaged(newHp);
             }
         }
     }

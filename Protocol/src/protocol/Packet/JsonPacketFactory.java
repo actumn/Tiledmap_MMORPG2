@@ -164,16 +164,18 @@ public class JsonPacketFactory implements PacketFactory {
             {
                 "type":"damaging"
                 "id":entity_id
+                "map_id": map_id
                 "target_id": target_id
                 "damage": damage
             }
          */
     @Override
-    public JSONObject damaging(long entity_id, long target_id, int damage) {
+    public JSONObject damaging(long entity_id, long map_id, long target_id, int damage) {
         JSONObject obj = new JSONObject();
 
         obj.put("type", "damaging");
         obj.put("id", entity_id);
+        obj.put("map_id", map_id);
         obj.put("target_id", target_id);
         obj.put("damage", damage);
         return obj;

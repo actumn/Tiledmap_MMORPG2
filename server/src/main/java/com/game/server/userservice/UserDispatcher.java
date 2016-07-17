@@ -44,6 +44,10 @@ public class UserDispatcher {
                 attack(packet);
                 break;
 
+            case "damaging" :
+                damaging(packet);
+                break;
+
             case "chat" :
                 chat(packet);
                 break;
@@ -149,6 +153,12 @@ public class UserDispatcher {
     public void attack(JSONObject packet) {
         packet.put("id", user.getUuid());
         this.service.attack(this.user, packet);
+    }
+
+    public void damaging(JSONObject packet) {
+        packet.put("id", user.getUuid());
+        packet.put("map_id", user.getMapId());
+        this.service.damaging(this.user, packet);
     }
 
     public void logout(Connection con) {

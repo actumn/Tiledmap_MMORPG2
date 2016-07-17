@@ -1,6 +1,6 @@
 # Tiledmap_MMORPG2
 
-Java maven  
+Java maven gradle  
 libgdx netty json-simple  
 tmx(tiled) xml JSON  
 Quadtree  
