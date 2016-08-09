@@ -27,7 +27,6 @@ allprojects {
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
     }
 }
-
 project(":desktop") {
     apply plugin: "java"
 
@@ -42,6 +41,8 @@ project(":desktop") {
         compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-controllers-desktop:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-controllers-platform:$gdxVersion:natives-desktop"
+        compile group: 'junit', name: 'junit', version: '4.4'
+        compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
     }
 }
 
@@ -50,15 +51,38 @@ project(":core") {
 
 
     dependencies {
+        compile project(":Protocol")
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-bullet:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
+        compile group: 'org.luaj', name: 'luaj-jse', version: '3.0.1'
+        compile group: 'io.netty', name: 'netty-all', version: '4.0.4.Final'
     }
 }
 
-tasks.eclipse.doLast {
-    delete ".project"
+project(":Protocol") {
+    apply plugin: "java"
+
+    dependencies {
+        compile group: 'junit', name: 'junit', version: '4.4'
+        compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
+    }
+}
+
+project(":server") {
+    apply plugin: "java"
+
+    dependencies {
+        compile project(":Protocol")
+        compile group: 'io.netty', name: 'netty-all', version: '4.0.4.Final'
+        compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '1.4.5'
+        compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
+        compile group: 'org.dbunit', name: 'dbunit', version: '2.5.2'
+        compile group: 'com.h2database', name: 'h2', version: '1.4.192'
+        compile group: 'junit', name: 'junit', version: '4.4'
+        compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
+    }
 }

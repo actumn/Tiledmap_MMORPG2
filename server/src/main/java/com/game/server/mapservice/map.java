@@ -59,6 +59,24 @@ public class Map {
     }
 
 
+    public void damaging(JSONObject packet) {
+        long entityId = (long) packet.get("id");
+        long targetId = (long) packet.get("target_id");
+        int damage = (int)(long) packet.get("damage");
+
+        NPCObject target = npcObjects.get(targetId);
+        target.damaged(damage);
+
+        this.service.sendPacket(
+                Server.serviceMap.get(Server.UserServiceId),
+                servicePacketFactory.damaged(this.mapId, targetId, target.getHp())
+        );
+
+        if (target.isDead()) {
+            // add exp module here.
+        }
+    }
+
 
 
     public NPCObject getNpcById(long entityId) {
