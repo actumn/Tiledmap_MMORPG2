@@ -47,10 +47,12 @@ public class MapProxy {
     }
 
     public void joinUser(UserObject user) {
-        service.sendPacket(
-                Server.serviceMap.get(Server.MapServiceId),
-                packetFactory.maqRequest(this.map_id, user.getUuid())
-        );
+        if (Server.serviceMap != null) {
+            service.sendPacket(
+                    Server.serviceMap.get(Server.MapServiceId),
+                    packetFactory.maqRequest(this.map_id, user.getUuid())
+            );
+        }
 
         this.objects.add(user);
         user.setMap(this);

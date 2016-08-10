@@ -1,6 +1,16 @@
 <dataset>
     <USERS USER_ID="admin" USER_PW="1234" USER_NAME="홍길동" LEVEL="1"
-           JOB_ID="1" MAP_ID="1" X="100" Y="100" LAST_LOGIN="2016-06-04 22:00:00"/>
+           JOB_ID="1" MAP_ID="1" X="100" Y="100" Current_Exp="0" LAST_LOGIN="2016-06-04 22:00:00"/>
     <USERS USER_ID="admin2" USER_PW="1234" USER_NAME="임꺽정" LEVEL="1"
-           JOB_ID="1" MAP_ID="1" X="100" Y="100" LAST_LOGIN="2016-06-04 22:00:00"/>
+           JOB_ID="1" MAP_ID="1" X="100" Y="100" Current_Exp="0" LAST_LOGIN="2016-06-04 22:00:00"/>
+
+    <EXPS LEVEL="1" EXP="4"/>
+    <EXPS LEVEL="2" EXP="8"/>
+    <EXPS LEVEL="3" EXP="12"/>
+    <EXPS LEVEL="4" EXP="16"/>
+    <EXPS LEVEL="5" EXP="20"/>
+    <EXPS LEVEL="6" EXP="24"/>
+    <EXPS LEVEL="7" EXP="28"/>
+    <EXPS LEVEL="8" EXP="32"/>
+    <EXPS LEVEL="9" EXP="36"/>
 </dataset>

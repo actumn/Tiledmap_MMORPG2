@@ -206,6 +206,22 @@ public class JsonPacketFactoryTest {
     }
 
     @Test
+    public void updateExpTest() {
+        JsonPacketFactory testFactory = new JsonPacketFactory();
+
+        final String expect_type = "updateExp";
+        final int expect_exp = 50;
+
+        JSONObject obj = testFactory.updateExp(expect_exp);
+
+        String actual_type = (String) obj.get("type");
+        int actaul_exp = (int) obj.get("exp");
+
+        assertEquals(expect_type, actual_type);
+        assertEquals(expect_exp, actaul_exp);
+    }
+
+    @Test
     public void notifyTest() {
         JsonPacketFactory testFactory = new JsonPacketFactory();
         assertNotNull(testFactory);

@@ -109,14 +109,15 @@ public class MainScene extends GameScene {
         int destX = (int)(long) movePacket.get("dest_x");
         int destY = (int)(long) movePacket.get("dest_y");
 
-
+        int maxExp = this.xmlDataLoader.loadMaxExp(level);
         this.map = this.xmlDataLoader.loadMap(destMapId);
         Player c = this.xmlDataLoader.loadPlayer(job_id)
                 .level(level)
                 .setName(name)
                 .entityId(entityId)
                 .setMap(map)
-                .xy(destX, destY);
+                .xy(destX, destY)
+                .maxExp(maxExp);
         System.out.println(c.getName() + ": entityId"+entityId);
 
         this.characterInputListener = new CharacterInputListener(c);
@@ -206,6 +207,11 @@ public class MainScene extends GameScene {
                 long entityId = (long) packet.get("entity_id");
                 int newHp = (int)(long) packet.get("hp");
                 map.getEntityById(entityId).damaged(newHp);
+            }
+
+            else if (packet.get("type").equals("updateExp")) {
+                int exp = (int)(long) packet.get("exp");
+                map.getCenterPlayer().updateExp(exp);
             }
         }
     }

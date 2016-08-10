@@ -197,11 +197,16 @@ public class UserDispatcherTest {
             fail();
         }
 
+        String updateExpData = (String) testChannel.readOutbound();
+        JSONObject updateExpPacket = (JSONObject) JSONValue.parse(updateExpData);
+        assertEquals("updateExp", updateExpPacket.get("type"));
+        assertEquals((long)0, updateExpPacket.get("exp"));
+
         testChannel.finish();
     }
 
     @Test
-    public void dbView() {
+    public void dbUserView() {
         try {
             String sql = "SELECT * FROM USERS;";
             Connection con = getConnection();
@@ -209,11 +214,11 @@ public class UserDispatcherTest {
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                int uuid = rs.getInt("ID");
+                int dbid = rs.getInt("ID");
                 String user_id = rs.getString("USER_ID");
                 String user_pw = rs.getString("USER_PW");
                 String user_name = rs.getString("USER_NAME");
-                System.out.println(uuid);
+                System.out.println(dbid);
                 System.out.println(user_id);
                 System.out.println(user_pw);
                 System.out.println(user_name);
@@ -222,5 +227,20 @@ public class UserDispatcherTest {
             e.printStackTrace();
         }
 
+    }
+    @Test
+    public void dbExpView() {
+        try {
+            String sql = "SELECT * FROM EXPS;";
+            Connection con = getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                System.out.println(rs.getInt("LEVEL")+": "+rs.getInt("EXP"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

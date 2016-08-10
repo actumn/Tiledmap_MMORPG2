@@ -25,12 +25,14 @@ public class XmlDataLoader {
     private FileHandle npcHandle;
     private FileHandle sheetHandle;
     private FileHandle jobHandle;
+    private FileHandle expHandle;
 
     public XmlDataLoader() {
         this.mapHandle = new FileHandle("data/xml/maps.xml");
         this.npcHandle = new FileHandle("data/xml/npcs.xml");
         this.sheetHandle = new FileHandle("data/xml/sheets.xml");
         this.jobHandle = new FileHandle("data/xml/jobs.xml");
+        this.expHandle = new FileHandle("data/xml/exps.xml");
     }
 
 
@@ -138,7 +140,7 @@ public class XmlDataLoader {
 
         Player player = null;
 
-        for(XmlReader.Element jobData: jobArray) {
+        for (XmlReader.Element jobData: jobArray) {
             if (Integer.parseInt(jobData.getAttribute("id")) != jobId) continue;
 
             String jobName = jobData.get("name");
@@ -164,12 +166,19 @@ public class XmlDataLoader {
         }
         return player;
     }
+    public int loadMaxExp(int level) throws  IOException {
+        XmlReader.Element exps = reader.parse(expHandle);
+        Array<XmlReader.Element> expArray = exps.getChildrenByName("exp");
 
+        int maxExp = 999999;
+        for (XmlReader.Element expData: expArray) {
+            if (Integer.parseInt(expData.getAttribute("level")) != level) continue;
 
-    public Effect loadEffect(int id) throws IOException {
-
-        return null;
+            maxExp = Integer.parseInt(expData.getText());
+        }
+        return maxExp;
     }
+
 
     public HashMap<String, EntitySheet> loadSheets() throws IOException{
         HashMap<String,EntitySheet> sheetMap = new HashMap<>();

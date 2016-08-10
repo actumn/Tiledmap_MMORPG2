@@ -89,7 +89,7 @@ public class UserDispatcher {
         String user_pw = (String) packet.get("user_pw");
 
         try {
-            String sql = "SELECT * FROM USERS WHERE USER_ID=? AND USER_PW=?;";
+            String sql = "SELECT * FROM users, exps WHERE USER_ID=? AND USER_PW=? AND users.level = exps.level;";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, user_id);
             ps.setString(2, user_pw);
@@ -101,7 +101,9 @@ public class UserDispatcher {
                 int level = rs.getInt("LEVEL");
                 int map_id = rs.getInt("MAP_ID");
                 int job_id = rs.getInt("JOB_ID");
-                int x = rs.getInt("X"); int y = rs.getInt("Y");
+                int x = rs.getInt("X"),  y = rs.getInt("Y");
+                int currentExp = rs.getInt("Current_Exp");
+                int exp = rs.getInt("exp");
 
                 this.user = new UserObject()
                         .channel(channel)
@@ -110,7 +112,9 @@ public class UserDispatcher {
                         .level(level)
                         .jobId(job_id)
                         .mapId(map_id)
-                        .XY(x, y);
+                        .XY(x, y)
+                        .currentExp(currentExp)
+                        .maxExp(exp);
                 response = "로그인 성공";
 
                 rs.close();
@@ -130,10 +134,13 @@ public class UserDispatcher {
 
             /* if login failed */
             if (user != null ){
-                channel.writeAndFlush(packetFactory.character
-                        (user.getUuid(), user.getName(), user.getLevel(), user.getJobId()).toJSONString() +"\r\n");
-                channel.writeAndFlush(packetFactory.move
-                        (user.getUuid(), user.getMapId(), user.getX(), user.getY()).toJSONString() +"\r\n");
+                JSONObject characterPacket = packetFactory.character(user.getUuid(), user.getName(), user.getLevel(), user.getJobId());
+                JSONObject movePacket = packetFactory.move(user.getUuid(), user.getMapId(), user.getX(), user.getY());
+                JSONObject updateExpPacket = packetFactory.updateExp(user.getCurrentExp());
+
+                channel.writeAndFlush(characterPacket.toJSONString() +"\r\n");
+                channel.writeAndFlush(movePacket.toJSONString() +"\r\n");
+                channel.writeAndFlush(updateExpPacket.toJSONString() + "\r\n");
 
                 this.service.loginUser(this.user);
             }

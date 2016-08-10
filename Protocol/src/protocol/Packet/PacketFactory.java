@@ -13,6 +13,7 @@ public interface PacketFactory {
     JSONObject entityUpdate(long entityId, int entityHp);
     JSONObject attack(long entityId);
     JSONObject damaging(long entityId, long mapId, long targetId, int damage);
+    JSONObject updateExp(int exp);
     JSONObject move(long entity_id, long map_id, int dest_x, int dest_y);
     JSONObject chat(long entity_id, String content);
     JSONObject notify(String content);

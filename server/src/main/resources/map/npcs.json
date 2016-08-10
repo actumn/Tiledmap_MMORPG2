@@ -21,7 +21,7 @@
       "vision":5,
       "hp":100,
       "mp":0,
-      "drop_exp":4,
+      "drop_exp":3,
       "drop_gold":10,
       "atk":8,
       "def":0,

@@ -29,7 +29,7 @@ public class Player extends Entity {
     /* player job properties */
     private String jobName;
     private int lvhp, lvmp, lvatk, lvdef;
-
+    private int exp, maxExp;
 
     private long skillCoolDown = 0;
 
@@ -40,7 +40,7 @@ public class Player extends Entity {
         this.y = 100;
         this.entityState = EntityState.normal;
         this.team = 0;
-
+        this.exp  = this.maxExp = 4;
     }
 
     @Override
@@ -52,6 +52,10 @@ public class Player extends Entity {
     public Player level(int level) {
         this.level = level;
         statUpdate();
+        return this;
+    }
+    public Player maxExp(int maxExp) {
+        this.maxExp = maxExp;
         return this;
     }
     public Player xy(int x, int y) {
@@ -300,5 +304,15 @@ public class Player extends Entity {
         return name;
     }
 
+    public void updateExp(int exp) {
+        this.exp = exp;
+    }
 
+    public float getPercentExp() {
+        return maxExp == 0 ? 0 : exp * 100 / maxExp;
+    }
+
+    public void TEST_setCurrentExp(int currentExp) {
+        this.exp = currentExp;
+    }
 }

@@ -23,6 +23,6 @@
     <orderEntry type="library" exported="" name="Gradle: com.badlogicgames.gdx:gdx-controllers:1.7.1" level="project" />
     <orderEntry type="module" module-name="Protocol" exported="" />
     <orderEntry type="library" exported="" name="Gradle: org.luaj:luaj-jse:3.0.1" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: io.netty:netty-all:4.0.4.Final" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: io.netty:netty-all:4.0.31.Final" level="project" />
   </component>
 </module>

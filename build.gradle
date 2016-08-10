@@ -59,7 +59,7 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
         compile group: 'org.luaj', name: 'luaj-jse', version: '3.0.1'
-        compile group: 'io.netty', name: 'netty-all', version: '4.0.4.Final'
+        compile group: 'io.netty', name: 'netty-all', version: '4.0.31.Final'
     }
 }
 
@@ -77,7 +77,7 @@ project(":server") {
 
     dependencies {
         compile project(":Protocol")
-        compile group: 'io.netty', name: 'netty-all', version: '4.0.4.Final'
+        compile group: 'io.netty', name: 'netty-all', version: '4.0.31.Final'
         compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '1.4.5'
         compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
         compile group: 'org.dbunit', name: 'dbunit', version: '2.5.2'

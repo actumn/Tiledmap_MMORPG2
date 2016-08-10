@@ -2,6 +2,13 @@ package com.game.server.userservice;
 
 import com.game.server.Server;
 import io.netty.channel.Channel;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * Created by Lee on 2016-06-01.
@@ -13,6 +20,8 @@ public class UserObject {
     private MapProxy map;
     private long mapId;
     private int level;
+    private int currentExp;
+    private int maxExp;
     private int jobId;
     private String name;
     private int x,y;
@@ -38,6 +47,14 @@ public class UserObject {
         this.level = level;
         return this;
     }
+    public UserObject currentExp(int currentExp) {
+        this.currentExp = currentExp;
+        return this;
+    }
+    public UserObject maxExp(int maxExp) {
+        this.maxExp = maxExp;
+        return this;
+    }
     public UserObject jobId(int jobId) {
         this.jobId = jobId;
         return this;
@@ -56,6 +73,10 @@ public class UserObject {
     public void initMap(MapProxy map) {
         this.map = map;
         this.map.joinUser(this);
+
+    }
+
+    public void levelUp() {
 
     }
 
@@ -110,6 +131,10 @@ public class UserObject {
 
     public int getLevel() {
         return level;
+    }
+
+    public int getCurrentExp() {
+        return currentExp;
     }
 
 }

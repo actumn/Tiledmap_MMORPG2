@@ -1,4 +1,12 @@
 <?xml version="1.0f" encoding="utf-8" ?>
-<exps>
-
+<exps maxlevel="10">
+    <exp level="1">4</exp>
+    <exp level="2">8</exp>
+    <exp level="3">12</exp>
+    <exp level="4">16</exp>
+    <exp level="5">20</exp>
+    <exp level="6">24</exp>
+    <exp level="7">28</exp>
+    <exp level="8">32</exp>
+    <exp level="9">36</exp>
 </exps>

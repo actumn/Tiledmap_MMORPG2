@@ -18,7 +18,7 @@ sourceSets {
 }
 
 project.ext.mainClassName = "com.game.server.Server"
-project.ext.assetsDir = new File("../core/assets");
+project.ext.assetsDir = new File("/src/main/resources");
 
 task run(dependsOn: classes, type: JavaExec) {
     main = project.mainClassName
