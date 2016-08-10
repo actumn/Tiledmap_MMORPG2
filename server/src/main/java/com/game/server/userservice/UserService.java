@@ -84,6 +84,7 @@ public class UserService implements Service {
 
         long mapId;
         long uuid;
+        long targetId;
         switch (type) {
             case "mapRes":
                 mapId = (long) packet.get("map_id");
@@ -100,6 +101,19 @@ public class UserService implements Service {
                 map = getMapProxy(mapId, false);
                 if (map == null) return;
                 map.damaged(packet);
+                break;
+            case "addExp":
+                uuid = (long) packet.get("uuid");
+
+                UserObject user = users.get(uuid);
+                user.addExp(packet);
+                break;
+            case "dead" :
+                mapId = (long) packet.get("map_id");
+
+                map = getMapProxy(mapId, false);
+                if (map == null) return;
+                map.notifyDead(packet);
                 break;
             default:
                 break;

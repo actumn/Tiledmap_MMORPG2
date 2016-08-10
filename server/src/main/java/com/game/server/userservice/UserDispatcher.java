@@ -4,6 +4,7 @@ import com.game.server.db.DBManager;
 import io.netty.channel.Channel;
 import org.json.simple.JSONObject;
 import protocol.Packet.JsonPacketFactory;
+import protocol.Packet.PacketFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +15,7 @@ import java.sql.SQLException;
  * Created by Lee on 2016-06-02.
  */
 public class UserDispatcher {
-    private JsonPacketFactory packetFactory;
+    private PacketFactory packetFactory;
     private UserService service;
     private UserObject user;
 
@@ -105,7 +106,7 @@ public class UserDispatcher {
                 int currentExp = rs.getInt("Current_Exp");
                 int exp = rs.getInt("exp");
 
-                this.user = new UserObject()
+                this.user = new UserObject(packetFactory)
                         .channel(channel)
                         .dbid(dbid)
                         .name(user_name)
@@ -173,15 +174,17 @@ public class UserDispatcher {
             this.service.exitUser(user);
 
             try {
-                String sql = "UPDATE USERS SET LEVEL=?, MAP_ID=?, X=?, Y=? WHERE ID=?";
+                String sql = "UPDATE USERS SET LEVEL=?, MAP_ID=?, X=?, Y=?, Current_Exp=? WHERE ID=?";
                 PreparedStatement ps = con.prepareStatement(sql);
 
-                ps.setString(1, String.valueOf(user.getLevel()));
-                ps.setString(2, String.valueOf(user.getMapId()));
-                ps.setString(3, String.valueOf(user.getX()));
-                ps.setString(4, String.valueOf(user.getY()));
-                ps.setString(5, String.valueOf(user.getDbid()));
+                ps.setInt(1, user.getLevel());
+                ps.setInt(2, (int) user.getMapId());
+                ps.setInt(3, user.getX());
+                ps.setInt(4, user.getY());
+                ps.setInt(5, user.getCurrentExp());
+                ps.setInt(6, user.getDbid());
 
+                //ps.execute();
             } catch (SQLException e) {
                 e.printStackTrace();
             }

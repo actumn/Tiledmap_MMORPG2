@@ -37,7 +37,7 @@ public class UserServiceTest {
         final int mapId = 1;
         final int x = 50, y = 100;
         EmbeddedChannel testChannel = new EmbeddedChannel();
-        UserObject user = new UserObject()
+        UserObject user = new UserObject(null)
                 .channel(testChannel)
                 .name("test")
                 .mapId(mapId)
@@ -54,7 +54,7 @@ public class UserServiceTest {
         assertEquals(user.getMapId(), newMap.getMap_id());
 
 
-        UserObject user2 = new UserObject()
+        UserObject user2 = new UserObject(null)
                 .channel(testChannel)
                 .name("test2")
                 .mapId(mapId)

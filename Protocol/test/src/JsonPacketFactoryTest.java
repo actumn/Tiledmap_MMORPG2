@@ -125,8 +125,9 @@ public class JsonPacketFactoryTest {
         final int expect_y = 40;
 
         JSONObject obj = testFactory.npc(expect_id, expect_npc_id, expect_hp, expect_mp, expect_x, expect_y);
-        String actual_type = (String) obj.get("type");
+        assertNotNull(obj);
 
+        String actual_type = (String) obj.get("type");
         long actual_id = (long) obj.get("id");
         long actual_npc_id = (long) obj.get("npc_id");
         int actual_hp = (int) obj.get("hp");
@@ -172,6 +173,7 @@ public class JsonPacketFactoryTest {
         final long expect_entity_id = 1;
 
         JSONObject obj = testFactory.attack(expect_entity_id);
+        assertNotNull(obj);
 
         String actual_type = (String) obj.get("type");
         long actual_entity_id = (long) obj.get("id");
@@ -191,6 +193,7 @@ public class JsonPacketFactoryTest {
         final int expect_damage = 10;
 
         JSONObject obj = testFactory.damaging(expect_entity_id, expect_map_id, expect_target_id, expect_damage);
+        assertNotNull(obj);
 
         String actual_type = (String) obj.get("type");
         long actual_entity_id = (long) obj.get("id");
@@ -213,12 +216,33 @@ public class JsonPacketFactoryTest {
         final int expect_exp = 50;
 
         JSONObject obj = testFactory.updateExp(expect_exp);
+        assertNotNull(obj);
 
         String actual_type = (String) obj.get("type");
         int actaul_exp = (int) obj.get("exp");
 
         assertEquals(expect_type, actual_type);
         assertEquals(expect_exp, actaul_exp);
+    }
+
+    @Test
+    public void levelUpTest() {
+        JsonPacketFactory testFactory = new JsonPacketFactory();
+
+        final String expect_type = "levelUp";
+        final long expect_entity_id = 2;
+        final int expect_new_level = 4;
+
+        JSONObject obj = testFactory.levelUp(expect_entity_id, expect_new_level);
+        assertNotNull(obj);
+
+        String actual_type = (String) obj.get("type");
+        long actual_entity_id = (long) obj.get("entity_id");
+        int actual_new_level = (int) obj.get("new_level");
+
+        assertEquals(expect_type, actual_type);
+        assertEquals(expect_entity_id, actual_entity_id);
+        assertEquals(expect_new_level, actual_new_level);
     }
 
     @Test

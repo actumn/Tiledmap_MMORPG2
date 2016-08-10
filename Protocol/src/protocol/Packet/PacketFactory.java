@@ -17,4 +17,5 @@ public interface PacketFactory {
     JSONObject move(long entity_id, long map_id, int dest_x, int dest_y);
     JSONObject chat(long entity_id, String content);
     JSONObject notify(String content);
+    JSONObject levelUp(long entity_id, int new_level);
 }

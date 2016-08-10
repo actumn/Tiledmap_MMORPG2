@@ -124,4 +124,17 @@ public class MapProxy {
             user.getChannel().writeAndFlush(packet.toJSONString() + "\r\n");
         }
     }
+
+    public void notifyLevelUp(long uuid, int new_level) {
+        JSONObject packet = packetFactory.levelUp(uuid, new_level);
+        for (UserObject user: objects) {
+            user.getChannel().writeAndFlush(packet.toJSONString() + "\r\n");
+        }
+    }
+
+    public void notifyDead(JSONObject packet) {
+        for (UserObject user: objects) {
+            user.getChannel().writeAndFlush(packet.toJSONString() + "\r\n");
+        }
+    }
 }

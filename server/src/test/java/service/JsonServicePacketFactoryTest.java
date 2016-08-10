@@ -119,4 +119,25 @@ public class JsonServicePacketFactoryTest {
         assertEquals(expect_uuid, actual_uuid);
         assertEquals(expect_exp, actual_exp);
     }
+
+
+    @Test
+    public void deadTest() {
+        ServicePacketFactory testPacketFactory = new JsonServicePacketFactory();
+
+        String expect_type = "dead";
+        long expect_map_id = 2;
+        long expect_target_id = 40;
+
+        JSONObject packet = testPacketFactory.dead(expect_map_id, expect_target_id);
+        assertNotNull(packet);
+
+        String actual_type = (String) packet.get("type");
+        long actual_map_id = (long) packet.get("map_id");
+        long actual_target_id = (long) packet.get("entity_id");
+
+        assertEquals(expect_type, actual_type);
+        assertEquals(expect_map_id, actual_map_id);
+        assertEquals(expect_target_id, actual_target_id);
+    }
 }

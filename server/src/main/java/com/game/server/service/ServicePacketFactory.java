@@ -14,4 +14,5 @@ public interface ServicePacketFactory extends PacketFactory {
     JSONObject mapResponse(long mapId, long uuid, JSONArray npcs);
     JSONObject damaged(long mapId, long entityId, int hp);
     JSONObject addExp(long uuid, int exp);
+    JSONObject dead(long mapId, long entityId);
 }

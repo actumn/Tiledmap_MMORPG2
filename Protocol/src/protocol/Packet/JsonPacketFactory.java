@@ -199,12 +199,29 @@ public class JsonPacketFactory implements PacketFactory {
     }
 
     /*
-            @return JSON like :
-            {
-                "type":"notify"
-                "content":"some notify from server"
-            }
-         */
+        {
+            "type": "levelUp"
+            "entity_id": entity_id
+            "new_level": new_level
+        }
+     */
+    @Override
+    public JSONObject levelUp(long entity_id, int new_level) {
+        JSONObject obj = new JSONObject();
+        obj.put("type", "levelUp");
+        obj.put("entity_id", entity_id);
+        obj.put("new_level", new_level);
+
+        return obj;
+    }
+
+    /*
+                @return JSON like :
+                {
+                    "type":"notify"
+                    "content":"some notify from server"
+                }
+             */
     @Override
     public JSONObject notify(String content) {
         JSONObject obj = new JSONObject();

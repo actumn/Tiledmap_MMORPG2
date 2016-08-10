@@ -127,9 +127,11 @@ public class MainScene extends GameScene {
     }
 
     private void updateNetwork() {
+        // TODO :: levelUp, death, regen
         while (Client.getCurrentScene() == this) {
             JSONObject packet = (JSONObject) Network.getInstance().pollPacket();
             if (packet == null) return;
+            System.out.println(packet);
 
             if (packet.get("type").equals("character")) {
                 long entityId = (long) packet.get("id");

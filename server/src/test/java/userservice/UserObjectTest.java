@@ -18,7 +18,7 @@ public class UserObjectTest {
         final int x = 50, y = 100;
         final String userName = "test";
         final int currentExp = 0;
-        UserObject user = new UserObject()
+        UserObject user = new UserObject(null)
                 .dbid(dbid)
                 .level(level)
                 .jobId(jobId)

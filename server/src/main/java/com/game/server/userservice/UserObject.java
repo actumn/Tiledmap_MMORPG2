@@ -1,14 +1,21 @@
 package com.game.server.userservice;
 
 import com.game.server.Server;
+import com.game.server.db.DBManager;
 import io.netty.channel.Channel;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import protocol.Packet.JsonPacketFactory;
+import protocol.Packet.PacketFactory;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Created by Lee on 2016-06-01.
@@ -27,9 +34,12 @@ public class UserObject {
     private int x,y;
     private Inventory inventory;
 
-    public UserObject() {
+    private PacketFactory packetFactory;
+
+    public UserObject(PacketFactory packetFactory) {
         this.inventory = new Inventory();
         this.uuid = Server.uniqueId+=1;
+        this.packetFactory = packetFactory;
     }
     public UserObject dbid(int dbid) {
         this.dbid = dbid;
@@ -76,22 +86,18 @@ public class UserObject {
 
     }
 
-    public void levelUp() {
-
-    }
-
-
     public MapProxy getMap() {
         return map;
     }
 
+
     public void setX(int x) {
         this.x = x;
     }
+
     public void setY(int y) {
         this.y = y;
     }
-
     public long getUuid() {
         return uuid;
     }
@@ -137,4 +143,43 @@ public class UserObject {
         return currentExp;
     }
 
+    public void addExp(JSONObject packet) {
+        int exp = (int) packet.get("exp");
+        this.currentExp += exp;
+        this.channel.writeAndFlush(packetFactory.updateExp(currentExp).toJSONString()+"\r\n");
+        if (currentExp >= maxExp) levelUp();
+    }
+    private void levelUp() {
+        if (currentExp < maxExp) return;
+
+        this.currentExp -= maxExp;
+        this.channel.writeAndFlush(packetFactory.updateExp(currentExp).toJSONString()+"\r\n");
+        this.level += 1;
+        this.map.notifyLevelUp(uuid, level);
+        this.maxExp = nextMaxExp(this.level);
+    }
+
+    private int nextMaxExp(int level) {
+        int maxExp = 4*level;
+        try {
+            Connection con = DBManager.getConnection();
+            String sql = "SELECT EXP FROM EXPS WHERE LEVEL=?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, level);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                maxExp = rs.getInt("exp");
+            } else {
+                maxExp = 99999999;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            maxExp = 99999999;
+        }
+        finally {
+            return maxExp;
+        }
+    }
 }

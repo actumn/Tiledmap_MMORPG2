@@ -88,4 +88,20 @@ public class JsonServicePacketFactory extends JsonPacketFactory implements Servi
         return obj;
     }
 
+    /*
+        {
+            "type": "dead"
+            "map_id": mapId
+            "entity_id": entityId
+        }
+     */
+    @Override
+    public JSONObject dead(long mapId, long entityId) {
+        JSONObject obj = new JSONObject();
+        obj.put("type", "dead");
+        obj.put("map_id", mapId);
+        obj.put("entity_id", entityId);
+        return obj;
+    }
+
 }
