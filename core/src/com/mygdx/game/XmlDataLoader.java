@@ -166,8 +166,14 @@ public class XmlDataLoader {
         }
         return player;
     }
-    public int loadMaxExp(int level) throws  IOException {
-        XmlReader.Element exps = reader.parse(expHandle);
+    public int loadMaxExp(int level){
+        XmlReader.Element exps = null;
+        try {
+            exps = reader.parse(expHandle);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return 999999;
+        }
         Array<XmlReader.Element> expArray = exps.getChildrenByName("exp");
 
         int maxExp = 999999;

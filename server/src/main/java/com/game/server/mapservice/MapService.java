@@ -37,6 +37,7 @@ public class MapService implements Service {
 
         new Thread(() -> {
             while(true) {
+                regenLoop();
                 JSONObject packet = pollPacket();
 
                 if (packet == null) continue;
@@ -70,11 +71,13 @@ public class MapService implements Service {
     }
 
 
+    private long regenTimer = 0;
+    private final long regenCycle = 10 * 1000;
     private void regenLoop() {
-        maps.values().forEach(Map::regenNPC);
-    }
-    private void updateLoop() {
+        if(System.currentTimeMillis() <= this.regenTimer) return;
 
+        regenTimer = System.currentTimeMillis() + regenCycle;
+        maps.values().forEach(Map::regenNPC);
     }
 
 

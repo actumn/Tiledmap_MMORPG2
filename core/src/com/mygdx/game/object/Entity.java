@@ -123,6 +123,9 @@ public abstract class Entity implements DrawObject, Rectable {
     // 갱신
     public abstract void update();
 
+    public void levelUp(int level) {
+
+    }
 
     public TextureRegion getTextureRegion() {
         return animations.get(this.entityState.getValue()).

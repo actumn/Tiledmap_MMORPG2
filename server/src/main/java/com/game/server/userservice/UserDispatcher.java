@@ -184,7 +184,7 @@ public class UserDispatcher {
                 ps.setInt(5, user.getCurrentExp());
                 ps.setInt(6, user.getDbid());
 
-                //ps.execute();
+                ps.execute();
             } catch (SQLException e) {
                 e.printStackTrace();
             }

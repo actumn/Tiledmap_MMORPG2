@@ -1,12 +1,15 @@
 package com.mygdx.game.object;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.scene.Assets;
 import com.mygdx.game.ui.Font;
+import com.mygdx.game.ui.SystemMessage;
 import com.mygdx.game.ui.graphics.EntitySheet;
 import com.mygdx.game.ui.graphics.MyShapeRenderer;
 import network.Network;
@@ -32,6 +35,7 @@ public class Player extends Entity {
     private int exp, maxExp;
 
     private long skillCoolDown = 0;
+    private LevelUpEffect levelUpEffect;
 
     public Player() {
         this.s_state = 0;
@@ -119,6 +123,7 @@ public class Player extends Entity {
 
         this.shapeRenderer = new MyShapeRenderer();
         this.chatBubble = new ChatBubble(this, shapeRenderer);
+        this.levelUpEffect = new LevelUpEffect(this, this.shapeRenderer);
 
         this.bounds = new Rectangle(getDrawX() + horizontalPad / 2.0f, getDrawY() + verticalPad / 2.0f,
                 boundsWidth, boundsHeight);
@@ -222,15 +227,19 @@ public class Player extends Entity {
         network.send(packetFactory.damaging(this.getEntityId(), this.map.getMapId(), e.getEntityId(), this.atk));
     }
 
+    public void levelUp(int level) {
+        System.out.println("level up!!: "+level);
+        this.level = level;
+        statUpdate();
+        this.levelUpEffect.show();
+    }
+
     @Override
     public void show_attack() {
         this.entityState = EntityState.attacking;
 
         s_state = 1;
     }
-
-
-
 
     @Override
     public void draw(SpriteBatch batch) {
@@ -262,6 +271,7 @@ public class Player extends Entity {
                 this.getDrawY() + this.getTextureRegion().getRegionHeight() + Font.getInstance().getFont(this.nameSize).getCapHeight());
 
         this.chatBubble.render(batch);
+        this.levelUpEffect.render(batch);
     }
 
     public void update() {
@@ -312,7 +322,76 @@ public class Player extends Entity {
         return maxExp == 0 ? 0 : exp * 100 / maxExp;
     }
 
-    public void TEST_setCurrentExp(int currentExp) {
-        this.exp = currentExp;
+
+    private class LevelUpEffect {
+        /* model */
+        private Entity entity;
+
+        /* view */
+        private MyShapeRenderer shapeRenderer;
+        private int fontSize;
+
+
+        /* properties */
+        private GlyphLayout layout;
+        private String message;
+        private float r, g, b, a;
+        private long expiryTime;
+        private float chatWidth;
+        private float chatHeight;
+        private float horizontalPad = 10.0f;
+        private float verticalPad = 10.0f;
+
+        protected LevelUpEffect(Entity entity, MyShapeRenderer shapeRenderer) {
+            this.entity = entity;
+            this.shapeRenderer = shapeRenderer;
+
+            this.layout = new GlyphLayout();
+            this.r = this.g = this.a = 1.0f;
+            this.b = 0.1f;
+            this.fontSize = 14;
+        }
+        private void show() {
+            this.message = "LEVEL UP";
+            this.expiryTime = System.currentTimeMillis() + 2000;
+
+            BitmapFont font = Font.getInstance().getFont(this.fontSize);
+            this.layout.setText(font, message);
+            this.chatWidth = layout.width;
+            this.chatHeight =  layout.height;
+        }
+
+        protected void render(SpriteBatch batch) {
+            if (System.currentTimeMillis() > this.expiryTime) return;
+            batch.end();
+
+            Gdx.gl.glEnable(GL20.GL_BLEND);
+            Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+
+            this.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            this.shapeRenderer.setColor(0.5f, 0.5f, 0.5f, 0.4f);
+            this.shapeRenderer.roundedRect(getDrawX(), getDrawY(), chatWidth + horizontalPad, chatHeight + verticalPad, 10);
+            this.shapeRenderer.end();
+
+            Gdx.gl.glDisable(GL20.GL_BLEND);
+
+            batch.begin();
+
+
+            BitmapFont font = Font.getInstance().getFont(this.fontSize);
+            font.setColor(r, g, b, a);
+            font.draw(batch, this.message,
+                    this.getDrawX() + this.horizontalPad / 2.0f,
+                    this.getDrawY() + this.verticalPad / 2.0f + chatHeight);
+
+        }
+
+        private float getDrawX() {
+            return this.entity.x - chatWidth / 2.0f - horizontalPad / 2.0f;
+        }
+
+        private float getDrawY() {
+            return this.entity.y + this.entity.getTextureRegion().getRegionHeight() / 2.0f;
+        }
     }
 }

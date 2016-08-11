@@ -21,25 +21,7 @@ public class NPCObject {
     private int dropGold, dropExp;
 
     private boolean dead;
-    /*
-        {
-      "npcs": [
-        {
-          "id":0,
-          "name":"",
-          "team":0,
-          "level":0,
-          "hp":0,
-          "mp":0,
-          "drop_exp":0,
-          "drop_gold":0,
-          "atk":0,
-          "def":0,
-          "drop_items":[]
-        }
-        ]
-        }
-         */
+
     public NPCObject() {
         entityId = Server.uniqueId+=1;
         dead = false;
@@ -84,7 +66,8 @@ public class NPCObject {
         this.x = dx; this.y = dy;
     }
     public void regen() {
-        if(dead) dead = false;
+        if(!dead) return;
+        dead = false;
         this.hp = this.maxHp;
         this.mp = this.maxMp;
     }

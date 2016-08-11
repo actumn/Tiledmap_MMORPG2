@@ -12,6 +12,7 @@ import java.util.Collection;
 public interface ServicePacketFactory extends PacketFactory {
     JSONObject maqRequest(long mapId, long uuid);
     JSONObject mapResponse(long mapId, long uuid, JSONArray npcs);
+    JSONObject regen(long mapId, JSONArray npcs);
     JSONObject damaged(long mapId, long entityId, int hp);
     JSONObject addExp(long uuid, int exp);
     JSONObject dead(long mapId, long entityId);

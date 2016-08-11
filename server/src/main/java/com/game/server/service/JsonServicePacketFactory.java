@@ -53,13 +53,33 @@ public class JsonServicePacketFactory extends JsonPacketFactory implements Servi
 
     /*
         {
-            "type": "damaged"
+            "type": "regen"
             "map_id": mapId
-            "entity_id": entityId
-            "hp": hp
-            "damage": damage
+            "uuid": uuid
+            "npcs": [
+                {}
+            ]
         }
      */
+    @Override
+    public JSONObject regen(long mapId, JSONArray npcs) {
+        JSONObject obj = new JSONObject();
+        obj.put("type", "regen");
+        obj.put("map_id", mapId);
+        obj.put("npcs", npcs);
+
+        return obj;
+    }
+
+    /*
+            {
+                "type": "damaged"
+                "map_id": mapId
+                "entity_id": entityId
+                "hp": hp
+                "damage": damage
+            }
+         */
     @Override
     public JSONObject damaged(long mapId, long entityId, int hp) {
         JSONObject obj = new JSONObject();
@@ -87,6 +107,13 @@ public class JsonServicePacketFactory extends JsonPacketFactory implements Servi
 
         return obj;
     }
+
+    /*
+        {
+            "type": "regen"
+        }
+     */
+
 
     /*
         {

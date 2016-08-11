@@ -127,7 +127,6 @@ public class MainScene extends GameScene {
     }
 
     private void updateNetwork() {
-        // TODO :: levelUp, death, regen
         while (Client.getCurrentScene() == this) {
             JSONObject packet = (JSONObject) Network.getInstance().pollPacket();
             if (packet == null) return;
@@ -214,6 +213,18 @@ public class MainScene extends GameScene {
             else if (packet.get("type").equals("updateExp")) {
                 int exp = (int)(long) packet.get("exp");
                 map.getCenterPlayer().updateExp(exp);
+            }
+            else if (packet.get("type").equals("levelUp")) {
+                long entityId = (long) packet.get("entity_id");
+                int newLevel = (int)(long) packet.get("new_level");
+                Player player = (Player) map.getEntityById(entityId);
+                player.levelUp(newLevel);
+                if (map.getCenterPlayer().equals(player)) player.maxExp(xmlDataLoader.loadMaxExp(player.getLevel()));
+            }
+            else if (packet.get("type").equals("dead")) {
+                long entityId = (long) packet.get("entity_id");
+                Entity entity = map.getEntityById(entityId);
+                map.remove(entity);
             }
         }
     }

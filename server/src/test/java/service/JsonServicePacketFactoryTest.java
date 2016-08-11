@@ -76,6 +76,40 @@ public class JsonServicePacketFactoryTest {
         assertEquals(expect_npc1, actual_npc1);
     }
 
+    @Test
+    public void regenTest() {
+        ServicePacketFactory testPacketFactory = new JsonServicePacketFactory();
+
+        String expect_type = "regen";
+        long expect_npc_entity_id = 40;
+        long expect_npc_id = 30;
+        int expect_npc_hp = 50;
+        int expect_npc_mp = 60;
+        int expect_npc_x = 70;
+        int expect_npc_y = 80;
+        JSONObject expect_npc1 = testPacketFactory.npc(expect_npc_entity_id, expect_npc_id,
+                expect_npc_hp, expect_npc_mp, expect_npc_x, expect_npc_y);
+
+        long expect_map_id = 1;
+        long expect_uuid = 2;
+        JSONArray expect_npcs = new JSONArray();
+        expect_npcs.add(expect_npc1);
+
+        JSONObject packet= testPacketFactory.regen(expect_map_id, expect_npcs);
+        assertNotNull(packet);
+
+        String actual_type = (String) packet.get("type");
+        long actual_map_id = (long) packet.get("map_id");
+        JSONArray actual_npcs = (JSONArray) packet.get("npcs");
+        JSONObject actual_npc1 = (JSONObject) actual_npcs.get(0);
+
+
+        assertEquals(expect_type, actual_type);
+        assertEquals(expect_map_id, actual_map_id);
+        assertEquals(expect_npcs, actual_npcs);
+        assertEquals(expect_npc1, actual_npc1);
+    }
+
 
     @Test
     public void damagedTest() {

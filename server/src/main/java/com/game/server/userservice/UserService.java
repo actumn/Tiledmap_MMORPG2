@@ -95,6 +95,13 @@ public class UserService implements Service {
                 if (map == null) return;
                 map.mapRes(uuid, npcs);
                 break;
+            case "regen":
+                mapId = (long) packet.get("map_id");
+                npcs = (JSONArray) packet.get("npcs");
+
+                map = getMapProxy(mapId, false);
+                if (map == null) return;
+                map.regen(npcs);
             case "damaged":
                 mapId = (long) packet.get("map_id");
 

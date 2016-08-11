@@ -40,7 +40,7 @@ public class Map {
     }
 
 
-    public void mapRes(long entityId) {
+    public void mapRes(long uuid) {
         JSONArray npcJsonArray = new JSONArray();
 
         for(NPCObject npc: npcObjects.values()) {
@@ -54,9 +54,30 @@ public class Map {
 
         service.sendPacket(
                 Server.serviceMap.get(Server.UserServiceId),
-                servicePacketFactory.mapResponse(mapId, entityId, npcJsonArray)
+                servicePacketFactory.mapResponse(mapId, uuid, npcJsonArray)
         );
     }
+
+
+    public void regenNPC() {
+        JSONArray npcJsonArray = new JSONArray();
+
+        for (NPCObject npc : npcObjects.values()) {
+            if (!npc.isDead()) continue;
+            npc.regen();
+
+            JSONObject npcData = servicePacketFactory.npc(npc.getEntityId(), npc.getNpcId(),
+                    npc.getHp(), npc.getMp(), npc.getX(), npc.getY());
+
+            npcJsonArray.add(npcData);
+        }
+
+        service.sendPacket(
+                Server.serviceMap.get(Server.UserServiceId),
+                servicePacketFactory.regen(mapId, npcJsonArray)
+        );
+    }
+
 
 
     public void damaging(JSONObject packet) {
@@ -65,6 +86,8 @@ public class Map {
         int damage = (int)(long) packet.get("damage");
 
         NPCObject target = npcObjects.get(targetId);
+        if (target.isDead()) return;
+
         target.damaged(damage);
 
         this.service.sendPacket(
@@ -74,17 +97,21 @@ public class Map {
 
         if (target.isDead()) {
             // add exp module here.
+            this.service.sendPacket(
+                    Server.serviceMap.get(Server.UserServiceId),
+                    servicePacketFactory.addExp(entityId, target.getDropExp())
+            );
+
+            // notify target dead
+            this.service.sendPacket(
+                    Server.serviceMap.get(Server.UserServiceId),
+                    servicePacketFactory.dead(this.mapId, target.getEntityId())
+            );
         }
     }
 
-
-
     public NPCObject getNpcById(long entityId) {
         return npcObjects.get(entityId);
-    }
-
-    public void regenNPC() {
-        npcObjects.values().forEach(NPCObject::regen);
     }
 
     public int atTileX(int tileX) {

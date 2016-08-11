@@ -94,6 +94,16 @@ public class MapProxy {
         }
     }
 
+    public void regen(JSONArray npcs) {
+        for (UserObject object: objects) {
+            for (Object npcData: npcs) {
+                JSONObject npcPacket = (JSONObject) npcData;
+
+                object.getChannel().writeAndFlush(npcPacket.toJSONString() + "\r\n");
+            }
+        }
+    }
+
     public void attack(UserObject user, JSONObject packet) {
         for(UserObject u : this.objects) {
             if (u == user) continue;
