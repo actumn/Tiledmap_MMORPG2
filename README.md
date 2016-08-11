@@ -1,10 +1,8 @@
 # Tiledmap_MMORPG2
 
-Java maven gradle  
+Java gradle  
 libgdx netty json-simple  
-tmx(tiled) xml JSON  
-Quadtree  
-data-driven test-driven  
-JUnit DBUnit  
-JMeter  
+tmx(tiled)  
+List, HashMap, Quadtree  
+data-driven(xml, json) test-driven(Junit, dbunit)
 DBCP  
