@@ -42,7 +42,6 @@ project(":desktop") {
         compile "com.badlogicgames.gdx:gdx-controllers-desktop:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-controllers-platform:$gdxVersion:natives-desktop"
         compile group: 'junit', name: 'junit', version: '4.4'
-        compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
     }
 }
 
@@ -59,7 +58,11 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
         compile group: 'org.luaj', name: 'luaj-jse', version: '3.0.1'
+        compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
         compile group: 'io.netty', name: 'netty-all', version: '4.0.31.Final'
+    }
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
     }
 }
 

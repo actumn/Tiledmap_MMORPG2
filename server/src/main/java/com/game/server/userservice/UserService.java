@@ -1,6 +1,7 @@
 package com.game.server.userservice;
 
 import com.game.server.Server;
+import com.game.server.db.DBManager;
 import com.game.server.service.Service;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -37,6 +38,7 @@ public class UserService implements Service {
     public void start() throws Exception {
         System.out.println("UserService start.");
 
+        new ExpTable(DBManager.getConnection());
         new Thread(() -> {
             while (true) {
                 JSONObject packet = pollPacket();
@@ -102,6 +104,7 @@ public class UserService implements Service {
                 map = getMapProxy(mapId, false);
                 if (map == null) return;
                 map.regen(npcs);
+                break;
             case "damaged":
                 mapId = (long) packet.get("map_id");
 

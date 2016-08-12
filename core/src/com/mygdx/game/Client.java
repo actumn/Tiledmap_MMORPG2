@@ -14,29 +14,15 @@ import network.Network;
  */
 public class Client extends ApplicationAdapter {
     private static Client instance;
+    public Client() { Client.instance = this; }
+
     private GameScene currentScene;
     private GameScene preScene;
 
-    public Client() { Client.instance = this; }
-
-    public static GameScene getCurrentScene() {
-        return instance != null? instance.currentScene : null;
-    }
     public static void changeCurrentScene(GameScene scene) {
         instance.currentScene = scene;
     }
 
-
-    @Override
-    public void create() {
-        this.currentScene = new Loading(new LoginScene(), "초기화 중입니다.");
-        try {
-            Network.getInstance().connect();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            Gdx.app.exit();
-        }
-    }
 
     @Override
     public void render() {
@@ -50,6 +36,22 @@ public class Client extends ApplicationAdapter {
         }
         if (this.currentScene != null) this.currentScene.render();
         SystemMessage.getInstance().render();
+    }
+
+
+    public static GameScene getCurrentScene() {
+        return instance != null? instance.currentScene : null;
+    }
+
+    @Override
+    public void create() {
+        this.currentScene = new Loading(new LoginScene(), "초기화 중입니다.");
+        try {
+            Network.getInstance().connect();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Gdx.app.exit();
+        }
     }
 
     @Override

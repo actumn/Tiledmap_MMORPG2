@@ -160,26 +160,6 @@ public class UserObject {
     }
 
     private int nextMaxExp(int level) {
-        int maxExp = 4*level;
-        try {
-            Connection con = DBManager.getConnection();
-            String sql = "SELECT EXP FROM EXPS WHERE LEVEL=?";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, level);
-
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()){
-                maxExp = rs.getInt("exp");
-            } else {
-                maxExp = 99999999;
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            maxExp = 99999999;
-        }
-        finally {
-            return maxExp;
-        }
+        return ExpTable.get(level);
     }
 }

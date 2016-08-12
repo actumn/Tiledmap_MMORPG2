@@ -123,7 +123,7 @@ public class UserDispatcher {
                 con.close();
             } else {
                 // there is no corresponding data
-                response = "일치하는 데이터가 없습니다";
+                response = "일치하는 데이터가 없습니다.";
             }
         } catch (SQLException e) {
             // there is DB error

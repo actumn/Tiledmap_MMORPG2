@@ -1,16 +1,11 @@
 package com.game.server.db;
 
-import org.apache.commons.dbcp.BasicDataSource;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 
-/**
- * Created by Lee on 2016-06-03.
- */
+import org.apache.commons.dbcp.BasicDataSource;
 public final class DBManager {
     private static final BasicDataSource dataSource = new BasicDataSource();
-
     static {
         dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
         dataSource.setUrl("jdbc:mariadb://localhost:3306/test");

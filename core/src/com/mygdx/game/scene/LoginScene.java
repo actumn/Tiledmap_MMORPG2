@@ -75,6 +75,7 @@ public class LoginScene extends GameScene {
             if (recvPacket == null) continue;
             if (!recvPacket.get("type").equals("notify")) continue;
             String packetMessage = (String) recvPacket.get("content");
+            System.out.println(recvPacket);
             return packetMessage;
         }
 

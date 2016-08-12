@@ -66,6 +66,7 @@ public class JoinScene extends GameScene {
             if (recvPacket == null) continue;
             if (!recvPacket.get("type").equals("notify")) continue;
             String packetMessage = (String) recvPacket.get("content");
+
             return packetMessage;
         }
     }
