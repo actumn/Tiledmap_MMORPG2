@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <option name="DEFAULT_COMPILER" value="Javac" />
     <resourceExtensions>
       <entry name=".+\.(properties|xml|html|dtd|tld)" />
       <entry name=".+\.(gif|png|jpeg|jpg)" />
@@ -11,19 +10,23 @@
       <entry name="!?*.groovy" />
     </wildcardResourcePatterns>
     <annotationProcessing>
-      <profile default="true" name="Default" enabled="false">
-        <processorPath useClasspath="true" />
-      </profile>
-      <profile default="false" name="Annotation profile for server" enabled="true">
+      <profile name="Annotation profile for server" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
         <module name="server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="core_main" target="1.8" />
+      <module name="core_test" target="1.8" />
+      <module name="desktop_main" target="1.8" />
+      <module name="desktop_test" target="1.8" />
+      <module name="Protocol_main" target="1.8" />
+      <module name="Protocol_test" target="1.8" />
       <module name="server" target="1.8" />
+      <module name="server_main" target="1.8" />
+      <module name="server_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="CopyrightManager" default="" />
@@ -33,9 +36,6 @@
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
     <file url="PROJECT" charset="UTF-8" />
   </component>
-  <component name="EntryPointsManager">
-    <entry_points version="2.0" />
-  </component>
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
@@ -43,15 +43,6 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleJvm" value="#JAVA_HOME" />
         <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/Protocol" />
-            <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/desktop" />
-            <option value="$PROJECT_DIR$/server" />
-          </set>
-        </option>
-        <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Protocol" />
@@ -80,8 +71,6 @@
         <option name="loggerFactoryMethodName" value="getLogger,getLogger,getLog,getLogger" />
       </inspection_tool>
     </profile>
-    <option name="PROJECT_PROFILE" value="Project Default" />
-    <option name="USE_PROJECT_PROFILE" value="true" />
     <version value="1.0" />
   </component>
   <component name="JavadocGenerationManager">
@@ -100,6 +89,10 @@
     <option name="HEAP_SIZE" />
     <option name="LOCALE" />
     <option name="OPEN_IN_BROWSER" value="true" />
+  </component>
+  <component name="KotlinCommonCompilerArguments">
+    <option name="languageVersion" value="1.1" />
+    <option name="apiVersion" value="1.1" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
@@ -231,16 +224,25 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Protocol/Protocol.iml" filepath="$PROJECT_DIR$/Protocol/Protocol.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Protocol/Protocol.iml" filepath="$PROJECT_DIR$/Protocol/Protocol.iml" group="Protocol" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Protocol/Protocol_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Protocol/Protocol_main.iml" group="Protocol" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Protocol/Protocol_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Protocol/Protocol_test.iml" group="Protocol" />
       <module fileurl="file://$PROJECT_DIR$/Protocol/Test.iml" filepath="$PROJECT_DIR$/Protocol/Test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Tilemap_MMORPG2.iml" filepath="$PROJECT_DIR$/Tilemap_MMORPG2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/desktop/desktop.iml" filepath="$PROJECT_DIR$/desktop/desktop.iml" />
-      <module fileurl="file://$PROJECT_DIR$/server/server.iml" filepath="$PROJECT_DIR$/server/server.iml" />
+      <module fileurl="file://E:\Develop\repo\gdx-tilemap-rpg\Tilemap_MMORPG2.iml" filepath="E:\Develop\repo\gdx-tilemap-rpg\Tilemap_MMORPG2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" group="core" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/core_main.iml" filepath="$PROJECT_DIR$/.idea/modules/core/core_main.iml" group="core" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/core_test.iml" filepath="$PROJECT_DIR$/.idea/modules/core/core_test.iml" group="core" />
+      <module fileurl="file://$PROJECT_DIR$/desktop/desktop.iml" filepath="$PROJECT_DIR$/desktop/desktop.iml" group="desktop" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/desktop_main.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/desktop_main.iml" group="desktop" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/desktop_test.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/desktop_test.iml" group="desktop" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gdx-tilemap-rpg.iml" filepath="$PROJECT_DIR$/.idea/modules/gdx-tilemap-rpg.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server/server.iml" filepath="$PROJECT_DIR$/server/server.iml" group="server" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/server_main.iml" filepath="$PROJECT_DIR$/.idea/modules/server/server_main.iml" group="server" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/server_test.iml" filepath="$PROJECT_DIR$/.idea/modules/server/server_test.iml" group="server" />
       <module fileurl="file://$PROJECT_DIR$/Protocol/test/test.iml" filepath="$PROJECT_DIR$/Protocol/test/test.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="SqlDialectMappings">
@@ -251,7 +253,6 @@
     <option name="mySupportsUserInfoFilter" value="true" />
   </component>
   <component name="VcsDirectoryMappings">
-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
   <component name="libraryTable">
@@ -282,7 +283,7 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-backend-lwjgl/1.7.1/be1fd59836cdefcdc60bb524026af6f3926e0bc/gdx-backend-lwjgl-1.7.1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: com.badlogicgames.gdx:gdx-box2d-platform:1.7.1:natives-desktop">
+    <library name="Gradle: com.badlogicgames.gdx:gdx-box2d-platform:natives-desktop:1.7.1">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-box2d-platform/1.7.1/6c9c371807914fcf8b354bb51ab67af2a4fda2dc/gdx-box2d-platform-1.7.1-natives-desktop.jar!/" />
       </CLASSES>
@@ -298,7 +299,7 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-box2d/1.7.1/13f2241b3ab821dbad64292ad7180d5d14a32ed1/gdx-box2d-1.7.1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: com.badlogicgames.gdx:gdx-bullet-platform:1.7.1:natives-desktop">
+    <library name="Gradle: com.badlogicgames.gdx:gdx-bullet-platform:natives-desktop:1.7.1">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-bullet-platform/1.7.1/d453a0f0d6bfdfbc4bfdaad07c578a6876385abd/gdx-bullet-platform-1.7.1-natives-desktop.jar!/" />
       </CLASSES>
@@ -323,7 +324,7 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-controllers-desktop/1.7.1/c769857d0ba9b1af6dc8010f3d56a21486b6c7ca/gdx-controllers-desktop-1.7.1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: com.badlogicgames.gdx:gdx-controllers-platform:1.7.1:natives-desktop">
+    <library name="Gradle: com.badlogicgames.gdx:gdx-controllers-platform:natives-desktop:1.7.1">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-controllers-platform/1.7.1/f9866a1a231b6eeb649f7994bb4aaf08a55b4489/gdx-controllers-platform-1.7.1-natives-desktop.jar!/" />
       </CLASSES>
@@ -339,7 +340,7 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-controllers/1.7.1/1b07a9a44f722381da9bf3c7ef0d54b9c93b17e2/gdx-controllers-1.7.1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: com.badlogicgames.gdx:gdx-freetype-platform:1.7.1:natives-desktop">
+    <library name="Gradle: com.badlogicgames.gdx:gdx-freetype-platform:natives-desktop:1.7.1">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-freetype-platform/1.7.1/ef4be33ab17ec7c932ce3275ad473732688d71ef/gdx-freetype-platform-1.7.1-natives-desktop.jar!/" />
       </CLASSES>
@@ -355,7 +356,7 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-freetype/1.7.1/9ae0051b83c17b95581d62b59efa285dddccd224/gdx-freetype-1.7.1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: com.badlogicgames.gdx:gdx-platform:1.7.1:natives-desktop">
+    <library name="Gradle: com.badlogicgames.gdx:gdx-platform:natives-desktop:1.7.1">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-platform/1.7.1/5cf3464f2b86da3534f6f5e3020bc303db3c4202/gdx-platform-1.7.1-natives-desktop.jar!/" />
       </CLASSES>
@@ -470,21 +471,21 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.4/c6fcccd240bf9a32bb6f16917a70a416b0d249a8/junit-4.4-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: net.java.jinput:jinput-platform:2.0.5:natives-linux">
+    <library name="Gradle: net.java.jinput:jinput-platform:natives-linux:2.0.5">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.java.jinput/jinput-platform/2.0.5/7ff832a6eb9ab6a767f1ade2b548092d0fa64795/jinput-platform-2.0.5-natives-linux.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
     </library>
-    <library name="Gradle: net.java.jinput:jinput-platform:2.0.5:natives-osx">
+    <library name="Gradle: net.java.jinput:jinput-platform:natives-osx:2.0.5">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.java.jinput/jinput-platform/2.0.5/53f9c919f34d2ca9de8c51fc4e1e8282029a9232/jinput-platform-2.0.5-natives-osx.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
     </library>
-    <library name="Gradle: net.java.jinput:jinput-platform:2.0.5:natives-windows">
+    <library name="Gradle: net.java.jinput:jinput-platform:natives-windows:2.0.5">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.java.jinput/jinput-platform/2.0.5/385ee093e01f587f30ee1c8a2ee7d408fd732e16/jinput-platform-2.0.5-natives-windows.jar!/" />
       </CLASSES>
@@ -577,21 +578,21 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.luaj/luaj-jse/3.0.1/d281bb85eb71cae416fac078fbca5df5aa412e02/luaj-jse-3.0.1-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.lwjgl.lwjgl:lwjgl-platform:2.9.2:natives-linux">
+    <library name="Gradle: org.lwjgl.lwjgl:lwjgl-platform:natives-linux:2.9.2">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.lwjgl.lwjgl/lwjgl-platform/2.9.2/d276cdf61fe2b516c7b7f4aa1b8dea91dbdc8d56/lwjgl-platform-2.9.2-natives-linux.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
     </library>
-    <library name="Gradle: org.lwjgl.lwjgl:lwjgl-platform:2.9.2:natives-osx">
+    <library name="Gradle: org.lwjgl.lwjgl:lwjgl-platform:natives-osx:2.9.2">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.lwjgl.lwjgl/lwjgl-platform/2.9.2/d55b46b40b40249d627a83a7f7f22649709d70c3/lwjgl-platform-2.9.2-natives-osx.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
     </library>
-    <library name="Gradle: org.lwjgl.lwjgl:lwjgl-platform:2.9.2:natives-windows">
+    <library name="Gradle: org.lwjgl.lwjgl:lwjgl-platform:natives-windows:2.9.2">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.lwjgl.lwjgl/lwjgl-platform/2.9.2/510c7d317f5e9e700b9cfaac5fd38bdebf0702e0/lwjgl-platform-2.9.2-natives-windows.jar!/" />
       </CLASSES>

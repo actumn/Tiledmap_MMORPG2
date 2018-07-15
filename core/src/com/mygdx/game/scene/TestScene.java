@@ -63,12 +63,12 @@ public class TestScene extends GameScene {
 
     private void initMap() {
         try {
-            this.m = this.xmlDataLoader.loadMap(-2);
+            this.m = this.xmlDataLoader.loadMap(0);
             int maxExp = this.xmlDataLoader.loadMaxExp(5);
 
             Player c = this.xmlDataLoader.loadPlayer(1)
                     .level(10)
-                    .setName("테스트")
+                    .setName("Test")
                     .setMap(m)
                     .maxExp(maxExp);
             System.out.println(maxExp);

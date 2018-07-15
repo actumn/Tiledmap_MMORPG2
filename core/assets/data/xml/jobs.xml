@@ -1,7 +1,7 @@
 <?xml version="1.0f" encoding="utf-8" ?>
 <jobs>
     <job id="1">
-        <name>검사</name>
+        <name>Knight</name>
         <lvhp>20</lvhp>
         <lvmp>10</lvmp>
         <lvatk>10</lvatk>
